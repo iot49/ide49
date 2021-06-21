@@ -24,7 +24,7 @@ assets:
     type: blob.asset
     data:
       url: >-
-        https://raw.githubusercontent.com/iot49/ide/master/logo.png
+        https://raw.githubusercontent.com/iot49/ide/main/logo.png
 data:
   applicationEnvironmentVariables:
     - SOUND_VOLUME: 75
