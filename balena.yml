@@ -1,0 +1,36 @@
+name: ide
+type: sw.application
+description: >-
+  MicroPython programming Environment
+fleetcta: Sounds good
+post-provisioning: >-
+  ## Usage instructions
+
+  **Application download** Once you power up your device you'll need to allow
+  some time for it to download the application, this typically takes 5-10
+  minutes but it can take more depending on your internet connection and what
+  device you are using.
+
+  **Usage** Connect to the running application at http://XXX.local.
+
+  For detailed instructions check out the
+  [Electronics for IoT](https://iot49.org) guide.
+assets:
+  repository:
+    type: blob.asset
+    data:
+      url: 'https://github.com/iot49/ide'
+  logo:
+    type: blob.asset
+    data:
+      url: >-
+        https://raw.githubusercontent.com/iot49/ide/master/logo.png
+data:
+  applicationEnvironmentVariables:
+    - SOUND_VOLUME: 75
+    - AUDIO_OUTPUT: AUTO
+  defaultDeviceType: raspberrypi4-64
+  supportedDeviceTypes:
+    - raspberrypi4-64
+    - raspberrypi3
+version: 0.0.1

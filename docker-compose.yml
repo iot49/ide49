@@ -1,0 +1,21 @@
+version: '2'
+
+volumes:
+    iot-home:
+    code-server-config:
+    duplicati-config:
+    nginx-config:
+    mosquitto-config:
+
+services:
+
+    nginx:
+        build: ./services/nginx
+        restart: unless-stopped
+        privileged: true
+        volumes:
+            - iot-home:/home/iot
+            - nginx-config:/etc/nginx
+        ports:
+            - 80:80
+            - 443:443
