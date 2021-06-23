@@ -13,9 +13,115 @@ services:
         build: ./services/nginx
         restart: unless-stopped
         privileged: true
+        labels:
+            io.balena.features.supervisor-api: 1
         volumes:
             - iot-home:/home/iot
             - nginx-config:/etc/nginx
         ports:
             - 80:80
             - 443:443
+
+    jupyter:
+        build: ./services/jupyter
+        restart: unless-stopped
+        # ignored, the actual container has random numbers appended (e.g. jupyter_3658308_1813732)
+        # container_name: jupyter
+        # required for /dev/tty..., bluetooth, mount, ...
+        privileged: true
+        # required for bluetooth
+        network_mode: host
+        labels:
+            io.balena.features.dbus: 1
+            io.balena.features.supervisor-api: 1
+        environment:
+            - UDEV=1
+            - SHELL=/bin/bash
+            - IOT=/home/iot
+            - IOT49=/home/iot/iot49
+            # required for mounted samba partitions
+            - JUPYTER_ALLOW_INSECURE_WRITES=true
+            # for dbus-send
+            - DBUS_SYSTEM_BUS_ADDRESS=unix:path=/host/run/dbus/system_bus_socket
+        volumes:
+            - iot-home:/home/iot
+            # never shadowed by cifs mount
+            - iot-home:/service-config/iot-home
+            - code-server-config:/service-config/code-server
+            - duplicati-config:/service-config/duplicati
+            - nginx-config:/service-config/nginx
+            - mosquitto-config:/service-config/mosquitto
+        ports:
+            - 8888:8888
+
+    # https://hub.docker.com/r/linuxserver/code-server
+    # https://blog.linuxserver.io/2019/09/14/customizing-our-containers/
+    # vsc:
+    code-server:
+        build: ./services/code-server
+        restart: unless-stopped
+        privileged: true
+        environment:
+            - PUID=1000
+            - PGID=1000
+        volumes:
+            - code-server-config:/config
+            - iot-home:/config/workspace
+            - iot-home:/service-config/iot-home
+            - code-server-config:/service-config/code-server
+            - duplicati-config:/service-config/duplicati
+            - nginx-config:/service-config/nginx
+            - mosquitto-config:/service-config/mosquitto
+        expose:
+            - 8443
+
+    duplicati:
+        build: ./services/duplicati
+        restart: unless-stopped
+        privileged: true
+        environment:
+            - PUID=0
+            - PGID=0
+            - CLI_ARGS=--webservice-interface=any
+        volumes:
+            - duplicati-config:/config
+            - iot-home:/service-config/iot-home
+            - code-server-config:/service-config/code-server
+            - duplicati-config:/service-config/duplicati
+            - nginx-config:/service-config/nginx
+            - mosquitto-config:/service-config/mosquitto
+        expose:
+            - 8200
+
+    smb:
+        build: ./services/smb
+        restart: unless-stopped
+        privileged: true
+        volumes:
+            - iot-home:/home/iot
+        ports:
+            - 139:139
+            - 445:445
+
+    mosquitto:
+        build: ./services/mosquitto
+        restart: unless-stopped
+        volumes:
+            - mosquitto-config:/mosquitto
+        ports: 
+            - 1883:1883
+
+    plotserver:
+        build: ./services/plotserver
+        restart: unless-stopped
+        volumes:
+            - iot-home:/home/iot
+
+    # Soon? for aarch64: https://github.com/espressif/esp-idf/issues/6432
+    # esp-idf:
+    #     build: ./esp-idf
+    #     restart: unless-stopped
+    #     privileged: true
+    #     volumes:
+    #         - iot-home:/home/iot
+

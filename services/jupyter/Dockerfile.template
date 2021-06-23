@@ -1,0 +1,49 @@
+FROM balenalib/%%BALENA_MACHINE_NAME%%-debian-python:3.8-buster-build
+
+# enable bluetooth and dynamically plugged devices
+# Note: bluetooth also requires network_mode: host
+# Jupyter on port 8888, see start.sh
+ENV UDEV=1
+EXPOSE 8888
+
+# Install system packages.
+# Note: bluez 5.50 fails to write (uart service) -> update to 5.51
+RUN curl -sL https://deb.nodesource.com/setup_14.x | sudo bash - \
+ && install_packages \
+    git jq \
+    cifs-utils \
+    apache2-utils \
+    bluetooth dbus bluez \
+    openssh-client \ 
+    nodejs \
+    python3-smbus \
+    build-essential \
+    libffi-dev pkg-config libnewlib-arm-none-eabi gcc-arm-none-eabi \
+    dfu-util
+
+# balena command line tools
+RUN npm install balena-cli -g --production --unsafe-perm && npm cache verify && rm -rf /tmp/*
+
+# Should we install packages as user?
+# But then they will be hidden by the volume (or smb) mount ...
+COPY ./requirements.txt requirements.txt
+RUN pip install --upgrade pip \
+ && pip install -r requirements.txt \
+ && rm requirements.txt
+
+# Always get the newest version & don't bust the cache for other python packages
+RUN pip install --upgrade iot-kernel \
+ && python -m iot_kernel.install
+
+# non-root gpio
+COPY ./99-com.rules /etc/udev/rules.d/
+
+# Create user iot and run startup script
+COPY ./start.sh /usr/local/bin/start.sh
+RUN chmod a+rx /usr/local/bin/start.sh \
+ && groupadd gpio \
+ && useradd -m -s /bin/bash -G dialout,gpio,netdev -U -u 1000 iot \
+ && echo 'iot ALL=(ALL) NOPASSWD:ALL' | EDITOR='tee -a' visudo
+
+# run as root (UDEV requirement) & switch to iot user in shart.sh
+CMD [ "/bin/bash", "/usr/local/bin/start.sh" ]
