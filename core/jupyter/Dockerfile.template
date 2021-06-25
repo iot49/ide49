@@ -15,14 +15,14 @@ RUN curl -sL https://deb.nodesource.com/setup_14.x | sudo bash - \
     apache2-utils \
     bluetooth dbus bluez \
     openssh-client \ 
-    nodejs \
-    python3-smbus \
-    build-essential \
-    libffi-dev pkg-config libnewlib-arm-none-eabi gcc-arm-none-eabi \
-    dfu-util
+    nodejs
+#    python3-smbus \
+#    build-essential \
+#    libffi-dev pkg-config libnewlib-arm-none-eabi gcc-arm-none-eabi \
+#    dfu-util
 
 # balena command line tools
-RUN npm install balena-cli -g --production --unsafe-perm && npm cache verify && rm -rf /tmp/*
+# RUN npm install balena-cli -g --production --unsafe-perm && npm cache verify && rm -rf /tmp/*
 
 # Should we install packages as user?
 # But then they will be hidden by the volume (or smb) mount ...
@@ -37,6 +37,9 @@ RUN pip install --upgrade iot-kernel \
 
 # non-root gpio
 COPY ./99-com.rules /etc/udev/rules.d/
+
+# copy configuration
+COPY ./conf /usr/local/src
 
 # Create user iot and run startup script
 COPY ./start.sh /usr/local/bin/start.sh

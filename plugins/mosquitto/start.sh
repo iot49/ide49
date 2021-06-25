@@ -5,7 +5,7 @@ mkdir -p /mosquitto/data
 mkdir -p /mosquitto/log
 
 # install default configuration
-if [[ ! -f /mosquitto/.config_v1 ]]; then
+if [ ! -f /mosquitto/.config_v1 ]; then
     cp /usr/local/src/mosquitto.conf /mosquitto/config
     echo 'mosquitto config v1 installed' >/mosquitto/.config_v1
 fi

@@ -8,8 +8,8 @@ sleep_forever () {
 }
 
 # add .bashrc
-if [[ ( ! -f ~/.bashrc ) && ( -f $IOT/iot-balena/.bashrc ) ]]; then
-    cp $IOT/iot-balena/.bashrc ~
+if [ ! -f ~/.bashrc ] && [ -f /home/iot/.bashrc ]; then
+    cp /home/iot/.bashrc ~
 fi
 
 # add hostname to /etc/hosts (makes sudo happy)
@@ -18,7 +18,7 @@ if ! grep -q `hostname` /etc/hosts; then
 fi
 
 # conditionally mount /home/iot
-if [[ ${SAMBA:=off} == client ]]; then
+if [ ${SAMBA:=off} = client ]; then
     # keep trying
     while true
     do

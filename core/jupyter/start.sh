@@ -36,7 +36,7 @@ sudo \
     -i -u iot /bin/bash << EOF
 
 # conditionally mount /home/iot
-if [[ ${SAMBA:=off} == client ]]; then
+if [ ${SAMBA:=off} = client ]; then
     sudo mkdir -p /home/iot
     echo mount //${SAMBA_SERVER_IP}/iot-data on /home/iot
     while true
@@ -64,14 +64,14 @@ if [ -f ~/bin/start-$BALENA_SERVICE_NAME.sh ]; then
 fi
 
 # add .bashrc
-if [[ ( ! -f ~/.bashrc ) && ( -f ~/iot-balena/.bashrc ) ]]; then
-    cp ~/iot-balena/.bashrc ~
+if [ ! -f ~/.bashrc ]; then
+    cp /usr/local/src/.bashrc ~
 fi
 
 # add .gitignore_global
-if [[ ( ! -f ~/.gitignore_global ) && ( -f ~/iot-balena/.gitignore_global ) ]]; then
-    cp ~/iot-balena/.gitignore_global ~
-    git config --global core.excludesfile=~/.gitignore_global
+if [ ! -f ~/.gitignore_global ]; then
+    cp /usr/local/src/.gitignore_global ~
+    git config --global core.excludesfile ~/.gitignore_global
 fi
 
 # Start jupyter ...

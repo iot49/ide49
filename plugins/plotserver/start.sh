@@ -11,7 +11,7 @@ if [[ ( ! -f ~/.bashrc ) && ( -f ~/iot-balena/.bashrc ) ]]; then
 fi
 
 # conditionally mount /home/iot
-if [[ ${SAMBA:=off} == client ]]; then
+if [ ${SAMBA:=off} == client ]; then
     sudo mkdir -p ${HOME}
     # keep trying
     while true

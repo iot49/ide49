@@ -10,7 +10,7 @@ volumes:
 services:
 
     nginx:
-        build: ./services/nginx
+        build: ./core/nginx
         restart: unless-stopped
         privileged: true
         labels:
@@ -23,7 +23,7 @@ services:
             - 443:443
 
     jupyter:
-        build: ./services/jupyter
+        build: ./core/jupyter
         restart: unless-stopped
         # ignored, the actual container has random numbers appended (e.g. jupyter_3658308_1813732)
         # container_name: jupyter
@@ -51,14 +51,12 @@ services:
             - duplicati-config:/service-config/duplicati
             - nginx-config:/service-config/nginx
             - mosquitto-config:/service-config/mosquitto
-        ports:
-            - 8888:8888
+        expose:
+            - 8888
 
-    # https://hub.docker.com/r/linuxserver/code-server
     # https://blog.linuxserver.io/2019/09/14/customizing-our-containers/
-    # vsc:
     code-server:
-        build: ./services/code-server
+        build: ./core/code-server
         restart: unless-stopped
         privileged: true
         environment:
@@ -76,7 +74,7 @@ services:
             - 8443
 
     duplicati:
-        build: ./services/duplicati
+        build: ./core/duplicati
         restart: unless-stopped
         privileged: true
         environment:
@@ -94,7 +92,7 @@ services:
             - 8200
 
     smb:
-        build: ./services/smb
+        build: ./plugins/smb
         restart: unless-stopped
         privileged: true
         volumes:
@@ -104,7 +102,7 @@ services:
             - 445:445
 
     mosquitto:
-        build: ./services/mosquitto
+        build: ./plugins/mosquitto
         restart: unless-stopped
         volumes:
             - mosquitto-config:/mosquitto
@@ -112,11 +110,36 @@ services:
             - 1883:1883
 
     plotserver:
-        build: ./services/plotserver
+        build: ./plugins/plotserver
         restart: unless-stopped
+        privileged: true
         volumes:
             - iot-home:/home/iot
+        expose:
+            - 8080
 
+    gcc:
+        build: ./plugins/gcc
+        restart: unless-stopped
+        privileged: true
+        volumes:
+            - iot-home:/home/iot
+        
+    balena-cli:
+        build: ./plugins/balena-cli
+        restart: unless-stopped
+        privileged: true
+        labels:
+            io.balena.features.supervisor-api: 1
+        environment:
+            - SHELL=/bin/bash
+            - JUPYTER_ALLOW_INSECURE_WRITES=true
+        volumes:
+            - iot-home:/home/iot
+            - iot-home:/service-config/iot-home
+        expose:
+            - 8889
+        
     # Soon? for aarch64: https://github.com/espressif/esp-idf/issues/6432
     # esp-idf:
     #     build: ./esp-idf
