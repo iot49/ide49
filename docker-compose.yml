@@ -124,7 +124,16 @@ services:
         privileged: true
         volumes:
             - iot-home:/home/iot
-        
+     
+    # https://docs.espressif.com/projects/esp-idf/en/latest/esp32/get-started/linux-setup-scratch.html
+    # https://github.com/koendv/xtensa-esp32-elf-raspberrypi/blob/master/build.sh
+    esp-idf:
+        build: ./plugins/esp-idf
+        restart: unless-stopped
+        privileged: true
+        volumes:
+            - iot-home:/home/iot
+                        
     balena-cli:
         build: ./plugins/balena-cli
         restart: unless-stopped
