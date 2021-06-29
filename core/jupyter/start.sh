@@ -33,6 +33,10 @@ sudo \
     --preserve-env=PYTHON_DBUS_VERSION \
     --preserve-env=PYTHON_VERSION \
     --preserve-env=DNS_NAME \
+    --preserve-env=SAMBA \
+    --preserve-env=SAMBA_SERVER_IP \
+    --preserve-env=SAMBA_PASSWORD \
+    --preserve-env=TZ \
     -i -u iot /bin/bash << EOF
 
 # conditionally mount /home/iot
