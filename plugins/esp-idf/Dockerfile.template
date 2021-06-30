@@ -5,6 +5,7 @@ RUN install_packages \
     gawk gperf grep gettext libncurses-dev python python-dev automake bison flex texinfo help2man libtool libtool-bin make
 
 RUN install_packages \
+    cifs-utils \
     unzip
 
 # Create user iot and copy startup script

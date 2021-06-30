@@ -8,11 +8,9 @@ scipy==1.6.3
 sympy==1.8
 paho-mqtt
 asyncio-mqtt
-
 RPi.Gpio
 gpiozero>=1.6.2
 bleak>=0.11.0
 esptool
-
 wheel
 twine
