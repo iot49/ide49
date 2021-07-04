@@ -118,8 +118,8 @@ services:
         expose:
             - 8080
 
-    gcc:
-        build: ./plugins/gcc
+    arm32:
+        build: ./plugins/arm32
         restart: unless-stopped
         privileged: true
         volumes:

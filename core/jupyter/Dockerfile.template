@@ -15,11 +15,8 @@ RUN curl -sL https://deb.nodesource.com/setup_14.x | sudo bash - \
     apache2-utils \
     bluetooth dbus bluez \
     openssh-client \ 
-    nodejs
-#    python3-smbus \
-#    build-essential \
-#    libffi-dev pkg-config libnewlib-arm-none-eabi gcc-arm-none-eabi \
-#    dfu-util
+    nodejs \
+    picocom
 
 # balena command line tools
 # RUN npm install balena-cli -g --production --unsafe-perm && npm cache verify && rm -rf /tmp/*
@@ -28,6 +25,7 @@ RUN curl -sL https://deb.nodesource.com/setup_14.x | sudo bash - \
 # But then they will be hidden by the volume (or smb) mount ...
 COPY ./requirements.txt requirements.txt
 RUN pip install --upgrade pip \
+ && pip install wheel twine \
  && pip install -r requirements.txt \
  && rm requirements.txt
 
