@@ -125,6 +125,7 @@ services:
         volumes:
             - iot-home:/home/iot
      
+    # Soon? for aarch64: https://github.com/espressif/esp-idf/issues/6432
     # https://docs.espressif.com/projects/esp-idf/en/latest/esp32/get-started/linux-setup-scratch.html
     # https://github.com/koendv/xtensa-esp32-elf-raspberrypi/blob/master/build.sh
     esp-idf:
@@ -148,12 +149,3 @@ services:
             - iot-home:/service-config/iot-home
         expose:
             - 8889
-        
-    # Soon? for aarch64: https://github.com/espressif/esp-idf/issues/6432
-    # esp-idf:
-    #     build: ./esp-idf
-    #     restart: unless-stopped
-    #     privileged: true
-    #     volumes:
-    #         - iot-home:/home/iot
-
