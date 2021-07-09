@@ -7,6 +7,7 @@ ENV UDEV=on
 COPY udev/usb.rules /etc/udev/rules.d/usb.rules
 
 # Install dependencies (install_packages not available)
+# lsof?
 RUN apt-get update && apt-get install -y \
   udev \
   exfat-fuse exfat-utils \
