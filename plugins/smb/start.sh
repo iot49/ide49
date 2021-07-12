@@ -8,6 +8,8 @@ function sleep_forever {
 }
 
 function setup_user {
+    # TODO: check if user exists already to get rid of log message
+    #    useradd: user 'iot' already exists
     SMB_USER=${SAMBA_USERNAME:=iot}
     SMB_PASS=${SAMBA_PASSWORD:=iot49}
     useradd --no-create-home -u 1000 $SMB_USER

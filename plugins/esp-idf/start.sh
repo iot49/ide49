@@ -20,11 +20,16 @@ if [ ${SAMBA:=off} == client ]; then
     while true
     do
         sudo mount -t cifs //${SAMBA_SERVER_IP}/iot-data ${HOME} \
-            -ouid=1000,gid=1000,username=iot,password=${SAMBA_PASSWORD},sec=ntlmssp,domain=WORKGROUP \
+            -ouid=1000,gid=1000,username=iot,password="${SAMBA_PASSWORD}",sec=ntlmssp,domain=WORKGROUP \
         && break
         echo "samba mount failed, keep trying ..."
         sleep 10
     done
+fi
+
+# enable esp-idf
+if [ -f /home/esp/esp-idf/export.sh ]; then
+    echo TODO: source /home/esp/esp-idf/export.sh
 fi
 
 echo "sleep forever"

@@ -2,7 +2,6 @@ name: ide49
 type: sw.application
 description: >-
   MicroPython programming Environment
-fleetcta: Sounds good
 post-provisioning: >-
   ## Usage instructions
 
@@ -11,7 +10,7 @@ post-provisioning: >-
   minutes but it can take more depending on your internet connection and what
   device you are using.
 
-  **Usage** Connect to the running application at http://XXX.local.
+  **Usage** Connect to the running application at http://iot49.local.
 
   For detailed instructions check out the
   [Electronics for IoT](https://iot49.org) guide.
@@ -28,11 +27,14 @@ assets:
 data:
   applicationEnvironmentVariables:
     - DNS_NAME:        "iot49"
+    - IOT_PROJECTS:    "~/projects"
     - TZ:              "America/Los_Angeles"
     - SAMBA:           "off"          # server/client/off
     - SAMBA_SERVER_IP: "10.39.40.151"
-    - SAMBA_PASSWORD:  "jhlkq3452344"
+    - SAMBA_PASSWORD:  "pi&(734%3#ksf"
+  # https://www.balena.io/docs/reference/hardware/devices/
   defaultDeviceType: raspberrypi4-64
   supportedDeviceTypes:
     - raspberrypi4-64
-
+    - raspberrypi3-64
+    - genericx86-64-ext

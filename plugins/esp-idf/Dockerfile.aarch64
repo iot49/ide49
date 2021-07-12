@@ -1,0 +1,14 @@
+FROM balenalib/%%BALENA_MACHINE_NAME%%-python:3.8-build
+
+RUN install_packages \
+    cifs-utils
+
+# Create user iot and copy startup script
+COPY ./start.sh /usr/local/bin/start.sh
+RUN chmod a+rx /usr/local/bin/start.sh \
+ && useradd -m -s /bin/bash -U -u 1000 iot \
+ && echo 'iot ALL=(ALL) NOPASSWD:ALL' | EDITOR='tee -a' visudo
+
+USER iot
+WORKDIR /home/iot
+CMD [ "/bin/bash", "/usr/local/bin/start.sh" ]

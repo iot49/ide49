@@ -2,7 +2,7 @@ import paho.mqtt.client as mqtt
 import json, urllib.request
 import os, sys
 
-sys.path.append(os.path.expanduser('~/plotserver/lib'))
+sys.path.append(os.path.expandvars('$IOT_PROJECTS/plotserver/lib'))
 
 from plot_proxy import PlotProxy
 from config import *

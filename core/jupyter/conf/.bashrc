@@ -96,8 +96,7 @@ fi
 
 # cdpath
 export CDPATH=".:$HOME"
-export CDPATH="$CDPATH:$HOME/iot49"
-export CDPATH="$CDPATH:$HOME/iot49/projects"
+export CDPATH="$CDPATH:$HOME/projects"
 
 # path
 export PATH="$PATH:/home/iot/bin"

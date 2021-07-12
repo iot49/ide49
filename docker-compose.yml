@@ -38,7 +38,7 @@ services:
             - UDEV=1
             - SHELL=/bin/bash
             - IOT=/home/iot
-            - IOT49=/home/iot/iot49
+            - IOT_PROJECTS=/home/iot/projects
             # required for mounted samba partitions
             - JUPYTER_ALLOW_INSECURE_WRITES=true
             # for dbus-send

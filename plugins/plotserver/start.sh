@@ -17,18 +17,21 @@ if [ ${SAMBA:=off} == client ]; then
     while true
     do
         sudo mount -t cifs //${SAMBA_SERVER_IP}/iot-data ${HOME} \
-            -ouid=1000,gid=1000,username=iot,password=${SAMBA_PASSWORD},sec=ntlmssp,domain=WORKGROUP \
+            -ouid=1000,gid=1000,username=iot,password="${SAMBA_PASSWORD}",sec=ntlmssp,domain=WORKGROUP \
         && break
         echo "samba mount failed, keep trying ..."
         sleep 10
     done
 fi
 
-mkdir -p ~/iot49/plotserver/apps
+# in case it's not defined as application variable ...
+export IOT_PROJECTS="${IOT_PROJECTS:=~/projects}"
 
-if [ ! -d ~/iot49/plotserver/lib ] ; then
-    cp -r /usr/local/src/lib ~/iot49/plotserver
+mkdir -p $IOT_PROJECTS/plotserver/apps
+
+if [ ! -d $IOT_PROJECTS/plotserver/lib ] ; then
+    cp -r /usr/local/src/lib $IOT_PROJECTS/plotserver
 fi
 
-cd ~/iot49/plotserver/lib
+cd $IOT_PROJECTS/plotserver/lib
 python -m plotserver

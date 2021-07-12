@@ -33,6 +33,7 @@ sudo \
     --preserve-env=PYTHON_DBUS_VERSION \
     --preserve-env=PYTHON_VERSION \
     --preserve-env=DNS_NAME \
+    --preserve-env=IOT_PROJECTS \
     --preserve-env=SAMBA \
     --preserve-env=SAMBA_SERVER_IP \
     --preserve-env=SAMBA_PASSWORD \
@@ -46,7 +47,7 @@ if [ ${SAMBA:=off} = client ]; then
     while true
     do
         sudo mount -t cifs //${SAMBA_SERVER_IP}/iot-data /home/iot \
-            -ouid=1000,gid=1000,username=iot,password=${SAMBA_PASSWORD},sec=ntlmssp,domain=WORKGROUP \
+            -ouid=1000,gid=1000,username=iot,password="${SAMBA_PASSWORD}",sec=ntlmssp,domain=WORKGROUP \
         && break
         echo "samba mount failed, keep trying ..."
         sleep 10
@@ -56,12 +57,10 @@ fi
 # go to new home (/home/iot)
 cd
 
-export IOT="${IOT:=~}"
-export IOT49="${IOT49:=~/iot49}"
+# in case it's not defined as application variable ...
+export IOT_PROJECTS="${IOT_PROJECTS:=~/projects}"
 
 # user initializations
-# for some reason using a variable here does not work ???
-# user_start=~/bin/start-${BALENA_SERVICE_NAME:=jupyter}.sh
 if [ -f ~/bin/start-$BALENA_SERVICE_NAME.sh ]; then
     echo source ~/bin/start-$BALENA_SERVICE_NAME.sh ...
     source ~/bin/start-$BALENA_SERVICE_NAME.sh
