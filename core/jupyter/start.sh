@@ -58,7 +58,7 @@ fi
 cd
 
 # in case it's not defined as application variable ...
-export IOT_PROJECTS="${IOT_PROJECTS:=~/projects}"
+export IOT_PROJECTS="${IOT_PROJECTS:=/home/iot/projects}"
 
 # user initializations
 if [ -f ~/bin/start-$BALENA_SERVICE_NAME.sh ]; then

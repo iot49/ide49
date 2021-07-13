@@ -25,7 +25,7 @@ if [ ${SAMBA:=off} == client ]; then
 fi
 
 # in case it's not defined as application variable ...
-export IOT_PROJECTS="${IOT_PROJECTS:=~/projects}"
+export IOT_PROJECTS="${IOT_PROJECTS:=/home/iot/projects}"
 
 mkdir -p ${IOT_PROJECTS}/plotserver/apps
 
