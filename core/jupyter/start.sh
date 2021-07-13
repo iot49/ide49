@@ -14,6 +14,20 @@ chmod g+rw /dev/gpiomem
 chown root.gpio /sys/class/gpio/*export
 chmod ug+rwx /sys/class/gpio/*export
 
+# conditionally mount /home/iot
+if [ ${SAMBA:=off} = client ]; then
+    sudo -u iot mkdir -p /home/iot
+    echo mount //${SAMBA_SERVER_IP}/iot-data on /home/iot
+    while true
+    do
+        mount -t cifs //${SAMBA_SERVER_IP}/iot-data /home/iot \
+            -ouid=1000,gid=1000,username=iot,password="${SAMBA_PASSWORD}",sec=ntlmssp,domain=WORKGROUP \
+        && break
+        echo "samba mount failed, keep trying ..."
+        sleep 10
+    done
+fi
+
 # switch to user iot
 sudo \
     --preserve-env=BALENA \
@@ -39,20 +53,6 @@ sudo \
     --preserve-env=SAMBA_PASSWORD \
     --preserve-env=TZ \
     -i -u iot /bin/bash << EOF
-
-# conditionally mount /home/iot
-if [ ${SAMBA:=off} = client ]; then
-    sudo mkdir -p /home/iot
-    echo mount //${SAMBA_SERVER_IP}/iot-data on /home/iot
-    while true
-    do
-        sudo mount -t cifs //${SAMBA_SERVER_IP}/iot-data /home/iot \
-            -ouid=1000,gid=1000,username=iot,password="${SAMBA_PASSWORD}",sec=ntlmssp,domain=WORKGROUP \
-        && break
-        echo "samba mount failed, keep trying ..."
-        sleep 10
-    done
-fi
 
 # go to new home (/home/iot)
 cd

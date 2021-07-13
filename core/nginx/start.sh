@@ -1,5 +1,6 @@
 #! /bin/bash
 
+# set default dns: iot49.local
 export DNS_NAME=${DNS_NAME:=iot49}
 
 export IP=$(curl -s -X GET --header "Content-Type:application/json" \
@@ -50,7 +51,7 @@ DNS.2 = $IP
 IP.1  = $IP
 EOF
 
-# set name for dns advertising (default iot49.local) & create certificate
+# set name for dns advertising & create certificate
 if [[ $HOST_NAME != $DNS_NAME || ! -f /etc/nginx/ssl/cert.crt ]]; then
     curl -X PATCH --header "Content-Type:application/json" \
         --data '{"network": {"hostname": "'"$DNS_NAME"'" } }' \
