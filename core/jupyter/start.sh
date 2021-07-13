@@ -57,6 +57,11 @@ sudo \
 # go to new home (/home/iot)
 cd
 
+# custom user site packages location
+# Note: /home/iot is shadowed by cifs mount if enabled
+export PYTHONUSERBASE=/service-config/iot-home/.local
+export PATH=$PYTHONUSERBASE/bin:$PATH
+
 # in case it's not defined as application variable ...
 export IOT_PROJECTS="${IOT_PROJECTS:=/home/iot/projects}"
 
@@ -79,9 +84,14 @@ fi
 
 # Start jupyter ...
 
+if [ ${SAMBA:=off} = client ]; then
+    # required for mounted samba partitions
+    export JUPYTER_ALLOW_INSECURE_WRITES=true
+fi
+
 # store custom lab extensions in user writable folder
 # https://jupyterlab.readthedocs.io/en/latest/user/directories.html
-# export JUPYTERLAB_DIR=/home/iot/.jupyter
+export JUPYTERLAB_DIR=/service-config/iot-home/.jupyter
 
 # fix runtime file permissions issue
 # https://github.com/jupyter/notebook/issues/5058
@@ -91,6 +101,12 @@ export JUPYTER_RUNTIME_DIR="${JUPYTER_RUNTIME_DIR:=/service-config/iot-home/.loc
 # history lock ERROR: https://gitter.im/ipython/ipython/help/archives/2017/04/20
 mkdir -p /service-config/iot-home/.ipython
 export IPYTHONDIR="${IPYTHONDIR:=/service-config/iot-home/.ipython}"
+
+if [ ! -d /service-config/iot-home/.jupyter ]; then
+    echo Building jupyter lab assets, this takes some time ...
+    jupyter lab build
+    # jupyter lab build --dev-build=False --minimize=False
+fi
 
 # never save sqlite lock on samba share!
 jupyter lab --ip='172.17.0.1' --port=8888 --no-browser \
