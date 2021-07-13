@@ -27,7 +27,7 @@ fi
 # in case it's not defined as application variable ...
 export IOT_PROJECTS="${IOT_PROJECTS:=~/projects}"
 
-mkdir -p $IOT_PROJECTS/plotserver/apps
+mkdir -p ${IOT_PROJECTS}/plotserver/apps
 
 if [ ! -d $IOT_PROJECTS/plotserver/lib ] ; then
     cp -r /usr/local/src/lib $IOT_PROJECTS/plotserver
