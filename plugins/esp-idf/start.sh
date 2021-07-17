@@ -7,12 +7,6 @@ sleep_forever () {
     done
 }
 
-
-# add hostname to /etc/hosts (makes sudo happy)
-if ! grep -q `hostname` /etc/hosts; then
-    sudo bash -c 'echo "127.0.0.1" `hostname` >> /etc/hosts'
-fi
-
 # conditionally mount iot
 if [ ${SAMBA:=off} == client ]; then
     sudo mkdir -p ${HOME}
@@ -25,11 +19,6 @@ if [ ${SAMBA:=off} == client ]; then
         echo "samba mount failed, keep trying ..."
         sleep 10
     done
-fi
-
-# enable esp-idf
-if [ -f /home/esp/esp-idf/export.sh ]; then
-    echo TODO: source /home/esp/esp-idf/export.sh
 fi
 
 echo "sleep forever"

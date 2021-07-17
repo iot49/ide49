@@ -1,2 +1,15 @@
 ipykernel==5.5.5
 jupyterlab
+ipywidgets
+numpy
+pandas
+matplotlib
+jupyter-bokeh
+scipy
+sympy
+paho-mqtt
+asyncio-mqtt
+RPi.Gpio
+gpiozero
+bleak
+esptool

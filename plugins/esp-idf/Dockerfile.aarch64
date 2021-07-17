@@ -1,14 +1,13 @@
-FROM balenalib/%%BALENA_MACHINE_NAME%%-python:3.8-build
+# Dummy: No idf for aarch64 - https://github.com/espressif/esp-idf/issues/6432
+# remove this file once idf is available for aarch64 (use Dockerfile.template)
 
-RUN install_packages \
-    cifs-utils
+FROM balenalib/%%BALENA_MACHINE_NAME%%-debian:buster-run
 
-# Create user iot and copy startup script
-COPY ./start.sh /usr/local/bin/start.sh
-RUN chmod a+rx /usr/local/bin/start.sh \
- && useradd -m -s /bin/bash -U -u 1000 iot \
- && echo 'iot ALL=(ALL) NOPASSWD:ALL' | EDITOR='tee -a' visudo
+ARG DEBIAN_FRONTEND=noninteractive
 
-USER iot
+ENV HOME=/home/iot
 WORKDIR /home/iot
+
+COPY ./start.sh /usr/local/bin/start.sh
+
 CMD [ "/bin/bash", "/usr/local/bin/start.sh" ]

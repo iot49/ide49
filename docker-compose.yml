@@ -6,6 +6,7 @@ volumes:
     duplicati-config:
     nginx-config:
     mosquitto-config:
+    media:
 
 services:
 
@@ -25,8 +26,6 @@ services:
     jupyter:
         build: ./core/jupyter
         restart: unless-stopped
-        # ignored, the actual container has random numbers appended (e.g. jupyter_3658308_1813732)
-        # container_name: jupyter
         # required for /dev/tty..., bluetooth, mount, ...
         privileged: true
         # required for bluetooth
@@ -35,11 +34,7 @@ services:
             io.balena.features.dbus: 1
             io.balena.features.supervisor-api: 1
         environment:
-            # - UDEV=1
             - SHELL=/bin/bash
-            # move to start.sh
-            # required for mounted samba partitions
-            # - JUPYTER_ALLOW_INSECURE_WRITES=true
             # for dbus-send
             - DBUS_SYSTEM_BUS_ADDRESS=unix:path=/host/run/dbus/system_bus_socket
         volumes:
@@ -50,6 +45,7 @@ services:
             - duplicati-config:/service-config/duplicati
             - nginx-config:/service-config/nginx
             - mosquitto-config:/service-config/mosquitto
+            - media:/media
         expose:
             - 8888
 
@@ -124,11 +120,12 @@ services:
         volumes:
             - iot-home:/home/iot
      
-    # Soon? for aarch64: https://github.com/espressif/esp-idf/issues/6432
-    # https://docs.espressif.com/projects/esp-idf/en/latest/esp32/get-started/linux-setup-scratch.html
-    # https://github.com/koendv/xtensa-esp32-elf-raspberrypi/blob/master/build.sh
+    # Soon for aarch64: https://github.com/espressif/esp-idf/issues/6432
     esp-idf:
-        build: ./plugins/esp-idf
+        build: 
+            context: ./plugins/esp-idf
+            args:
+                IDF_CHECKOUT_REF: v4.2
         restart: unless-stopped
         privileged: true
         volumes:
@@ -142,7 +139,6 @@ services:
             io.balena.features.supervisor-api: 1
         environment:
             - SHELL=/bin/bash
-            - JUPYTER_ALLOW_INSECURE_WRITES=true
         volumes:
             - iot-home:/home/iot
             - iot-home:/service-config/iot-home

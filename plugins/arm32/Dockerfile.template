@@ -1,13 +1,6 @@
-FROM balenalib/%%BALENA_MACHINE_NAME%%-python:3.8-build as buildstep
-
-# Build pip wheels
-COPY ./requirements.txt requirements.txt
-RUN pip install wheel \
- && mkdir /tmp/wheels \
- && pip wheel -w /tmp/wheels -r requirements.txt
-
-# FROM balenalib/%%BALENA_MACHINE_NAME%%-python:3.8-run
 FROM balenalib/%%BALENA_MACHINE_NAME%%-python:3.8-build
+
+ENV UDEV=1
 
 RUN install_packages \
     git \
@@ -16,12 +9,6 @@ RUN install_packages \
     build-essential \
     libffi-dev pkg-config libnewlib-arm-none-eabi gcc-arm-none-eabi \
     dfu-util
-
-# Copy python wheels built in the previous stage
-COPY --from=buildstep /tmp/wheels /tmp/wheels
-COPY ./requirements.txt requirements.txt
-RUN pip install --no-index --find-links=/tmp/wheels -r requirements.txt \
- && rm -rf /tmp/wheels && rm requirements.txt
 
 # Create user iot and copy startup script
 COPY ./start.sh /usr/local/bin/start.sh
