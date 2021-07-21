@@ -20,15 +20,15 @@ RUN curl -sL https://deb.nodesource.com/setup_14.x | sudo bash - \
     picocom
 
 # Install as root, despite ...
-COPY ./requirements.txt requirements.txt
+COPY ./requirements.freeze requirements.txt
 RUN pip install --upgrade pip \
  && pip install wheel twine \
  && pip install -r requirements.txt \
  && rm requirements.txt
 
 # Don't bust the cache for other python packages
-RUN pip install iot-device>=0.5.10 \
- && pip install iot-kernel>=0.5.13 \
+RUN pip install iot-device>=0.5.11 \
+ && pip install iot-kernel>=0.5.15 \
  && python -m iot_kernel.install
 
 # non-root gpio

@@ -44,7 +44,7 @@ class MqttServer:
         app_name, module_name, class_name, args, kwargs = json.loads(message.payload)
         print("MqttServer.on_start", app_name)
         with self._app_dict as apps:
-            path = os.path.expanduser(os.path.join("~/plotserver/apps", f"{app_name}.py"))
+            path = os.path.expandvars(os.path.join("$IOT_PROJECTS/plotserver/apps", f"{app_name}.py"))
             try:
                 app = apps.add(app_name, path)
                 # create app stub
