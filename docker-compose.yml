@@ -6,7 +6,7 @@ volumes:
     duplicati-config:
     nginx-config:
     mosquitto-config:
-    media:
+    wireshark-config:
 
 services:
 
@@ -45,7 +45,7 @@ services:
             - duplicati-config:/service-config/duplicati
             - nginx-config:/service-config/nginx
             - mosquitto-config:/service-config/mosquitto
-            - media:/media
+            - wireshark-config:/service-config/wireshark
         expose:
             - 8888
 
@@ -65,6 +65,7 @@ services:
             - duplicati-config:/service-config/duplicati
             - nginx-config:/service-config/nginx
             - mosquitto-config:/service-config/mosquitto
+            - wireshark-config:/service-config/wireshark
         expose:
             - 8443
 
@@ -83,6 +84,7 @@ services:
             - duplicati-config:/service-config/duplicati
             - nginx-config:/service-config/nginx
             - mosquitto-config:/service-config/mosquitto
+            - wireshark-config:/service-config/wireshark
         expose:
             - 8200
 
@@ -104,6 +106,22 @@ services:
         ports: 
             - 1883:1883
 
+    wireshark:
+        image: linuxserver/wireshark
+        # build: ./plugins/wireshark
+        # require to monitor docker network traffic
+        network_mode: host
+        restart: unless-stopped
+        cap_add:
+            - NET_ADMIN
+        environment:
+            - PUID=1000
+            - PGID=1000
+        volumes:
+            - wireshark-config:/config
+        expose:
+            - 3000
+      
     plotserver:
         build: ./plugins/plotserver
         restart: unless-stopped
