@@ -28,7 +28,7 @@ RUN pip install --upgrade pip \
 
 # Don't bust the cache for other python packages
 RUN pip install iot-device>=0.5.12 \
- && pip install iot-kernel>=0.5.15 \
+ && pip install iot-kernel>=0.5.16 \
  && python -m iot_kernel.install
 
 # non-root gpio
