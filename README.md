@@ -1,6 +1,6 @@
-# MicroPython programming environment as a balena app.
+# IDE for Microcontroller Development
 
-Work in progress.
+A comprehensive set of tools for developing applications for microcontrollers with special emphasis for [MicroPython](https://micropython.org/).
 
 ## Setup and configuration
 
