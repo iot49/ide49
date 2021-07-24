@@ -17,7 +17,8 @@ RUN curl -sL https://deb.nodesource.com/setup_14.x | sudo bash - \
     bluetooth dbus bluez \
     openssh-client \ 
     nodejs \
-    picocom
+    picocom \ 
+    mosquitto-clients
 
 # Install as root, despite ...
 COPY ./requirements.freeze requirements.txt
@@ -27,8 +28,8 @@ RUN pip install --upgrade pip \
  && rm requirements.txt
 
 # Don't bust the cache for other python packages
-RUN pip install iot-device>=0.5.12 \
- && pip install iot-kernel>=0.5.16 \
+RUN pip install iot-device>=0.5.13 \
+ && pip install iot-kernel>=0.5.17 \
  && python -m iot_kernel.install
 
 # non-root gpio

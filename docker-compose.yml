@@ -104,7 +104,10 @@ services:
         volumes:
             - mosquitto-config:/mosquitto
         ports: 
-            - 1883:1883
+            - 1883:1883  # mqtt
+            - 9001:9001  # mqtt over websockets
+            - 8883:8883  # secure mqtt
+            - 9002:9002  # secure mqtt over websockets
 
     wireshark:
         image: linuxserver/wireshark

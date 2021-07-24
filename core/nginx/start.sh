@@ -21,10 +21,10 @@ if [[ ! -f /etc/nginx/.config_v1 ]]; then
     echo 'nginx config v1 installed' >/etc/nginx/.config_v1
 fi
 
-# default landing page
+# default html content (landing page & favicon)
 if [[ ! -f /home/iot/.html/index.html ]]; then
     mkdir -p /home/iot/.html
-    cp /usr/local/src/nginx/html/index.html /home/iot/.html
+    cp -r /usr/local/src/nginx/html/* /home/iot/.html
 fi
 
 # configuration for self-signed certificate
