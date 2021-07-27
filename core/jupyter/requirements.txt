@@ -1,4 +1,3 @@
-RPi.Gpio
 asyncio-mqtt
 bleak
 esptool
@@ -12,5 +11,6 @@ matplotlib
 numpy
 paho-mqtt
 pandas
+RPi.Gpio
 scipy
 sympy

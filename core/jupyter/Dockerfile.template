@@ -11,6 +11,7 @@ EXPOSE 8888
 RUN curl -sL https://deb.nodesource.com/setup_14.x | sudo bash - \
  && install_packages \
     apache2-utils \
+    avahi-daemon \
     bluetooth \
     bluez \
     cifs-utils \
@@ -19,10 +20,29 @@ RUN curl -sL https://deb.nodesource.com/setup_14.x | sudo bash - \
     exfat-utils \
     git \
     jq \
+    libnss-mdns \
     mosquitto-clients \
     nodejs \
     openssh-client \ 
-    picocom
+    picocom \
+    systemd
+
+# mdns - https://github.com/balena-io-examples/balena-avahi
+RUN systemctl mask \
+    dev-hugepages.mount \
+    sys-fs-fuse-connections.mount \
+    sys-kernel-config.mount \
+    display-manager.service \
+    getty@.service \
+    systemd-logind.service \
+    systemd-remount-fs.service \
+    getty.target \
+    graphical.target
+
+# Note: run /usr/bin/entry.sh echo "" in -entry.sh to enable UDEV!
+COPY avahi-entry.sh /usr/bin
+STOPSIGNAL 37
+ENTRYPOINT ["/usr/bin/avahi-entry.sh"]
 
 # Install as root, despite ...
 COPY ./requirements.freeze requirements.txt
