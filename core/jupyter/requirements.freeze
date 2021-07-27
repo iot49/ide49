@@ -58,6 +58,7 @@ jupyterbook-latex==0.3.1
 jupyterlab==3.0.16
 jupyterlab-pygments==0.1.2
 jupyterlab-server==2.6.1
+jupyterlab-spellchecker==0.6.0
 jupyterlab-widgets==1.0.0
 jupytext==1.10.3
 keyring==23.0.1

@@ -10,15 +10,19 @@ EXPOSE 8888
 # Note: bluez 5.50 fails to write (uart service) -> update to 5.51
 RUN curl -sL https://deb.nodesource.com/setup_14.x | sudo bash - \
  && install_packages \
-    git jq \
-    cifs-utils \
-    exfat-fuse exfat-utils \
     apache2-utils \
-    bluetooth dbus bluez \
-    openssh-client \ 
+    bluetooth \
+    bluez \
+    cifs-utils \
+    dbus \
+    exfat-fuse \
+    exfat-utils \
+    git \
+    jq \
+    mosquitto-clients \
     nodejs \
-    picocom \ 
-    mosquitto-clients
+    openssh-client \ 
+    picocom
 
 # Install as root, despite ...
 COPY ./requirements.freeze requirements.txt
