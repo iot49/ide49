@@ -12,5 +12,6 @@ matplotlib
 numpy
 paho-mqtt
 pandas
+pytest
 scipy
 sympy
