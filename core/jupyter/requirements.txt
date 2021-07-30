@@ -13,5 +13,7 @@ numpy
 paho-mqtt
 pandas
 pytest
+pytest-ordering
+rshell
 scipy
 sympy

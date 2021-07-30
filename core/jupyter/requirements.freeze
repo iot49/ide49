@@ -106,6 +106,7 @@ pyparsing==2.4.7
 pyrsistent==0.18.0
 pyserial==3.5
 pytest==6.2.4
+pytest-ordering==0.6
 python-dateutil==2.8.2
 pytz==2021.1
 PyYAML==5.4.1
@@ -116,6 +117,7 @@ requests==2.26.0
 requests-toolbelt==0.9.1
 requests-unixsocket==0.2.0
 rfc3986==1.5.0
+rshell
 RPi.GPIO==0.7.0
 scipy==1.7.0
 SecretStorage==3.3.1
