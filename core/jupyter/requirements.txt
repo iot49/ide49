@@ -3,7 +3,7 @@ asyncio-mqtt
 bleak
 esptool
 gpiozero
-ipykernel==5.5.5
+ipykernel
 ipywidgets
 jupyter-bokeh
 jupyterlab
