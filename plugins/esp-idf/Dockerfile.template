@@ -75,10 +75,12 @@ ENV IDF_CCACHE_ENABLE=1
 # Enable /dev
 ENV UDEV=1
 
-# make sure cd gets to the "expected" place ... (not /root)
-ENV HOME=/home/iot
-WORKDIR /home/iot
-
+# Create user iot and run startup script
 COPY ./start.sh /usr/local/bin/start.sh
+RUN chmod a+rx /usr/local/bin/start.sh \
+ && groupadd gpio \
+ && useradd -m -s /bin/bash -G dialout,gpio,netdev -U -u 1000 iot \
+ && echo 'iot ALL=(ALL) NOPASSWD:ALL' | EDITOR='tee -a' visudo
 
+# run as root (UDEV requirement) & switch to iot user in shart.sh
 CMD [ "/bin/bash", "/usr/local/bin/start.sh" ]

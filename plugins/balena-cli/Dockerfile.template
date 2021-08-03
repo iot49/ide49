@@ -5,6 +5,7 @@ RUN curl -sL https://deb.nodesource.com/setup_12.x | sudo bash - \
  && install_packages cifs-utils nodejs
 
 # balena command line tools
+# RUN echo "bust cache to upgrade"
 RUN npm install balena-cli -g --production --unsafe-perm && npm cache verify && rm -rf /tmp/*
 
 COPY ./requirements.txt requirements.txt
