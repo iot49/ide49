@@ -22,7 +22,8 @@ RUN curl -sL https://deb.nodesource.com/setup_14.x | sudo bash - \
     mosquitto-clients \
     nodejs \
     openssh-client \ 
-    picocom
+    picocom \
+    python3-usb
 
 # Install as root, despite ...
 COPY ./requirements.txt requirements.txt
