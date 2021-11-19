@@ -29,7 +29,7 @@ RUN curl -sL https://deb.nodesource.com/setup_14.x | sudo bash - \
 COPY ./requirements.txt requirements.txt
 RUN pip install --upgrade pip \
  && pip install wheel twine \
- && pip install -r requirements.txt \
+ && pip install --default-timeout=1000 -r requirements.txt \
  && rm requirements.txt
 
 # Don't bust the cache for other python packages
