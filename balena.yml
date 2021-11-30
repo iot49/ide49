@@ -27,12 +27,12 @@ assets:
 data:
   applicationEnvironmentVariables:
     - DNS_NAME:         "iot49"
-    - IOT_PROJECTS:     "/home/iot/projects"
+    - IOT_PROJECTS:     "/home/iot/projects/"
     - TZ:               "America/Los_Angeles"
     - SAMBA:            "off"          # server/client/off
-    - SAMBA_SERVER_IP:  "10.39.40.151"
+    - SAMBA_SERVER_IP:  "10.39.40.200"
     - SAMBA_PASSWORD:   "px&(734%3#ksf"
-    - IDF_CHECKOUT_REF: "v4.2"
+    - IDF_CHECKOUT_REF: "v4.4"
   # https://www.balena.io/docs/reference/hardware/devices/
   defaultDeviceType: raspberrypi4-64
   supportedDeviceTypes:

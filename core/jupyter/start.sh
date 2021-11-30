@@ -9,6 +9,7 @@ if ! grep -q `hostname` /etc/hosts; then
 fi
 
 # set permissions for gpio as non-root user (gpio group)
+# no gpiomem on amd64
 chown root.gpio /dev/gpiomem
 chmod g+rw /dev/gpiomem
 chown root.gpio /sys/class/gpio/*export
@@ -47,6 +48,7 @@ sudo \
     --preserve-env=PYTHON_DBUS_VERSION \
     --preserve-env=PYTHON_VERSION \
     --preserve-env=DNS_NAME \
+    --preserve-env=IOT \
     --preserve-env=IOT_PROJECTS \
     --preserve-env=SAMBA \
     --preserve-env=SAMBA_SERVER_IP \
@@ -113,5 +115,14 @@ jupyter lab --ip='172.17.0.1' --port=8888 --no-browser \
     --ServerApp.base_url='/jupyter' \
     --ServerApp.token='' --ServerApp.password='' \
     --NotebookNotary.db_file='/service-config/iot-home/.ipython/sqlite_db_file.lock'
+
+# clone iot49.org ... if ...
+if [[ ${IOT_PROJECTS} == /home/iot/iot49.org/* ]] &&
+   [[ ${SAMBA} != client ]] &&
+   [[ ! -d /home/iot/iot49.org ]]
+then
+    echo cloning https://github.com/iot49/iot49.org
+    git clone https://github.com/iot49/iot49.org
+fi
 
 EOF
