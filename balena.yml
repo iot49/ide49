@@ -27,7 +27,8 @@ assets:
 data:
   applicationEnvironmentVariables:
     - DNS_NAME:         "iot49"
-    - IOT_PROJECTS:     "/home/iot/projects/"
+    - IOT:              "/home/iot"
+    - IOT_PROJECTS:     "/home/iot/projects"
     - TZ:               "America/Los_Angeles"
     - SAMBA:            "off"          # server/client/off
     - SAMBA_SERVER_IP:  "10.39.40.200"
