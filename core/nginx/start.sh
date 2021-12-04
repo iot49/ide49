@@ -15,7 +15,7 @@ HOST_NAME="${HOST_NAME#\"}"
 
 # install default configuration
 if [[ ! -f /etc/nginx/.config_v1 ]]; then
-    cp -r /usr/local/src/nginx /etc/
+    cp /usr/local/src/nginx/etc/* /etc/nginx/
     cp /etc/nginx/htpasswd /etc/nginx/htpasswd.default
     cp /etc/nginx/nginx.conf /etc/nginx/nginx.conf.default
     echo 'nginx config v1 installed' >/etc/nginx/.config_v1
@@ -25,7 +25,7 @@ fi
 if [[ ! -f /home/iot/.html/index.html ]]; then
     mkdir -p /home/iot/.html
     cp -r /usr/local/src/nginx/html/* /home/iot/.html/
-    chown -R iot:users /home/iot/.html/
+    chown -R 1000:100 /home/iot/.html/
 fi
 
 # configuration for self-signed certificate

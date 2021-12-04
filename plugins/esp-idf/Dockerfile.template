@@ -1,13 +1,20 @@
+FROM ttmetro/ide49-base-notebook
+
+USER root
+
 # Based on https://github.com/espressif/esp-idf/blob/master/tools/docker/Dockerfile
 # Modifications:
-#   - Base image
-#   - IDF_CHECKOUT_REF=v4.2
-#   - Default Balena Entrypoint
-#   - HOME points to /home/iot
-#   - CMD (start.sh)
+#   - Jupyter base image
+#   - remove update-alternatives ...
+#   - install as user (except apt-get), /opt/esp owned by user
+#   - start-hook.sh
 
-# FROM ubuntu:18.04
-FROM balenalib/%%BALENA_MACHINE_NAME%%-debian:buster-run
+RUN mkdir /opt/esp \
+ && chown iot:root /opt/esp
+
+# startup script
+COPY start-hook.sh /usr/local/bin/
+RUN chmod a+rx /usr/local/bin/start-hook.sh
 
 ARG DEBIAN_FRONTEND=noninteractive
 
@@ -28,15 +35,15 @@ RUN apt-get update && apt-get install -y \
     make \
     ninja-build \
     libpython2.7 \
-    python3 \
-    python3-pip \
     unzip \
     wget \
     xz-utils \
     zip \
    && apt-get autoremove -y \
-   && rm -rf /var/lib/apt/lists/* \
-   && update-alternatives --install /usr/bin/python python /usr/bin/python3 10
+   && rm -rf /var/lib/apt/lists/*
+#   && update-alternatives --install /usr/bin/python python /usr/bin/python3 10
+
+USER ${NB_UID}
 
 RUN python -m pip install --upgrade pip virtualenv
 
@@ -48,7 +55,7 @@ RUN python -m pip install --upgrade pip virtualenv
 
 ARG IDF_CLONE_URL=https://github.com/espressif/esp-idf.git
 ARG IDF_CLONE_BRANCH_OR_TAG=master
-ARG IDF_CHECKOUT_REF=v4.4
+ARG IDF_CHECKOUT_REF=
 
 ENV IDF_PATH=/opt/esp/idf
 ENV IDF_TOOLS_PATH=/opt/esp
@@ -72,15 +79,4 @@ RUN $IDF_PATH/tools/idf_tools.py --non-interactive install required \
 # Ccache is installed, enable it by default
 ENV IDF_CCACHE_ENABLE=1
 
-# Enable /dev
-ENV UDEV=1
-
-# Create user iot and run startup script
-COPY ./start.sh /usr/local/bin/start.sh
-RUN chmod a+rx /usr/local/bin/start.sh \
- && groupadd gpio \
- && useradd -m -s /bin/bash -G dialout,gpio,netdev -U -u 1000 iot \
- && echo 'iot ALL=(ALL) NOPASSWD:ALL' | EDITOR='tee -a' visudo
-
-# run as root (UDEV requirement) & switch to iot user in shart.sh
-CMD [ "/bin/bash", "/usr/local/bin/start.sh" ]
+WORKDIR ${HOME}

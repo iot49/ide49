@@ -33,7 +33,7 @@ services:
         labels:
             io.balena.features.dbus: 1
             io.balena.features.supervisor-api: 1
-        cap_net:
+        cap_add:
             # https://man7.org/linux/man-pages/man7/capabilities.7.html
             - NET_ADMIN
         environment:
@@ -115,8 +115,7 @@ services:
 
     wireshark:
         image: linuxserver/wireshark
-        # build: ./plugins/wireshark
-        # require to monitor docker network traffic
+        # required to monitor docker network traffic
         network_mode: host
         restart: unless-stopped
         cap_add:
@@ -135,6 +134,7 @@ services:
         privileged: true
         volumes:
             - iot-home:/home/iot
+            - iot-home:/service-config/iot-home
         expose:
             - 8080
 
@@ -155,11 +155,16 @@ services:
         build: 
             context: ./plugins/esp-idf
             args:
-                IDF_CHECKOUT_REF: v4.4
+                IDF_CHECKOUT_REF: v4.3.1
         restart: unless-stopped
         privileged: true
         volumes:
             - iot-home:/home/iot
+            - iot-home:/service-config/iot-home
+        environment:
+            - JUPYTER_PORT=8890
+        expose:
+            - 8890
                         
     balena-cli:
         build: ./plugins/balena-cli
@@ -168,9 +173,10 @@ services:
         labels:
             io.balena.features.supervisor-api: 1
         environment:
+            - JUPYTER_PORT=8891
             - SHELL=/bin/bash
         volumes:
             - iot-home:/home/iot
             - iot-home:/service-config/iot-home
         expose:
-            - 8889
+            - 8891

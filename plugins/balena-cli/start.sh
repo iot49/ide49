@@ -31,8 +31,7 @@ mkdir -p /service-config/iot-home/.ipython
 export IPYTHONDIR="${IPYTHONDIR:=/service-config/iot-home/.ipython}"
 
 # never save sqlite lock on samba share!
-# ip='172.17.0.2' for nginx, but could change
-jupyter lab --ip='*' --port=8889 --no-browser \
+jupyter lab --ip='*' --port="${JUPYTER_PORT:=8891}" --no-browser \
     --ServerApp.base_url='/balena-cli' \
     --ServerApp.token='' --ServerApp.password='' \
     --NotebookNotary.db_file='/service-config/iot-home/.ipython/sqlite_db_file.lock'

@@ -21,16 +21,21 @@ RUN apt-get update --yes \
     usbutils \
  && apt-get clean && rm -rf /var/lib/apt/lists/*
 
+# copy startup configuration
+COPY conf /usr/local/bin/
+RUN chmod a+x /usr/local/bin/*.sh
+
 USER ${NB_UID}
 
 # Install Python 3 packages
 RUN mamba install --quiet --yes \
     jupyterlab-spellchecker \
     paho-mqtt \
+    pynacl \
     pytest \
     pytest-ordering \
     pyusb \
- && mamba clean --all -f -y \
+ && mamba clean --quiet --all -f -y \
  && fix-permissions "${CONDA_DIR}" \
  && fix-permissions "/home/${NB_USER}"
 
@@ -42,13 +47,8 @@ RUN pip install --default-timeout=1000 \
     rshell
 #     jupyter-bokeh \
 
-# copy startup configuration
-COPY conf /usr/local/bin/
-
 # iot_kernel (micropython)
-RUN chmod a+x /usr/local/bin/*sh \
- && echo "force rebuild 2021-12-01" \
- && pip install iot-device \
+RUN echo "force rebuild 2021-12-03:17" \
  && pip install iot-kernel \
  && python -m iot_kernel.install \
  && fix-permissions "${CONDA_DIR}" \
