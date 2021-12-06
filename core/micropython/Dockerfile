@@ -5,55 +5,52 @@ USER root
 RUN apt-get update --yes \
  && apt-get install --yes --no-install-recommends \
     apache2-utils \
-    bluetooth \
     bluez \
     build-essential \
     dbus \
     exfat-fuse \
     exfat-utils \
     jq \
-    libbluetooth-dev \
     mosquitto-clients \
     picocom \
-    python3-dbus \
-    python3-usb \
     subversion \
     usbutils \
  && apt-get clean && rm -rf /var/lib/apt/lists/*
 
-# copy startup configuration
-COPY conf /usr/local/bin/
-RUN chmod a+x /usr/local/bin/*.sh
+# gpio without root
+COPY 99-com.rules /etc/udev/rules.d/
+COPY start-hook.sh /usr/local/bin/
+
+# bluetooth and gpio permissions
+# bluetooth not available without root anyway ...
+RUN groupadd gpio \
+ && usermod -G bluetooth,gpio iot
 
 USER ${NB_UID}
 
 # Install Python 3 packages
 RUN mamba install --quiet --yes \
+    dbus-python \
     jupyterlab-spellchecker \
     paho-mqtt \
     pynacl \
     pytest \
     pytest-ordering \
     pyusb \
- && mamba clean --quiet --all -f -y \
- && fix-permissions "${CONDA_DIR}" \
- && fix-permissions "/home/${NB_USER}"
+ && mamba clean --quiet --all -f -y
 
+# These are not on conda
 RUN pip install --default-timeout=1000 \
     RPi.Gpio \
     bleak \
     esptool \
     gpiozero \
     rshell
-#     jupyter-bokeh \
+    # jupyter-bokeh
 
 # iot_kernel (micropython)
-RUN echo "force rebuild 2021-12-03:17" \
+RUN echo "force rebuild 2021-12-03" \
  && pip install iot-kernel \
  && python -m iot_kernel.install \
  && fix-permissions "${CONDA_DIR}" \
  && fix-permissions "/home/${NB_USER}"
-
-# && pip install iot-device>=0.5.21 \
-# && pip install iot-kernel>=0.5.26 \
-

@@ -26,21 +26,13 @@ services:
     micropython:
         build: ./core/micropython
         restart: unless-stopped
-        # required for /dev/tty..., bluetooth, mount, ...
         privileged: true
-        # required for bluetooth
-        network_mode: host
         labels:
             io.balena.features.dbus: 1
             io.balena.features.supervisor-api: 1
-        cap_add:
-            # https://man7.org/linux/man-pages/man7/capabilities.7.html
-            - NET_ADMIN
         environment:
-            - SHELL=/bin/bash
             # for dbus-send
             - DBUS_SYSTEM_BUS_ADDRESS=unix:path=/host/run/dbus/system_bus_socket
-            - JUPYTER_IP='172.17.0.1'
         volumes:
             - iot-home:/home/iot
             # never shadowed by cifs mount
@@ -180,3 +172,34 @@ services:
             - iot-home:/service-config/iot-home
         expose:
             - 8891
+
+    bluetooth:
+        build: ./plugins/bluetooth
+        restart: unless-stopped
+        privileged: true
+        # required for bluetooth
+        network_mode: host
+        labels:
+            io.balena.features.dbus: 1
+        environment:
+            - DBUS_SYSTEM_BUS_ADDRESS=unix:path=/host/run/dbus/system_bus_socket
+            - JUPYTER_PORT=8892
+            - JUPYTER_IP='172.17.0.1'
+        volumes:
+            - iot-home:/home/iot
+            - iot-home:/service-config/iot-home
+        expose:
+            - 8892
+
+    rust:
+        build: ./plugins/rust
+        restart: unless-stopped
+        privileged: true
+        volumes:
+            - iot-home:/home/iot
+            - iot-home:/service-config/iot-home
+        environment:
+            - JUPYTER_PORT=8893
+        expose:
+            - 8893
+

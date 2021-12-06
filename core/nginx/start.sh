@@ -15,17 +15,11 @@ HOST_NAME="${HOST_NAME#\"}"
 
 # install default configuration
 if [[ ! -f /etc/nginx/.config_v1 ]]; then
-    cp /usr/local/src/nginx/etc/* /etc/nginx/
+    cp -r /usr/local/src/nginx/* /etc/nginx/
+    chown -R 1000:100 /etc/nginx/html
     cp /etc/nginx/htpasswd /etc/nginx/htpasswd.default
     cp /etc/nginx/nginx.conf /etc/nginx/nginx.conf.default
     echo 'nginx config v1 installed' >/etc/nginx/.config_v1
-fi
-
-# default html content (landing page & favicon)
-if [[ ! -f /home/iot/.html/index.html ]]; then
-    mkdir -p /home/iot/.html
-    cp -r /usr/local/src/nginx/html/* /home/iot/.html/
-    chown -R 1000:100 /home/iot/.html/
 fi
 
 # configuration for self-signed certificate
@@ -61,7 +55,7 @@ if [[ $HOST_NAME != $DNS_NAME || ! -f /etc/nginx/ssl/cert.crt ]]; then
     openssl req -x509 -nodes -days 3650 -newkey rsa:2048 \
         -keyout cert.key -out cert.crt -config cert.conf       
     openssl pkcs12 -export -out cert.pfx -inkey cert.key -in cert.crt -passout pass:
-    cp cert.crt /home/iot/.html
+    cp cert.crt /etc/nginx/html
 fi
 
 # start the server

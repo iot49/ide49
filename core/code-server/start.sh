@@ -23,7 +23,7 @@ if [ ${SAMBA:=off} = client ]; then
     while true
     do
         sudo mount -t cifs //${SAMBA_SERVER_IP}/iot-data /config/workspace \
-            -ouid=1000,gid=1000,username=iot,password="${SAMBA_PASSWORD}",sec=ntlmssp,domain=WORKGROUP \
+            -ouid=1000,gid=100,username=iot,password="${SAMBA_PASSWORD}",sec=ntlmssp,domain=WORKGROUP \
         && break
         echo "samba mount failed, keep trying ..."
         sleep 10
