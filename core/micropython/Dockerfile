@@ -13,7 +13,6 @@ RUN apt-get update --yes \
     jq \
     mosquitto-clients \
     picocom \
-    subversion \
     usbutils \
  && apt-get clean && rm -rf /var/lib/apt/lists/*
 
@@ -31,12 +30,15 @@ USER ${NB_UID}
 # Install Python 3 packages
 RUN mamba install --quiet --yes \
     dbus-python \
+    jupyter-book \
     jupyterlab-spellchecker \
     paho-mqtt \
     pynacl \
     pytest \
     pytest-ordering \
     pyusb \
+    rsync \
+    subversion \
  && mamba clean --quiet --all -f -y
 
 # These are not on conda
@@ -45,7 +47,6 @@ RUN pip install --default-timeout=1000 \
     bleak \
     esptool \
     gpiozero \
-    jupyter-book \
     rshell
 
 # iot_kernel (micropython)
