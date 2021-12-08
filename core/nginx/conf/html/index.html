@@ -9,24 +9,83 @@
         margin: 0 auto;
         font-family: Tahoma, Verdana, Arial, sans-serif;
     }
+    a {
+        color: blue;
+        text-decoration: none;
+    }
+    img.logo {
+        height: 50px;
+    }
+    td {
+        padding: 15px;
+    }
 </style>
 </head>
 
 <body>
-<h3><a href="http://iot49.org">Electronics for IoT</a></h3>
+    <h1 style="text-align: center">ide49</h1>
+    <h3 style="text-align: center">Programming Tools for Microcontrollers</h3>
 
-<ul>
-    <li><a href="/micropython">MicroPython Development</a></li>
-    <li><a href="/code-server">Editor</a></li>
-    <li><a href="/duplicati">Backup</a></li>
-    <li><a href="/plotserver">Plot MQTT Stream</a></li>
-    <li><a href="/wireshark">Wireshark</a></li>
-    <li><a href="/arm32">ARM32 Cross-Compiler</a></li>
-    <li><a href="/esp-idf">ESP32 Cross-Compiler</a></li>
-    <li><a href="/balena-cli">Balena CLI</a></li>
-    <li><a href="/bluetooth">Bluetooth</a></li>
-    <li><a href="/rust">Rust</a></li>
-</ul>
+    <table style="width:500px">
+        <tr>
+            <td>
+                <a href="/micropython"><img class="logo" src="logos/micropython.svg">
+            </td>
+            <td>
+                Interactive <a href="https://micropython.org">MicroPython</a> coding 
+                with <a href="https://jupyterlab.readthedocs.io/en/latest/">Jupyter Lab</a> 
+                and REPL console.
+            </td>
+        </tr>
+        <tr>
+            <td>
+                <a href="/code-server"><img class="logo" src="logos/vsc.svg">
+            </td>
+            <td>
+                <a href=https://code.visualstudio.com/docs">Visual Studio Code Editor.</a>
+            </td>
+        </tr>
+        <tr>
+            <td>
+                <a href="/duplicati"><img class="logo" src="logos/duplicati.png">
+            </td>
+            <td>
+                <a href="https://www.duplicati.com/">Duplicati</a>, versatile backup to the cloud or local storage.
+            </td>
+        </tr>
+        <tr>
+            <td>
+                <a href="/plotserver"><img class="logo" src="logos/plot.svg">
+            </td>
+            <td>
+                Render mqtt messages as a time series plot.
+            </td>
+        </tr>
+        <tr>
+            <td>
+                <a href="/wireshark"><img class="logo" src="logos/wireshark.png">
+            </td>
+            <td>
+                <a href="https://www.wireshark.org/docs/">Wireshark</a> IP packet analyzer.
+            </td>
+        </tr>
+        <tr>
+            <td>
+                <a href="/balena-cli"><img class="logo" src="logos/balena.png">
+            </td>
+            <td>
+                <a href="https://www.balena.io/docs/reference/balena-cli/">Balena command line tools</a>. Build and modify IoT projects, including <i>ide49</i>.
+            </td>
+        </tr>
+        <tr>
+            <td>
+                <a href="https://iot49.org"><img class="logo" src="logos/docs.svg">
+            </td>
+            <td>
+                Documentation for <i>ide49</i>.
+            </td>
+        </tr>
+    </table>
 
 </body>
 </html>
