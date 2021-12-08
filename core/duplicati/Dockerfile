@@ -1,13 +1,12 @@
 FROM linuxserver/duplicati:latest
 
-ENV DEBIAN_FRONTEND=noninteractive
-
 # Enable udev for detection of dynamically plugged devices
 ENV UDEV=on
 COPY udev/usb.rules /etc/udev/rules.d/usb.rules
 
 # Install dependencies (install_packages not available)
 # lsof?
+ENV DEBIAN_FRONTEND noninteractive
 RUN apt-get update && apt-get install -y \
   udev \
   exfat-fuse exfat-utils \

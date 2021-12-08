@@ -1,5 +1,12 @@
 #! /bin/bash
 
+# customize device environment (e.g. DNS_NAME)
+env49rc=/service-config/iot-home/.env49rc
+if [ -f $env49rc ]; then
+    echo sourcing $env49rc ...
+    source $env49rc
+fi
+
 # set default dns: iot49.local
 export DNS_NAME=${DNS_NAME:=iot49}
 

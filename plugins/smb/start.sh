@@ -30,4 +30,11 @@ function main {
     fi
 }
 
+# customize device environment (e.g. SAMBA_PASSWORD)
+env49rc=/service-config/iot-home/.env49rc
+if [ -f $env49rc ]; then
+    echo sourcing $env49rc ...
+    source $env49rc
+fi
+
 main $@

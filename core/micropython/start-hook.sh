@@ -10,3 +10,10 @@ if [ -e /dev/gpiomem ]; then
         chmod ug+rwx /sys/class/gpio/*export
 EOF
 fi
+
+# template for customizing device environment
+env49rc=/service-config/iot-home/.env49rc
+if [ ! -f $env49rc ]; then
+    cp /usr/local/src/env49rc.default $env49rc
+    chmod a+x $env49rc
+fi

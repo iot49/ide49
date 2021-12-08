@@ -16,9 +16,8 @@ RUN mkdir /opt/esp \
 COPY start-hook.sh /usr/local/bin/
 RUN chmod a+rx /usr/local/bin/start-hook.sh
 
-ARG DEBIAN_FRONTEND=noninteractive
-
 # We need libpython2.7 due to GDB tools
+ENV DEBIAN_FRONTEND noninteractive
 RUN apt-get update && apt-get install -y \
     apt-utils \
     bison \

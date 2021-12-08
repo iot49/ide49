@@ -5,6 +5,13 @@ if ! grep -q `hostname` /etc/hosts; then
     sudo bash -c 'echo "127.0.0.1" `hostname` >> /etc/hosts'
 fi
 
+# customize device environment (e.g. SAMBA_PASSWORD)
+env49rc=/service-config/iot-home/.env49rc
+if [ -f $env49rc ]; then
+    echo sourcing $env49rc ...
+    source $env49rc
+fi
+
 # conditionally mount iot
 if [ ${SAMBA:=off} = client ]; then
     sudo mkdir -p ${HOME}
@@ -21,36 +28,32 @@ if [ ${SAMBA:=off} = client ]; then
     export JUPYTER_ALLOW_INSECURE_WRITES=true
 fi
 
-# Start jupyter ...
+# Jupyter file location issues:
+#   1) $HOME may be cifs mounted --> store config on /service-config/iot-home
+#   2) We are running multiple servers - does some data need to be kept separate?
+#      - place NotebookNotary.db_file in per-service location, not sure it's required
+#      - ditto for runtime
+# https://jupyter.readthedocs.io/en/latest/use/jupyter-directories.html
 
-# Configure & start Jupyter server
-# Store configuration locally (not on cifs mount) and in per service directory
 jconfig=/service-config/iot-home/.config-jupyter/$BALENA_SERVICE_NAME
 mkdir -p ${jconfig}
 
-# store custom lab extensions in user writable folder
-# https://jupyterlab.readthedocs.io/en/latest/user/directories.html
-export JUPYTERLAB_DIR="${JUPYTERLAB_DIR:=${jconfig}/.jupyter}"
+# share config between services, default: ~/.jupyter
+export JUPYTER_CONFIG_DIR=/service-config/iot-home/.jupyter
 
-# fix runtime file permissions issue
-# https://github.com/jupyter/notebook/issues/5058
-export JUPYTER_RUNTIME_DIR="${JUPYTER_RUNTIME_DIR:=${jconfig}/runtime}"
+# kernelspec, default: ~/.local/share/jupyter/
+export JUPYTER_PATH=${jconfig}/.local
 
-# never save config (especially sqlite history lock) to samba share
-# history lock ERROR: https://gitter.im/ipython/ipython/help/archives/2017/04/20
-mkdir -p ${jconfig}/.ipython
-export IPYTHONDIR="${IPYTHONDIR:=${jconfig}/.ipython}"
+# separate runtime directory for each service
+export JUPYTER_RUNTIME_DIR=${jconfig}
 
-if [ ! -d ${JUPYTERLAB_DIR} ]; then
-    echo "Building jupyter lab assets, this may take some time ..."
-    jupyter lab build
-    # jupyter lab build --dev-build=False --minimize=False
-fi
+jupyter --path
+jupyter lab path
 
 # start the jupyter server behind nginx proxy
-jupyter lab --no-browser \
-    --ip="${JUPYTER_IP:='*'}" \
-    --port="${JUPYTER_PORT:=8891}" \
-    --ServerApp.base_url="/${BALENA_SERVICE_NAME}" \
+jupyter lab --no-browser --allow-root \
+    --ServerApp.ip=${JUPYTER_IP:='*'} \
+    --ServerApp.port=${JUPYTER_PORT:=8888} \
+    --ServerApp.base_url=/${BALENA_SERVICE_NAME} \
     --ServerApp.token="" --ServerApp.password="" \
-    --NotebookNotary.db_file="${jconfig}/.ipython/sqlite_db_file.lock"
+    --NotebookNotary.db_file="${jconfig}/sqlite_db_file.lock"

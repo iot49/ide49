@@ -2,10 +2,10 @@ FROM ttmetro/ide49-scipy-notebook
 
 USER root
 
+ENV DEBIAN_FRONTEND=noninteractive
 RUN apt-get update --yes \
  && apt-get install --yes --no-install-recommends \
     apache2-utils \
-    bluez \
     build-essential \
     dbus \
     exfat-fuse \
@@ -20,11 +20,11 @@ RUN apt-get update --yes \
 # gpio without root
 COPY 99-com.rules /etc/udev/rules.d/
 COPY start-hook.sh /usr/local/bin/
+COPY env49rc.default /usr/local/src/
 
-# bluetooth and gpio permissions
-# bluetooth not available without root anyway ...
+# gpio permissions
 RUN groupadd gpio \
- && usermod -G bluetooth,gpio iot
+ && usermod -G gpio iot
 
 USER ${NB_UID}
 
@@ -45,8 +45,8 @@ RUN pip install --default-timeout=1000 \
     bleak \
     esptool \
     gpiozero \
+    jupyter-book \
     rshell
-    # jupyter-bokeh
 
 # iot_kernel (micropython)
 RUN echo "force rebuild 2021-12-03" \

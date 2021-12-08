@@ -1,5 +1,6 @@
 version: '2'
 
+# in supervisor @ /mnt/data/docker/volumes
 volumes:
     iot-home:
     code-server-config:
@@ -106,7 +107,7 @@ services:
             - 9002:9002  # secure mqtt over websockets
 
     wireshark:
-        image: linuxserver/wireshark
+        image: linuxserver/wireshark:2.4.5
         # required to monitor docker network traffic
         network_mode: host
         restart: unless-stopped

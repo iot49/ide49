@@ -17,6 +17,13 @@ if ! grep -q `hostname` /etc/hosts; then
     bash -c 'echo "127.0.0.1" `hostname` >> /etc/hosts'
 fi
 
+# customize device environment (e.g. SAMBA_PASSWORD)
+env49rc=/service-config/iot-home/.env49rc
+if [ -f $env49rc ]; then
+    echo sourcing $env49rc ...
+    source $env49rc
+fi
+
 # conditionally mount /home/iot
 if [ ${SAMBA:=off} = client ]; then
     # keep trying
