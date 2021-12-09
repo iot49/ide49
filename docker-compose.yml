@@ -123,6 +123,16 @@ services:
         expose:
             - 3000
       
+    plotserver:
+        build: ./plugins/plotserver
+        restart: unless-stopped
+        privileged: true
+        volumes:
+            - iot-home:/home/iot
+            - iot-home:/service-config/iot-home
+        expose:
+            - 8080
+
     arm32:
         build: ./plugins/arm32
         restart: unless-stopped
@@ -183,3 +193,16 @@ services:
             - iot-home:/service-config/iot-home
         expose:
             - 8892
+
+    rust:
+        build: ./plugins/rust
+        restart: unless-stopped
+        privileged: true
+        volumes:
+            - iot-home:/home/iot
+            - iot-home:/service-config/iot-home
+        environment:
+            - JUPYTER_PORT=8893
+        expose:
+            - 8893
+
