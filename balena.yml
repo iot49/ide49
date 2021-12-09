@@ -6,8 +6,8 @@ post-provisioning: >-
   ## Usage instructions
 
   **Application download** Once you power up your device you'll need to allow
-  some time for it to download the application, this typically takes 5-10
-  minutes but it can take more depending on your internet connection and what
+  some time for it to download the application, this typically takes 15-30
+  minutes but it can take more depending on your internet connection and the
   device you are using.
 
   **Usage** Connect to the running application at http://iot49.local.
