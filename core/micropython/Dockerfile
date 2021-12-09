@@ -53,7 +53,7 @@ RUN pip install --default-timeout=1000 \
     rshell
 
 # iot_kernel (micropython)
-RUN echo "force rebuild 2021-12-08" \
+RUN echo "force rebuild 2021-12-09" \
  && pip install iot-kernel \
  && python -m iot_kernel.install \
  && fix-permissions "${CONDA_DIR}" \
