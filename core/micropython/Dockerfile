@@ -46,6 +46,7 @@ RUN pip install --default-timeout=1000 \
     RPi.Gpio \
     bleak \
     esptool \
+    ghp-import \
     gpiozero \
     # not available on conda for linux64
     jupyter-book \
