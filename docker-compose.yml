@@ -191,16 +191,3 @@ services:
             - iot-home:/service-config/iot-home
         expose:
             - 8892
-
-    rust:
-        build: ./plugins/rust
-        restart: unless-stopped
-        privileged: true
-        volumes:
-            - iot-home:/home/iot
-            - iot-home:/service-config/iot-home
-        environment:
-            - JUPYTER_PORT=8893
-        expose:
-            - 8893
-
