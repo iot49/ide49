@@ -30,7 +30,6 @@ USER ${NB_UID}
 # Install Python 3 packages
 RUN mamba install --quiet --yes \
     dbus-python \
-    jupyter-book \
     jupyterlab-spellchecker \
     paho-mqtt \
     pynacl \
@@ -38,7 +37,6 @@ RUN mamba install --quiet --yes \
     pytest-ordering \
     pyusb \
     rsync \
-    subversion \
     twine \
  && mamba clean --quiet --all -f -y
 
@@ -48,7 +46,10 @@ RUN pip install --default-timeout=1000 \
     bleak \
     esptool \
     gpiozero \
-    rshell
+    rshell \
+    # not available on conda for linux64
+    jupyter-book \
+    subversion
 
 # iot_kernel (micropython)
 RUN echo "force rebuild 2021-12-08" \
