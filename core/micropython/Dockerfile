@@ -23,7 +23,7 @@ COPY env49rc.default /usr/local/src/
 
 # gpio permissions
 RUN groupadd gpio \
- && usermod -G gpio iot
+ && usermod -a -G gpio iot
 
 USER ${NB_UID}
 
@@ -39,6 +39,7 @@ RUN mamba install --quiet --yes \
     pyusb \
     rsync \
     subversion \
+    twine \
  && mamba clean --quiet --all -f -y
 
 # These are not on conda
@@ -50,7 +51,7 @@ RUN pip install --default-timeout=1000 \
     rshell
 
 # iot_kernel (micropython)
-RUN echo "force rebuild 2021-12-03" \
+RUN echo "force rebuild 2021-12-08" \
  && pip install iot-kernel \
  && python -m iot_kernel.install \
  && fix-permissions "${CONDA_DIR}" \
