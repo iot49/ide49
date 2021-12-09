@@ -13,6 +13,7 @@ RUN apt-get update --yes \
     jq \
     mosquitto-clients \
     picocom \
+    subversion \
     usbutils \
  && apt-get clean && rm -rf /var/lib/apt/lists/*
 
@@ -46,10 +47,9 @@ RUN pip install --default-timeout=1000 \
     bleak \
     esptool \
     gpiozero \
-    rshell \
     # not available on conda for linux64
     jupyter-book \
-    subversion
+    rshell
 
 # iot_kernel (micropython)
 RUN echo "force rebuild 2021-12-08" \
