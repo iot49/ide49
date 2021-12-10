@@ -34,7 +34,6 @@ RUN mamba install --quiet --yes \
     dbus-python \
     jupyter_bokeh \
     jupyterlab-spellchecker \
-    nb_conda_kernels \
     paho-mqtt \
     pynacl \
     pytest \
@@ -53,6 +52,7 @@ RUN pip install --default-timeout=1000 \
     gpiozero \
     # not available on conda for linux64
     jupyter-book \
+    nest_asyncio \
     rshell
 
 # iot_kernel (micropython)
