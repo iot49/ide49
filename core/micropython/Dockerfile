@@ -30,6 +30,7 @@ USER ${NB_UID}
 
 # Install Python 3 packages
 RUN mamba install --quiet --yes \
+    cmake \
     dbus-python \
     jupyter_bokeh \
     jupyterlab-spellchecker \
