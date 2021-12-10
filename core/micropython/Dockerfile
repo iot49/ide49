@@ -33,6 +33,7 @@ RUN mamba install --quiet --yes \
     dbus-python \
     jupyter_bokeh \
     jupyterlab-spellchecker \
+    nb_conda_kernels \
     paho-mqtt \
     pynacl \
     pytest \
