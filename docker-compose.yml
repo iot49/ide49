@@ -23,12 +23,21 @@ services:
         ports:
             - 80:80
             - 443:443
+        depend-on:
+            - micropython
+            - code-server
+            - duplicati
+            - wireshark
+            - arm32
+            - esp-idf
+            - balena-cli
+            - bluetooth
 
     micropython:
         build: ./core/micropython
         restart: unless-stopped
         privileged: true
-        # required for ip development
+        # required for prototyping web services (e.g. httpd) and bluetooth
         network_mode: host
         labels:
             io.balena.features.dbus: 1
