@@ -21,7 +21,7 @@ RUN pip install --upgrade pip \
 # Create user iot and copy startup script
 COPY ./start.sh /usr/local/bin/start.sh
 RUN chmod a+rx /usr/local/bin/start.sh \
- && useradd -m -s /bin/bash -U -u 1000 iot \
+ && useradd -m -s /bin/bash -g users -u 1000 iot \
  && echo 'iot ALL=(ALL) NOPASSWD:ALL' | EDITOR='tee -a' visudo
 
 USER iot

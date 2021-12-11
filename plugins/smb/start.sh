@@ -12,7 +12,7 @@ function setup_user {
     #    useradd: user 'iot' already exists
     SMB_USER=${SAMBA_USERNAME:=iot}
     SMB_PASS=${SAMBA_PASSWORD:=iot49}
-    useradd --no-create-home -u 1000 $SMB_USER
+    useradd --no-create-home -g users -u 1000 $SMB_USER
     usermod -aG sambashare $SMB_USER
     printf "${SMB_PASS}\n${SMB_PASS}\n" | smbpasswd -a -s $SMB_USER
     smbpasswd -e $SMB_USER

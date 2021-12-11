@@ -6,6 +6,7 @@ ENV DEBIAN_FRONTEND=noninteractive
 RUN apt-get update --yes \
  && apt-get install --yes --no-install-recommends \
     apache2-utils \
+    bluez \
     build-essential \
     dbus \
     exfat-fuse \
@@ -26,7 +27,7 @@ COPY env49rc.default /usr/local/src/
 
 # gpio permissions
 RUN groupadd gpio \
- && usermod -a -G gpio iot
+ && usermod -a -G gpio,bluetooth iot
 
 USER ${NB_UID}
 
