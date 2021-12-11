@@ -11,6 +11,8 @@ RUN apt-get update --yes \
     exfat-fuse \
     exfat-utils \
     jq \
+    # used by rust (speeds up linking)
+    lld \
     mosquitto-clients \
     picocom \
     subversion \
