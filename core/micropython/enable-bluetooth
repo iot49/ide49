@@ -19,6 +19,7 @@ then
     <allow send_interface="org.freedesktop.DBus.Properties"/> \
   </policy> \
 </busconfig>|' bluetooth.conf
+    mount -o remount,r /
 fi
 echo bluetooth enabled for user iot
 EOF

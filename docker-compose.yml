@@ -31,7 +31,6 @@ services:
             - arm32
             - esp-idf
             - balena-cli
-            - bluetooth
 
     micropython:
         build: ./core/micropython
@@ -177,21 +176,3 @@ services:
         depends_on:
             # do not start early, may set wrong owner on .local
             - micropython
-
-    bluetooth:
-        build: ./plugins/bluetooth
-        restart: unless-stopped
-        privileged: true
-        # required for bluetooth
-        network_mode: host
-        labels:
-            io.balena.features.dbus: 1
-        environment:
-            - DBUS_SYSTEM_BUS_ADDRESS=unix:path=/host/run/dbus/system_bus_socket
-            - JUPYTER_PORT=8892
-            - JUPYTER_IP='172.17.0.1'
-        volumes:
-            - iot-home:/home/iot
-            - iot-home:/service-config/iot-home
-        expose:
-            - 8892

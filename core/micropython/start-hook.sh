@@ -17,3 +17,7 @@ if [ ! -f $env49rc ]; then
     cp /usr/local/src/env49rc.default $env49rc
     chmod a+x $env49rc
 fi
+
+# enable bluetooth for user iot
+# adds user iot and patches /etc/dbus-1/system.d/bluetooth.conf on Host OS
+enable-bluetooth
