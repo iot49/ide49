@@ -1,0 +1,24 @@
+#! /bin/bash
+
+ssh -q -o 'StrictHostKeyChecking no' -p 22222 root@172.17.0.1 << 'EOF'
+cd /etc/dbus-1/system.d
+
+if ! grep -q '<policy user="iot">' bluetooth.conf
+then
+    echo add user iot to bluetooth.conf on host
+    mount -o remount,rw /
+    cp /etc/passwd /etc/passwd.bak
+    echo 'iot:x:1000:100::/home/iot:/bin/sh' >>/etc/passwd
+    cp bluetooth.conf bluetooth.conf.bak
+    sed -i 's|</busconfig>|  <policy user="iot"> \
+    <allow own="org.bluez"/> \
+    <allow send_destination="org.bluez"/> \
+    <allow send_interface="org.bluez.GattCharacteristic1"/> \
+    <allow send_interface="org.bluez.GattDescriptor1"/> \
+    <allow send_interface="org.freedesktop.DBus.ObjectManager"/> \
+    <allow send_interface="org.freedesktop.DBus.Properties"/> \
+  </policy> \
+</busconfig>|' bluetooth.conf
+fi
+echo bluetooth enabled for user iot
+EOF

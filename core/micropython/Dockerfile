@@ -23,10 +23,12 @@ RUN apt-get update --yes \
 # gpio without root
 COPY 99-com.rules /etc/udev/rules.d/
 COPY start-hook.sh /usr/local/bin/
+COPY enable-bluetooth /usr/local/bin/
 COPY env49rc.default /usr/local/src/
 
 # gpio permissions
-RUN groupadd gpio \
+RUN chmod a+x /usr/local/bin/enable-bluetooth \
+ && groupadd gpio \
  && usermod -a -G gpio,bluetooth iot
 
 USER ${NB_UID}
