@@ -29,7 +29,7 @@ data:
     - DNS_NAME:         "iot49"
     - IOT:              "/home/iot"
     - IOT_PROJECTS:     "/home/iot/projects"
-    - MOSQUITTO:        "off"          # on/off
+    - MOSQUITTO:        "on"           # on/off
     - SAMBA:            "off"          # server/client/off
     - SAMBA_SERVER_IP:  "10.39.40.200"
     - SAMBA_PASSWORD:   "px&(734%3#ksf"

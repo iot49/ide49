@@ -14,8 +14,13 @@
 # time zone
 # export TZ=America/Los_Angeles
 
-# samba configuration
+# samba
 # valid entries for $SAMBA are server / client / off (default)
 # export SAMBA=off
 # export SAMBA_SERVER_IP=10.39.40.200"
 # export SAMBA_PASSWORD="my_super_secret_password_px&(734%3#ksf"
+
+# mosquitto
+# valid entries for $MOSQUITTO are on (default) / off
+# export MOSQUITTO=on
+

@@ -18,6 +18,6 @@ if [ -f $env49rc ]; then
 fi
 
 # start the broker
-if [ ${MOSQUITTO:=off}  == on ]; then
+if [ ${MOSQUITTO:=on}  == on ]; then
     /usr/sbin/mosquitto -c /mosquitto/config/mosquitto.conf
 fi
