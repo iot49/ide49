@@ -1,12 +1,13 @@
 #! /bin/bash
 
 ssh -q -o 'StrictHostKeyChecking no' -p 22222 root@172.17.0.1 << 'EOF'
-cd /etc/dbus-1/system.d
 
-if ! grep -q '<policy user="iot">' bluetooth.conf
+if [ -f /etc/dbus-1/system.d/bluetooth.conf ] \
+&& ! grep -q '<policy user="iot">' /etc/dbus-1/system.d/bluetooth.conf
 then
     echo add user iot to bluetooth.conf on host
     mount -o remount,rw /
+    cd /etc/dbus-1/system.d
     cp /etc/passwd /etc/passwd.bak
     echo 'iot:x:1000:100::/home/iot:/bin/sh' >>/etc/passwd
     cp bluetooth.conf bluetooth.conf.bak
