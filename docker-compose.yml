@@ -55,6 +55,8 @@ services:
             - wireshark-config:/service-config/wireshark
         expose:
             - 8888
+        depends_on:
+            - smb
 
     # https://blog.linuxserver.io/2019/09/14/customizing-our-containers/
     code-server:
@@ -75,6 +77,8 @@ services:
             - wireshark-config:/service-config/wireshark
         expose:
             - 8443
+        depends_on:
+            - smb
 
     duplicati:
         build: ./core/duplicati
@@ -142,6 +146,8 @@ services:
             - JUPYTER_PORT=8889
         expose:
             - 8889
+        depends_on:
+            - smb
 
     # Soon for aarch64: https://github.com/espressif/esp-idf/issues/6432
     esp-idf:
@@ -158,6 +164,8 @@ services:
             - JUPYTER_PORT=8890
         expose:
             - 8890
+        depends_on:
+            - smb
                         
     balena-cli:
         build: ./plugins/balena-cli
@@ -176,3 +184,5 @@ services:
         depends_on:
             # do not start early, may set wrong owner on .local
             - micropython
+        depends_on:
+            - smb
