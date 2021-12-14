@@ -10,8 +10,7 @@ then
     cd /etc/dbus-1/system.d
     cp /etc/passwd /etc/passwd.bak
     echo 'iot:x:1000:100::/home/iot:/bin/sh' >>/etc/passwd
-    cp bluetooth.conf bluetooth.conf.bak
-    sed -i 's|</busconfig>|  <policy user="iot"> \
+    sed -i.bak 's|</busconfig>|  <policy user="iot"> \
     <allow own="org.bluez"/> \
     <allow send_destination="org.bluez"/> \
     <allow send_interface="org.bluez.GattCharacteristic1"/> \

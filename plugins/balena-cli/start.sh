@@ -47,6 +47,9 @@ export JUPYTER_PATH=${jconfig}/.local
 # separate runtime directory for each service
 export JUPYTER_RUNTIME_DIR=${jconfig}
 
+# sqlite database
+export IPYTHONDIR=${jconfig}/.ipython
+
 jupyter --path
 jupyter lab path
 

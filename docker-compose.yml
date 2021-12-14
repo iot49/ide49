@@ -184,5 +184,4 @@ services:
         depends_on:
             # do not start early, may set wrong owner on .local
             - micropython
-        depends_on:
             - smb
