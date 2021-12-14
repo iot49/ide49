@@ -38,8 +38,9 @@ fi
 jconfig=/service-config/iot-home/.config-jupyter/$BALENA_SERVICE_NAME
 mkdir -p ${jconfig}
 
-# share config between services, default: ~/.jupyter
-export JUPYTER_CONFIG_DIR=/service-config/iot-home/.jupyter
+# don't share config between services (?)
+export JUPYTER_CONFIG_DIR=${jconfig}/.jupyter
+# export JUPYTER_CONFIG_DIR=/service-config/iot-home/.jupyter
 
 # kernelspec, default: ~/.local/share/jupyter/
 export JUPYTER_PATH=${jconfig}/.local

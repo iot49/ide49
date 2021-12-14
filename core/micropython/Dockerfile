@@ -64,5 +64,4 @@ RUN pip install --default-timeout=1000 \
 RUN echo "force rebuild 2021-12-09" \
  && pip install iot-kernel \
  && python -m iot_kernel.install \
- && fix-permissions "${CONDA_DIR}" \
- && fix-permissions "/home/${NB_USER}"
+ && fix-permissions "${CONDA_DIR}"
