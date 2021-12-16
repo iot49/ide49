@@ -41,8 +41,8 @@ C = US
 ST = CA
 L = San Francisco
 O = Electronics for IoT
-OU = iot49
-CN = iot49
+OU = iot49-${DNS_NAME}
+CN = iot49-${DNS_NAME}
 [v3_req]
 keyUsage = critical, digitalSignature, keyAgreement
 extendedKeyUsage = serverAuth
