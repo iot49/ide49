@@ -112,6 +112,8 @@ services:
     mosquitto:
         build: ./plugins/mosquitto
         restart: unless-stopped
+        labels:
+            io.balena.features.supervisor-api: 1
         volumes:
             - mosquitto-config:/mosquitto
         ports: 
