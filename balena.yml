@@ -35,6 +35,9 @@ data:
     - SAMBA_PASSWORD:   "px&(734%3#ksf"
     - IDF_CHECKOUT_REF: "v4.4"
     - TZ:               "America/Los_Angeles"
+build-variables:
+  global:
+    - IOT49_VERSION:    "1.0.0rc1"
   # https://www.balena.io/docs/reference/hardware/devices/
   defaultDeviceType: raspberrypi4-64
   supportedDeviceTypes:
