@@ -6,19 +6,34 @@ ENV DEBIAN_FRONTEND=noninteractive
 RUN apt-get update --yes \
  && apt-get install --yes --no-install-recommends \
     apache2-utils \
-    bluez \
     build-essential \
     dbus \
     exfat-fuse \
     exfat-utils \
     jq \
+    # bluez dependencies
+    libusb-dev libdbus-1-dev libglib2.0-dev libudev-dev \
+    libical-dev libreadline-dev \
     # used by rust (speeds up linking)
     lld \
     mosquitto-clients \
     picocom \
+    # bluez
+    python-docutils \
     subversion \
     usbutils \
  && apt-get clean && rm -rf /var/lib/apt/lists/*
+
+# compile & install bluez > 5.50
+# https://github.com/bluez/bluez
+WORKDIR /tmp
+RUN curl -L -o bluez.tar.xz https://www.kernel.org/pub/linux/bluetooth/bluez-5.63.tar.xz \
+ && tar xvf bluez.tar.xz \
+ && cd bluez-5.63 \
+ && ./configure --disable-systemd \
+ && make \
+ && make install \
+ && rm -rf ../bluez-5.63
 
 # gpio without root
 COPY 99-com.rules /etc/udev/rules.d/
@@ -26,8 +41,9 @@ COPY start-hook.sh /usr/local/bin/
 COPY enable-bluetooth /usr/local/bin/
 COPY env49rc.default /usr/local/src/
 
-# gpio permissions
+# bluetooth & gpio permissions
 RUN chmod a+x /usr/local/bin/enable-bluetooth \
+ && groupadd bluetooth \
  && groupadd gpio \
  && usermod -a -G gpio,bluetooth iot
 
