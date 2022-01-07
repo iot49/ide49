@@ -33,7 +33,8 @@ RUN curl -L -o bluez.tar.xz https://www.kernel.org/pub/linux/bluetooth/bluez-5.6
  && ./configure --disable-systemd \
  && make \
  && make install \
- && rm -rf ../bluez-5.63
+ && rm -rf ../bluez*
+WORKDIR ${HOME}
 
 # gpio without root
 COPY 99-com.rules /etc/udev/rules.d/
