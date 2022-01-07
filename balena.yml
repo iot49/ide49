@@ -40,6 +40,8 @@ data:
   supportedDeviceTypes:
     - raspberrypi4-64
     - raspberrypi3-64
+    - intel-nuc
+    - generic-aarch64
     - genericx86-64-ext
 version: 1.0.0
 
