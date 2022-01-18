@@ -67,7 +67,7 @@ RUN mamba install --quiet --yes \
 
 # These are not on conda
 RUN pip install --default-timeout=1000 \
-    RPi.Gpio \
+    asyncio-mqtt \
     bleak \
     esptool \
     ghp-import \
@@ -75,6 +75,7 @@ RUN pip install --default-timeout=1000 \
     # not available on conda for linux64
     jupyter-book \
     nest_asyncio \
+    RPi.Gpio \
     rshell
 
 # iot_kernel (micropython)
