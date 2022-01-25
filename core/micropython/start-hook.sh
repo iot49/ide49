@@ -11,12 +11,12 @@ if [ -e /dev/gpiomem ]; then
 EOF
 fi
 
-# set $HOST_IP
-until [ $HOST_IP ]; do
+# set ${HOST_IP}
+while [ -z ${HOST_IP} ]; do
     export HOST_IP=$(curl -s -X GET --header "Content-Type:application/json" \
             "$BALENA_SUPERVISOR_ADDRESS/v1/device?apikey=$BALENA_SUPERVISOR_API_KEY" | \
             jq -r ".ip_address")
-    echo IP $HOST_IP
+    echo IP ${HOST_IP}
 done
 
 # template for customizing device environment
