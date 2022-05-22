@@ -38,6 +38,9 @@ fi
 if findmnt -rno SOURCE,TARGET $DEVNAME >/dev/null; then
     echo "Device $DEVNAME is already mounted!" >> /usr/src/mount.log
 else
+    # should we remove $MOUNT_POINT in case not unmounted correctly?
+    # had this issue once with the result of the drive no longer being mounted -> no backups!
+    # rm -rf $MOUNT_POINT
     echo "Mounting - Source: $DEVNAME - Destination: $MOUNT_POINT" >> /usr/src/mount.log
     mkdir -p $MOUNT_POINT
     mount -t $ID_FS_TYPE -o rw $DEVNAME $MOUNT_POINT
