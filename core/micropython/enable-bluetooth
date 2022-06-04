@@ -1,6 +1,7 @@
 #! /bin/bash
 
-ssh -q -o 'StrictHostKeyChecking no' -p 22222 root@172.17.0.1 << 'EOF'
+# ssh -q -o 'StrictHostKeyChecking no' -p 22222 root@172.17.0.1 << 'EOF'
+ssh -q -o 'StrictHostKeyChecking no' -p 22222 root@172.19.0.1 << 'EOF'
 
 if [ -f /etc/dbus-1/system.d/bluetooth.conf ] \
 && ! grep -q '<policy user="iot">' /etc/dbus-1/system.d/bluetooth.conf
