@@ -1,5 +1,8 @@
 # /etc/nginx/nginx.conf
 
+# NOTE: nginx.conf generated automatically from nginx.template
+#       edit nginx.template, NOT nginx.conf!
+
 user                                nginx;
 worker_processes                    1;
 
@@ -52,8 +55,8 @@ http {
 
         # MicroPython Development (Jupyter)
         location /micropython/ {
-            # proxy for network_mode: host - address changed from 172.17.0.1 to 172.19.0.1 ???
-            proxy_pass              http://172.19.0.1:8888;
+            # host ip set dynamically!
+            proxy_pass              http://HOST_IP:8888;
             proxy_redirect          off;
             proxy_set_header        Host $host;
 

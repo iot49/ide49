@@ -25,9 +25,13 @@ if [[ ! -f /etc/nginx/.config_v1 ]]; then
     cp -r /usr/local/src/nginx/* /etc/nginx/
     chown -R 1000:100 /etc/nginx/html
     cp /etc/nginx/htpasswd /etc/nginx/htpasswd.default
-    cp /etc/nginx/nginx.conf /etc/nginx/nginx.conf.default
+    cp /etc/nginx/nginx.template /etc/nginx/nginx.template.default
     echo 'nginx config v1 installed' >/etc/nginx/.config_v1
 fi
+
+# set correct host IP in nginx.conf
+host_ip=`ip route | awk '{print $3}' | head -n 1`
+sed "s/HOST_IP/$host_ip/g" /etc/nginx/nginx.template > /etc/nginx/nginx.conf
 
 # configuration for self-signed certificate
 mkdir -p /etc/nginx/ssl
