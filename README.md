@@ -11,3 +11,14 @@ Running this project is as simple as deploying it to a balenaCloud application. 
 ## Documentation
 
 [iot49 - Electronics for IoT](https://iot49.org)
+
+## Build
+
+To build a new release, open the `Balena Command Line Tools` container and run the following code:
+
+```bash
+cd ~/ide49
+balena push <FLEET>
+```
+
+Substitute `<FLEET>` with the name of your fleet (app) on the balena cloud. E.g. `ide49` or `ide49-amd64`.
