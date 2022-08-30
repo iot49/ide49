@@ -1,4 +1,4 @@
-FROM ttmetro/ide49-base-notebook
+FROM ttmetro/ide49-base-notebook:16e657891e86
 
 USER root
 
