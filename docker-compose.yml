@@ -1,189 +1,246 @@
-version: '2'
+# MACHINE GENERATED from roulotte - DO NOT EDIT
 
-# located @ /mnt/data/docker/volumes
+version: 2
 volumes:
-    iot-home:
-    code-server-config:
-    duplicati-config:
-    nginx-config:
-    mosquitto-config:
-    wireshark-config:
-
+  influxdb2:
+  wireshark:
+  plex-media:
+  www:
+  homeassistant:
+  esphome:
+  config:
+  duplicati:
+  code-server:
+  iot-home:
+  mosquitto:
+  plex:
+  nginx:
+  grafana:
 services:
-
-    nginx:
-        build: ./core/nginx
-        restart: unless-stopped
-        privileged: true
-        labels:
-            io.balena.features.supervisor-api: 1
-        volumes:
-            - iot-home:/home/iot
-            - nginx-config:/etc/nginx
-        ports:
-            - 80:80
-            - 443:443
-        depends_on:
-            - micropython
-            - code-server
-            - duplicati
-            - wireshark
-            - arm32
-            - esp-idf
-            - balena-cli
-
-    micropython:
-        build: ./core/micropython
-        restart: unless-stopped
-        privileged: true
-        # required for prototyping web services (e.g. httpd) and bluetooth
-        network_mode: host
-        labels:
-            io.balena.features.dbus: 1
-            io.balena.features.supervisor-api: 1
-        environment:
-            # for dbus-send
-            - DBUS_SYSTEM_BUS_ADDRESS=unix:path=/host/run/dbus/system_bus_socket
-        volumes:
-            - iot-home:/home/iot
-            # never shadowed by cifs mount
-            - iot-home:/service-config/iot-home
-            - code-server-config:/service-config/code-server
-            - duplicati-config:/service-config/duplicati
-            - nginx-config:/service-config/nginx
-            - mosquitto-config:/service-config/mosquitto
-            - wireshark-config:/service-config/wireshark
-        expose:
-            - 8888
-        depends_on:
-            - smb
-
-    # https://blog.linuxserver.io/2019/09/14/customizing-our-containers/
-    code-server:
-        build: ./core/code-server
-        restart: unless-stopped
-        privileged: true
-        environment:
-            - PUID=1000
-            - PGID=1000
-        volumes:
-            - code-server-config:/config
-            - iot-home:/config/workspace
-            - iot-home:/service-config/iot-home
-            - code-server-config:/service-config/code-server
-            - duplicati-config:/service-config/duplicati
-            - nginx-config:/service-config/nginx
-            - mosquitto-config:/service-config/mosquitto
-            - wireshark-config:/service-config/wireshark
-        expose:
-            - 8443
-        depends_on:
-            - smb
-
-    duplicati:
-        build: ./core/duplicati
-        restart: unless-stopped
-        privileged: true
-        environment:
-            - PUID=0
-            - PGID=0
-            - CLI_ARGS=--webservice-interface=any
-        volumes:
-            - duplicati-config:/config
-            - iot-home:/service-config/iot-home
-            - code-server-config:/service-config/code-server
-            - duplicati-config:/service-config/duplicati
-            - nginx-config:/service-config/nginx
-            - mosquitto-config:/service-config/mosquitto
-            - wireshark-config:/service-config/wireshark
-        expose:
-            - 8200
-
-    smb:
-        build: ./plugins/smb
-        restart: unless-stopped
-        privileged: true
-        volumes:
-            - iot-home:/home/iot
-        ports:
-            - 139:139
-            - 445:445
-
-    mosquitto:
-        build: ./plugins/mosquitto
-        restart: unless-stopped
-        labels:
-            io.balena.features.supervisor-api: 1
-        volumes:
-            - mosquitto-config:/mosquitto
-        ports: 
-            - 1883:1883  # mqtt
-            - 9001:9001  # mqtt over websockets
-            - 8883:8883  # secure mqtt
-            - 9002:9002  # secure mqtt over websockets
-
-    wireshark:
-        image: linuxserver/wireshark:2.4.5
-        # required to monitor docker network traffic
-        network_mode: host
-        restart: unless-stopped
-        cap_add:
-            - NET_ADMIN
-        environment:
-            - PUID=1000
-            - PGID=1000
-        volumes:
-            - wireshark-config:/config
-        expose:
-            - 3000
-      
-    arm32:
-        build: ./plugins/arm32
-        restart: unless-stopped
-        privileged: true
-        volumes:
-            - iot-home:/home/iot
-            - iot-home:/service-config/iot-home
-        environment:
-            - JUPYTER_PORT=8889
-        expose:
-            - 8889
-        depends_on:
-            - smb
-
-    # Soon for aarch64: https://github.com/espressif/esp-idf/issues/6432
-    esp-idf:
-        build: 
-            context: ./plugins/esp-idf
-            args:
-                IDF_CHECKOUT_REF: v4.3.1
-        restart: unless-stopped
-        privileged: true
-        volumes:
-            - iot-home:/home/iot
-            - iot-home:/service-config/iot-home
-        environment:
-            - JUPYTER_PORT=8890
-        expose:
-            - 8890
-        depends_on:
-            - smb
-                        
-    balena-cli:
-        build: ./plugins/balena-cli
-        restart: unless-stopped
-        privileged: true
-        labels:
-            io.balena.features.supervisor-api: 1
-        environment:
-            - JUPYTER_PORT=8891
-            - SHELL=/bin/bash
-        volumes:
-            - iot-home:/home/iot
-            - iot-home:/service-config/iot-home
-        expose:
-            - 8891
-        depends_on:
-            # do not start early, may set wrong owner on .local
-            - micropython
-            - smb
+  config:
+    build: services/config
+    restart: unless-stopped
+    labels:
+      io.balena.features.supervisor-api: 1
+    volumes:
+    - config:/service-config/config
+  nginx:
+    build: services/nginx
+    restart: unless-stopped
+    privileged: true
+    labels:
+      io.balena.features.supervisor-api: 1
+    ports:
+    - 80:80
+    - 443:443
+    depends_on:
+    - config
+    - jupyter
+    volumes:
+    - nginx:/etc/nginx
+    - www:/service-config/www
+  jupyter:
+    build: services/jupyter
+    restart: unless-stopped
+    privileged: true
+    network_mode: host
+    labels:
+      io.balena.features.dbus: 1
+      io.balena.features.supervisor-api: 1
+    environment:
+    - DBUS_SYSTEM_BUS_ADDRESS=unix:path=/host/run/dbus/system_bus_socket
+    - JUPYTER_PORT=8888
+    volumes:
+    - iot-home:/home/iot
+    - influxdb2:/service-config/influxdb2
+    - wireshark:/service-config/wireshark
+    - plex-media:/service-config/plex-media
+    - www:/service-config/www
+    - homeassistant:/service-config/homeassistant
+    - esphome:/service-config/esphome
+    - config:/service-config/config
+    - duplicati:/service-config/duplicati
+    - code-server:/service-config/code-server
+    - iot-home:/service-config/iot-home
+    - mosquitto:/service-config/mosquitto
+    - plex:/service-config/plex
+    - nginx:/service-config/nginx
+    - grafana:/service-config/grafana
+    expose:
+    - 8888
+  code-server:
+    build: services/code-server
+    restart: unless-stopped
+    privileged: true
+    environment:
+    - PUID=1000
+    - PGID=1000
+    volumes:
+    - code-server:/config
+    - iot-home:/config/workspace
+    - influxdb2:/service-config/influxdb2
+    - wireshark:/service-config/wireshark
+    - plex-media:/service-config/plex-media
+    - www:/service-config/www
+    - homeassistant:/service-config/homeassistant
+    - esphome:/service-config/esphome
+    - config:/service-config/config
+    - duplicati:/service-config/duplicati
+    - code-server:/service-config/code-server
+    - iot-home:/service-config/iot-home
+    - mosquitto:/service-config/mosquitto
+    - plex:/service-config/plex
+    - nginx:/service-config/nginx
+    - grafana:/service-config/grafana
+    expose:
+    - 8443
+    depends_on:
+    - config
+  duplicati:
+    build: services/duplicati
+    restart: unless-stopped
+    privileged: true
+    environment:
+    - PUID=0
+    - PGID=0
+    - CLI_ARGS=--webservice-interface=any
+    volumes:
+    - duplicati:/config
+    - influxdb2:/service-config/influxdb2
+    - wireshark:/service-config/wireshark
+    - plex-media:/service-config/plex-media
+    - www:/service-config/www
+    - homeassistant:/service-config/homeassistant
+    - esphome:/service-config/esphome
+    - config:/service-config/config
+    - duplicati:/service-config/duplicati
+    - code-server:/service-config/code-server
+    - iot-home:/service-config/iot-home
+    - mosquitto:/service-config/mosquitto
+    - plex:/service-config/plex
+    - nginx:/service-config/nginx
+    - grafana:/service-config/grafana
+    expose:
+    - 8200
+  smb:
+    build: services/smb
+    restart: unless-stopped
+    privileged: true
+    volumes:
+    - influxdb2:/service-config/influxdb2
+    - wireshark:/service-config/wireshark
+    - plex-media:/service-config/plex-media
+    - www:/service-config/www
+    - homeassistant:/service-config/homeassistant
+    - esphome:/service-config/esphome
+    - config:/service-config/config
+    - duplicati:/service-config/duplicati
+    - code-server:/service-config/code-server
+    - iot-home:/service-config/iot-home
+    - mosquitto:/service-config/mosquitto
+    - plex:/service-config/plex
+    - nginx:/service-config/nginx
+    - grafana:/service-config/grafana
+    ports:
+    - 139:139
+    - 445:445
+  mosquitto:
+    build: services/mosquitto
+    restart: unless-stopped
+    labels:
+      io.balena.features.supervisor-api: 1
+    ports:
+    - 1883:1883
+    - 9001:9001
+    - 8883:8883
+    - 9002:9002
+    volumes:
+    - mosquitto:/mosquitto
+  wireshark:
+    image: linuxserver/wireshark:2.4.5
+    network_mode: host
+    restart: unless-stopped
+    cap_add:
+    - NET_ADMIN
+    environment:
+    - PUID=1000
+    - PGID=1000
+    expose:
+    - 3000
+    volumes:
+    - wireshark:/config
+  balena-cli:
+    build: services/balena-cli
+    restart: unless-stopped
+    privileged: true
+    labels:
+      io.balena.features.supervisor-api: 1
+    environment:
+    - JUPYTER_PORT=8891
+    - SHELL=/bin/bash
+    volumes:
+    - iot-home:/home/iot
+    - iot-home:/service-config/iot-home
+    expose:
+    - 8891
+    depends_on:
+    - jupyter
+  plex:
+    image: lscr.io/linuxserver/plex:latest
+    restart: unless-stopped
+    privileged: true
+    network_mode: host
+    volumes:
+    - plex:/config
+    - plex-media:/service-config/plex-media
+    environment:
+    - PUID=1000
+    - PGID=1000
+    - VERSION=docker
+  homeassistant:
+    build: services/homeassistant
+    restart: unless-stopped
+    privileged: true
+    network_mode: host
+    environment:
+    - USER=iot
+    - PUID=1000
+    - PGID=1000
+    - UMASK=007
+    - DBUS_SYSTEM_BUS_ADDRESS=unix:path=/host/run/dbus/system_bus_socket
+    labels:
+      io.balena.features.dbus: 1
+    expose:
+    - 8123
+    volumes:
+    - homeassistant:/config
+    - config:/service-config/config
+  esphome:
+    image: esphome/esphome
+    restart: unless-stopped
+    privileged: true
+    network_mode: host
+    volumes:
+    - esphome:/config
+  grafana:
+    image: grafana/grafana-oss
+    restart: unless-stopped
+    ports:
+    - 3001:3000
+    volumes:
+    - grafana:/var/lib/grafana
+  influxdb:
+    container_name: influxdb
+    image: influxdb:2.4
+    environment:
+    - DOCKER_INFLUXDB_INIT_MODE=setup
+    - DOCKER_INFLUXDB_INIT_USERNAME=hass
+    - DOCKER_INFLUXDB_INIT_PASSWORD=h@rd_gue$$
+    - DOCKER_INFLUXDB_INIT_ORG=hass
+    - DOCKER_INFLUXDB_INIT_BUCKET=homeassistant
+    - DOCKER_INFLUXDB_INIT_ADMIN_TOKEN=yu*&ljasgf24Au
+    ports:
+    - 8086:8086
+    restart: unless-stopped
+    volumes:
+    - influxdb2:/var/lib/influxdb2

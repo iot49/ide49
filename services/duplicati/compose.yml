@@ -1,0 +1,13 @@
+duplicati:
+    build: .
+    restart: unless-stopped
+    privileged: true
+    environment:
+        - PUID=0
+        - PGID=0
+        - CLI_ARGS=--webservice-interface=any
+    volumes:
+        - duplicati:/config
+        - ALL:/service-config
+    expose:
+        - 8200

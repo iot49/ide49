@@ -1,0 +1,29 @@
+FROM alpine as build
+
+LABEL description="Build container - add_hostname to /etc/hosts"
+
+RUN apk add --no-cache gcc musl-dev
+
+WORKDIR /tmp
+COPY add_hostname.c .
+RUN gcc -o add_hostname add_hostname.c
+
+FROM balenalib/%%BALENA_ARCH%%-alpine
+
+RUN apk update \
+ && apk add --no-cache \
+    bash \
+    jq \
+    nano \
+    rsync
+
+COPY conf /usr/local/src/config
+
+# add_hostname to /etc/host
+# setuid on add_hostname to permit running as root
+COPY --from=build /tmp/add_hostname /usr/local/src/config/bin
+RUN chmod u+xs /usr/local/src/config/bin/add_hostname
+
+COPY start.sh /usr/local/bin
+
+CMD [ "/bin/bash", "/usr/local/bin/start.sh" ]

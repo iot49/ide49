@@ -1,3 +1,7 @@
-# ignore .git and .cache folders
+# ignore .git and .cache folders + turds
 .git
 .cache
+.DS_Store
+.ipynb_checkpoints
+*.ipynb
+._*

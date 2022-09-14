@@ -1,0 +1,7 @@
+#! /bin/bash
+
+root=/service-config
+
+find $root -name "._*"                2>/dev/null
+find $root -name ".DS_Store"          2>/dev/null
+find $root -name ".ipynb_checkpoints" 2>/dev/null

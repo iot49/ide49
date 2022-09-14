@@ -1,0 +1,15 @@
+code-server:
+    build: .
+    restart: unless-stopped
+    privileged: true
+    environment:
+        - PUID=1000
+        - PGID=1000
+    volumes:
+        - code-server:/config
+        - iot-home:/config/workspace
+        - ALL:/service-config
+    expose:
+        - 8443
+    depends_on:
+        - config

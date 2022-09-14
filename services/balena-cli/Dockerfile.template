@@ -1,0 +1,35 @@
+# Outdated node v12 has problems with newer base
+# FROM balenalib/%%BALENA_ARCH%%-ubuntu-python:3.10-kinetic-build
+
+FROM balenalib/%%BALENA_ARCH%%-debian-python:3.8-buster-build
+
+# TODO: switch to ttmetro/base-notebook
+#       requires downgrading npm and node
+#       node: '>=10.20.0 <13.0.0', npm: '<7.0.0'
+
+# Install balena cli
+# https://github.com/balena-io/balena-cli/blob/master/INSTALL-ADVANCED.md#npm-installation
+
+# Install system packages
+# node: '>=10.20.0 <13.0.0', npm: '<7.0.0'
+RUN curl -sL https://deb.nodesource.com/setup_12.x | sudo bash - \
+ && install_packages cifs-utils nodejs
+
+# balena command line tools
+# RUN echo "bust cache to upgrade"
+RUN npm install balena-cli -g --production --unsafe-perm && npm cache verify && rm -rf /tmp/*
+
+COPY ./requirements.txt requirements.txt
+RUN pip install --upgrade pip \
+ && pip install --default-timeout=1000 -r requirements.txt \
+ && rm requirements.txt
+
+# Create user iot and copy startup script
+COPY ./start.sh /usr/local/bin/start.sh
+RUN chmod a+rx /usr/local/bin/start.sh \
+ && useradd -m -s /bin/bash -g users -u 1000 iot \
+ && echo 'iot ALL=(ALL) NOPASSWD:ALL' | EDITOR='tee -a' visudo
+
+USER iot
+WORKDIR /home/iot
+CMD [ "/bin/bash", "/usr/local/bin/start.sh" ]

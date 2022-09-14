@@ -1,0 +1,22 @@
+homeassistant:
+    build: .
+    restart: unless-stopped
+    privileged: true
+    network_mode: host
+    environment:
+        # https://github.com/tribut/homeassistant-docker-venv
+        # don't change USER (`iot` is required for bluetooth to work)
+        - USER=iot
+        - PUID=1000
+        - PGID=1000
+        - UMASK=007
+        # for dbus-send
+        # see https://forums.balena.io/t/issues-with-dbus-in-generic-aarch64-image/259847
+        - DBUS_SYSTEM_BUS_ADDRESS=unix:path=/host/run/dbus/system_bus_socket
+    labels:
+        io.balena.features.dbus: 1
+    expose:
+        - 8123
+    volumes:
+        - homeassistant:/config
+        - config:/service-config/config

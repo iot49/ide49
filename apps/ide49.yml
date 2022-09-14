@@ -1,0 +1,11 @@
+app:
+
+  services:
+    - config
+    - nginx
+    - jupyter
+    - homeassistant
+
+  fleets:
+    - ide49
+    - ide49-amd64

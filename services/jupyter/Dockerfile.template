@@ -1,0 +1,88 @@
+FROM ttmetro/%%BALENA_ARCH%%-scipy-notebook:ubuntu-22.04
+
+USER root
+
+ENV DEBIAN_FRONTEND=noninteractive
+RUN apt-get update --yes \
+ && apt-get install --yes --no-install-recommends \
+    apache2-utils \
+    build-essential \
+    dbus \
+    exfat-fuse \
+    exfatprogs \
+    jq \
+    # bluez dependencies
+    libusb-dev libdbus-1-dev libglib2.0-dev libudev-dev \
+    libical-dev libreadline-dev \
+    # used by rust (speeds up linking)
+    lld \
+    mosquitto-clients \
+    picocom \
+    subversion \
+    usbutils \
+    # arm32 build tools
+    libffi-dev pkg-config libnewlib-arm-none-eabi gcc-arm-none-eabi \
+    python3-usb \
+    dfu-util \
+ && apt-get clean && rm -rf /var/lib/apt/lists/*
+
+# compile & install bluez > 5.50
+# https://github.com/bluez/bluez
+WORKDIR /tmp
+RUN curl -L -o bluez.tar.xz https://www.kernel.org/pub/linux/bluetooth/bluez-5.63.tar.xz \
+ && tar xvf bluez.tar.xz \
+ && cd bluez-5.63 \
+ && ./configure --disable-systemd --disable-manpages \
+ && make \
+ && make install \
+ && rm -rf ../bluez*
+WORKDIR ${HOME}
+
+# gpio without root
+COPY udev-rules /etc/udev/rules.d/
+COPY bin /usr/local/bin
+
+# bluetooth & gpio permissions
+# Note: also run enable_bluetooth in start-hook!
+RUN chmod a+x /usr/local/bin/*sh \
+ && groupadd bluetooth \
+ && groupadd gpio \
+ && usermod -a -G gpio,bluetooth iot
+
+USER ${NB_UID}
+
+# Install Python 3 packages
+RUN mamba install --quiet --yes \
+    cmake \
+    dbus-python \
+    jupyter_bokeh \
+    jupyterlab-spellchecker \
+    paho-mqtt \
+    pynacl \
+    pytest \
+    pytest-ordering \
+    pyusb \
+    rsync \
+    twine \
+ && mamba clean --quiet --all -f -y
+
+# These are not on conda
+RUN pip install --default-timeout=1000 \
+    asyncio-mqtt \
+    bleak \
+    ghp-import \
+    gpiozero \
+    hass_pyscript_kernel \
+    iot-kernel \
+    # not available on conda for linux64
+    jupyter-book \
+    joulescope \
+    nest_asyncio \
+    RPi.Gpio \
+    rshell
+    
+RUN python -m iot_kernel.install \
+ && jupyter pyscript install \
+ && fix-permissions "${CONDA_DIR}"
+
+ENV BALENA_RELEASE_HASH=%%BALENA_RELEASE_HASH%%

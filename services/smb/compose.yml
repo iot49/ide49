@@ -1,0 +1,9 @@
+smb:
+    build: .
+    restart: unless-stopped
+    privileged: true
+    volumes:
+        - ALL:/service-config
+    ports:
+        - 139:139
+        - 445:445

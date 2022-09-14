@@ -1,0 +1,7 @@
+esphome:
+    image: esphome/esphome
+    restart: unless-stopped
+    privileged: true
+    network_mode: host
+    volumes:
+        - esphome:/config
