@@ -107,7 +107,7 @@ fi
 #
 
 secrets_link=/service-config/config/secrets.yaml
-[[ ! -f ${secrets_link} ]] && ln -s ${secrets_link}
+[[ ! -L ${secrets_link} ]] && ln -s ${secrets_link}
 
 #
 # Run homeassistant
