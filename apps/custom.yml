@@ -15,9 +15,8 @@ app:
     - esphome
     - grafana
     - influxdb
-    # - postgres
+    - postgres
 
   fleets:
-    - test-app
-    # - custom
-    # - roulotte
+    # - test-app
+    - custom

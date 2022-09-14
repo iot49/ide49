@@ -20,3 +20,5 @@ homeassistant:
     volumes:
         - homeassistant:/config
         - config:/service-config/config
+    depends_on:
+        - config

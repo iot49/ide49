@@ -18,6 +18,10 @@ set -a; [[ -f ${env_file} ]] && source ${env_file}; set +a
 # (conditionally) mount $HOME
 sudo /bin/bash -c "HOME=${HOME}; source ${config_dir}/bin/samba-mount"
 
+# add to group 2000 to give write permission to /service-config/config
+groupadd config -g 2000
+usermod -a -G config abc
+
 # Note: /config/custom-cont-init.d executed (if it exists) when code-server starts
 
 sleep infinity

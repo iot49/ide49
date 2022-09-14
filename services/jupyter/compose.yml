@@ -16,3 +16,5 @@ jupyter:
         - ALL:/service-config
     expose:
         - 8888
+    depends_on:
+        - config

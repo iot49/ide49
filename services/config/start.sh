@@ -2,13 +2,18 @@
 
 # install default configuration if no configuration found
 
-config_dir=/service-config/config
+cd /service-config/config
 
-rsync --update -a /usr/local/src/config/. ${config_dir}
-chmod a+rx ${config_dir}/bin
+rsync --update -a /usr/local/src/config/. .
 
 # make sure we have a secrets file
-touch ${config_dir}/secrets.yaml
+touch secrets.yaml
+
+# fix permissions
+addgroup -g 2000 config
+chown -R root:config .
+chmod -R g+w .
+chmod -R a+rx bin
 
 # keep the serive running forever ...
 sleep infinity
