@@ -19,6 +19,10 @@ RUN curl -sL https://deb.nodesource.com/setup_12.x | sudo bash - \
 # RUN echo "bust cache to upgrade"
 RUN npm install balena-cli -g --production --unsafe-perm && npm cache verify && rm -rf /tmp/*
 
+RUN apt-get update --yes \
+ && apt-get install --yes --no-install-recommends \
+    rsync
+
 COPY ./requirements.txt requirements.txt
 RUN pip install --upgrade pip \
  && pip install --default-timeout=1000 -r requirements.txt \
