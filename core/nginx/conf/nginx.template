@@ -47,8 +47,8 @@ http {
         ssl_certificate_key         /etc/nginx/ssl/cert.key;
 
         # password authentication (default: iot49/iot49)
-        auth_basic                  "iot49: Electronics for IoT";
-        auth_basic_user_file        htpasswd;
+        # auth_basic                  "iot49: Electronics for IoT";
+        # auth_basic_user_file        htpasswd;
 
         # Docker DNS
         resolver                    127.0.0.11;       

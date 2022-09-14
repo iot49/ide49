@@ -24,16 +24,6 @@ RUN apt-get update --yes \
     usbutils \
  && apt-get clean && rm -rf /var/lib/apt/lists/*
 
-# workaround for installing gh
-# https://github.com/cli/cli/issues/6175
-RUN GH_CLI_INSTALL_FILE="/tmp/gh-$$.deb" && \
-    DPKG_ARCH="$(dpkg --print-architecture)" && \
-    URL_REGEX="(?<=href=\")/cli/cli/releases/download/[^\"]*amd64[.]deb(?=\")" && \
-    GH_CLI_INSTALL_FILE_URL=https://github.com$(curl -sSL https://github.com/cli/cli/releases/latest | grep -Po "$URL_REGEX") && \
-    curl -sSLo "$GH_CLI_INSTALL_FILE" "$GH_CLI_INSTALL_FILE_URL" && \
-    apt install -y "$GH_CLI_INSTALL_FILE" && \
-    rm "$GH_CLI_INSTALL_FILE"
-
 # compile & install bluez > 5.50
 # https://github.com/bluez/bluez
 WORKDIR /tmp
