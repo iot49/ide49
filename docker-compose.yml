@@ -2,20 +2,20 @@
 
 version: 2
 volumes:
-  influxdb2:
-  wireshark:
-  plex-media:
-  www:
-  homeassistant:
-  esphome:
-  config:
-  duplicati:
-  code-server:
-  iot-home:
   mosquitto:
+  esphome:
+  www:
+  influxdb2:
   plex:
-  nginx:
+  wireshark:
+  duplicati:
+  homeassistant:
   grafana:
+  iot-home:
+  config:
+  code-server:
+  nginx:
+  plex-media:
 services:
   config:
     build: services/config
@@ -52,20 +52,20 @@ services:
     - JUPYTER_PORT=8888
     volumes:
     - iot-home:/home/iot
-    - influxdb2:/service-config/influxdb2
-    - wireshark:/service-config/wireshark
-    - plex-media:/service-config/plex-media
-    - www:/service-config/www
-    - homeassistant:/service-config/homeassistant
-    - esphome:/service-config/esphome
-    - config:/service-config/config
-    - duplicati:/service-config/duplicati
-    - code-server:/service-config/code-server
-    - iot-home:/service-config/iot-home
     - mosquitto:/service-config/mosquitto
+    - esphome:/service-config/esphome
+    - www:/service-config/www
+    - influxdb2:/service-config/influxdb2
     - plex:/service-config/plex
-    - nginx:/service-config/nginx
+    - wireshark:/service-config/wireshark
+    - duplicati:/service-config/duplicati
+    - homeassistant:/service-config/homeassistant
     - grafana:/service-config/grafana
+    - iot-home:/service-config/iot-home
+    - config:/service-config/config
+    - code-server:/service-config/code-server
+    - nginx:/service-config/nginx
+    - plex-media:/service-config/plex-media
     expose:
     - 8888
   code-server:
@@ -78,20 +78,20 @@ services:
     volumes:
     - code-server:/config
     - iot-home:/config/workspace
-    - influxdb2:/service-config/influxdb2
-    - wireshark:/service-config/wireshark
-    - plex-media:/service-config/plex-media
-    - www:/service-config/www
-    - homeassistant:/service-config/homeassistant
-    - esphome:/service-config/esphome
-    - config:/service-config/config
-    - duplicati:/service-config/duplicati
-    - code-server:/service-config/code-server
-    - iot-home:/service-config/iot-home
     - mosquitto:/service-config/mosquitto
+    - esphome:/service-config/esphome
+    - www:/service-config/www
+    - influxdb2:/service-config/influxdb2
     - plex:/service-config/plex
-    - nginx:/service-config/nginx
+    - wireshark:/service-config/wireshark
+    - duplicati:/service-config/duplicati
+    - homeassistant:/service-config/homeassistant
     - grafana:/service-config/grafana
+    - iot-home:/service-config/iot-home
+    - config:/service-config/config
+    - code-server:/service-config/code-server
+    - nginx:/service-config/nginx
+    - plex-media:/service-config/plex-media
     expose:
     - 8443
     depends_on:
@@ -106,20 +106,20 @@ services:
     - CLI_ARGS=--webservice-interface=any
     volumes:
     - duplicati:/config
-    - influxdb2:/service-config/influxdb2
-    - wireshark:/service-config/wireshark
-    - plex-media:/service-config/plex-media
-    - www:/service-config/www
-    - homeassistant:/service-config/homeassistant
-    - esphome:/service-config/esphome
-    - config:/service-config/config
-    - duplicati:/service-config/duplicati
-    - code-server:/service-config/code-server
-    - iot-home:/service-config/iot-home
     - mosquitto:/service-config/mosquitto
+    - esphome:/service-config/esphome
+    - www:/service-config/www
+    - influxdb2:/service-config/influxdb2
     - plex:/service-config/plex
-    - nginx:/service-config/nginx
+    - wireshark:/service-config/wireshark
+    - duplicati:/service-config/duplicati
+    - homeassistant:/service-config/homeassistant
     - grafana:/service-config/grafana
+    - iot-home:/service-config/iot-home
+    - config:/service-config/config
+    - code-server:/service-config/code-server
+    - nginx:/service-config/nginx
+    - plex-media:/service-config/plex-media
     expose:
     - 8200
   smb:
@@ -127,20 +127,20 @@ services:
     restart: unless-stopped
     privileged: true
     volumes:
-    - influxdb2:/service-config/influxdb2
-    - wireshark:/service-config/wireshark
-    - plex-media:/service-config/plex-media
-    - www:/service-config/www
-    - homeassistant:/service-config/homeassistant
-    - esphome:/service-config/esphome
-    - config:/service-config/config
-    - duplicati:/service-config/duplicati
-    - code-server:/service-config/code-server
-    - iot-home:/service-config/iot-home
     - mosquitto:/service-config/mosquitto
+    - esphome:/service-config/esphome
+    - www:/service-config/www
+    - influxdb2:/service-config/influxdb2
     - plex:/service-config/plex
-    - nginx:/service-config/nginx
+    - wireshark:/service-config/wireshark
+    - duplicati:/service-config/duplicati
+    - homeassistant:/service-config/homeassistant
     - grafana:/service-config/grafana
+    - iot-home:/service-config/iot-home
+    - config:/service-config/config
+    - code-server:/service-config/code-server
+    - nginx:/service-config/nginx
+    - plex-media:/service-config/plex-media
     ports:
     - 139:139
     - 445:445

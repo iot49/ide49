@@ -7,9 +7,6 @@ config_dir=/service-config/config
 env_file=${config_dir}/config/.env
 set -a; [[ -f ${env_file} ]] && source ${env_file}; set +a
 
-# update secrets.yaml
-ln -s ${config_dir}/secrets.yaml
-
 # set user to "iot" enable bluetooth (see micropython service)
 
 USER="${USER:-homeassistant}"
@@ -104,6 +101,13 @@ if [ -n "${UMASK}" ]; then
   bashio::log.info "Setting umask: $UMASK"
   umask "$UMASK"
 fi
+
+#
+# Link to secrets.yaml
+#
+
+secrets_link=/service-config/config/secrets.yaml
+[[ ! -f ${secrets_link} ]] && ln -s ${secrets_link}
 
 #
 # Run homeassistant

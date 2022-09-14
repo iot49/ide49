@@ -19,4 +19,5 @@ app:
 
   fleets:
     - test-app
+    # - custom
     # - roulotte

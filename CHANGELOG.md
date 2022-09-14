@@ -8,8 +8,13 @@ and this project adheres to [Semantic Versioning](http://semver.org/).
 ## [2.0.0rc1] - 2022-09-15
 
 * Modularized build system
-* Centralized configuration @ /service-config/config
-* Centralized secrets @  /service-config/config/secrets.yaml
+    * ./build.sh <app> [--push] [--tag <tag>]: 
+        * create custom `./docker-compose.yml`
+        * build and push with balena-cli
+    * ./apps
+    * ./services
+* Configuration @ /service-config/config
+* Secrets @  /service-config/config/secrets.yaml
  
 ## [] - 2022-08-29
 
