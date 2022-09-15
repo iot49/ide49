@@ -22,7 +22,7 @@ COPY conf /usr/local/src/config
 # add_hostname to /etc/host
 # setuid on add_hostname to permit running as root
 COPY --from=build /tmp/add_hostname /usr/local/src/config/bin
-RUN chmod u+xs /usr/local/src/config/bin/add_hostname
+RUN chmod a+xs /usr/local/src/config/bin/add_hostname
 
 COPY start.sh /usr/local/bin
 
