@@ -12,7 +12,7 @@ bashrc=/config/workspace/.bashrc
 [[ -f ${bashrc} ]] && rsync -a ${bashrc} ~
 
 # device environment (e.g. DNS_NAME)
-env_file=${config_dir}/config/.env
+env_file=${config_dir}/.env
 set -a; [[ -f ${env_file} ]] && source ${env_file}; set +a
 
 # (conditionally) mount $HOME

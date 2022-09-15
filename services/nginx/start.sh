@@ -1,7 +1,7 @@
 #! /bin/bash
 
 # load environment (DNS_NAME, ...)
-env_file=/service-config/config/config/.env
+env_file=/service-config/config/.env
 set -a; [[ -f ${env_file} ]] && source ${env_file}; set +a
 
 # set default dns: iot49.local

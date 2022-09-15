@@ -1,12 +1,5 @@
 #!/bin/bash
 
-function sleep_forever {
-    while : ; do
-        # echo "idling ..."
-        sleep 600
-    done
-}
-
 function setup_user {
     # TODO: check if user exists already to get rid of log message
     #    useradd: user 'iot' already exists
@@ -26,7 +19,7 @@ function main {
         smbd $@
     else
         echo "Samba server disabled"
-        sleep_forever
+        sleep infinity
     fi
 }
 
