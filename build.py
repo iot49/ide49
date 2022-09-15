@@ -40,7 +40,7 @@ class Builder:
         errors = 0
 
         # secrets
-        with open('services/config/conf/secrets.yaml') as file:
+        with open(os.path.expanduser('~/.secrets.yaml')) as file:
             secrets = yaml.safe_load(file)
       
         # services included in app

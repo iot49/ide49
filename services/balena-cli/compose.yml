@@ -10,10 +10,8 @@ balena-cli:
     volumes:
         - iot-home:/home/iot
         - iot-home:/service-config/iot-home
-        - config:/service-config/config
     expose:
         - 8891
     depends_on:
-        - config
         # do not start early, may set wrong owner on .local
         - jupyter

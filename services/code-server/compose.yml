@@ -11,5 +11,3 @@ code-server:
         - ALL:/service-config
     expose:
         - 8443
-    depends_on:
-        - config

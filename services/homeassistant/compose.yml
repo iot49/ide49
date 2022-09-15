@@ -19,6 +19,3 @@ homeassistant:
         - 8123
     volumes:
         - homeassistant:/config
-        - config:/service-config/config
-    depends_on:
-        - config

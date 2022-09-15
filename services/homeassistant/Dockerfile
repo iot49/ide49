@@ -1,5 +1,4 @@
-FROM ghcr.io/home-assistant/home-assistant:stable
-# FROM ghcr.io/home-assistant/home-assistant:rc
+FROM homeassistant/home-assistant:stable
 
 RUN apk add \
     github-cli \

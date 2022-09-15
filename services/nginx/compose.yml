@@ -7,9 +7,7 @@ nginx:
     ports:
         - 80:80
         - 443:443
-    depends_on:
-        - config
-        - jupyter
     volumes:
         - nginx:/etc/nginx
         - www:/service-config/www
+        - iot-home:/service-config/iot-home

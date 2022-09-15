@@ -6,8 +6,6 @@ RUN apt-get update --yes \
     rsync \
  && echo 'abc ALL=(ALL) NOPASSWD:ALL' | EDITOR='tee -a' visudo
 
-RUN echo CACHE BUSTER
-
-COPY ./start.sh /usr/local/bin/start.sh
+COPY samba-mount.sh start.sh /usr/local/bin/
 
 CMD [ "/bin/bash", "/usr/local/bin/start.sh" ]

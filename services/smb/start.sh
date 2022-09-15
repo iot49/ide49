@@ -23,12 +23,8 @@ function main {
     fi
 }
 
-# load env
-config_dir="/service-config/config"
-envrc=${config_dir}/config/.envrc
-if [ -f $envrc ]; then
-    echo sourcing $envrc ...
-    source $envrc
-fi
+# load environment
+env_file=/service-config/iot-home/.env
+set -a; [[ -f ${env_file} ]] && source ${env_file}; set +a
 
 main $@

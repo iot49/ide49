@@ -1,7 +1,7 @@
 #! /bin/bash
 
 # load environment (DNS_NAME, ...)
-env_file=/service-config/config/.env
+env_file=/service-config/iot-home/.env
 set -a; [[ -f ${env_file} ]] && source ${env_file}; set +a
 
 # set default dns: iot49.local
@@ -17,13 +17,13 @@ export HOST_NAME=$(curl -s -X GET --header "Content-Type:application/json" \
 HOST_NAME="${HOST_NAME%\"}"
 HOST_NAME="${HOST_NAME#\"}"
 
-nginx_config_dir=/usr/local/src/nginx
+config_dir=/usr/local/src/nginx
 
 # conditionally update default configuration
-# Note: updates existing (nginx.template.conf) ONLY if ${nginx_config_dir}/conf/ is newer
-# E.g. edits of ${nginx_config_dir}/conf/nginx.template.conf will persist until a new version
-#      of the service is pushed with a newer ${nginx_config_dir}/conf/nginx.template.conf
-rsync --update -a ${nginx_config_dir}/conf/ /etc/nginx/
+# Note: updates existing (nginx.template.conf) ONLY if ${config_dir}/conf/ is newer
+# E.g. edits of ${config_dir}/conf/nginx.template.conf will persist until a new version
+#      of the service is pushed with a newer ${config_dir}/conf/nginx.template.conf
+rsync --update -a ${config_dir}/conf/ /etc/nginx/
 
 # set correct host IP in nginx.conf (i.e. nginx.conf is overwitten in each container start)
 # Note: do this each time in case HOST_IP changes (I have no clue how it is set)
@@ -34,7 +34,7 @@ sed "s/HOST_IP/$host_ip/g" /etc/nginx/nginx.template.conf > /etc/nginx/nginx.con
 # Note: does not overwrite existing files (delete file and restart service to update)
 www_dir=/service-config/www
 if [[ ! -f ${www_dir}/index.html ]]; then
-    rsync --ignore-existing -a ${nginx_config_dir}/www/. ${www_dir}
+    rsync --ignore-existing -a ${config_dir}/www/. ${www_dir}
     chown -R 1000:100 ${www_dir}
 fi
 

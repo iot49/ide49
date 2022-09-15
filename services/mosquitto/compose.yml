@@ -10,3 +10,4 @@ mosquitto:
         - 9002:9002  # secure mqtt over websockets
     volumes:
         - mosquitto:/mosquitto
+        - iot-home:/service-config/iot-home

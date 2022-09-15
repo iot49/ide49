@@ -1,7 +1,6 @@
 app:
 
   services:
-    - config
     - nginx
     - jupyter
     - code-server
@@ -18,5 +17,5 @@ app:
     - postgres
 
   fleets:
-    # - test-app
-    - custom
+    - test-app
+    # - custom

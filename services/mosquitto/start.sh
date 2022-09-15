@@ -5,12 +5,9 @@ mkdir -p /mosquitto/data
 mkdir -p /mosquitto/log
 mkdir -p /mosquitto/certs
 
-# customize device environment (e.g. MOSQUITTO)
-env49rc=/service-config/iot-home/.env49rc
-if [ -f $env49rc ]; then
-    echo sourcing $env49rc ...
-    source $env49rc
-fi
+# customize device environment (MOSQUITTO)
+env_file=/service-config/iot-home/.env
+set -a; [[ -f ${env_file} ]] && source ${env_file}; set +a
 
 # install default configuration
 if [ ! -f /mosquitto/.config_v1 ]

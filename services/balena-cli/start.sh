@@ -1,6 +1,6 @@
 #!/bin/bash
 
-config_dir="/service-config/config"
+config_dir="/service-config/iot-home"
 
 # add hostname to /etc/hosts (makes sudo happy)
 if ! grep -q `hostname` /etc/hosts; then

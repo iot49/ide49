@@ -1,7 +1,0 @@
-config:
-    build: .
-    restart: unless-stopped
-    labels:
-        io.balena.features.supervisor-api: 1
-    volumes:
-        - config:/service-config/config

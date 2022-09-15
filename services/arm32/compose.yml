@@ -10,5 +10,4 @@ arm32:
     expose:
         - 8889
     depends_on:
-        - config
         - smb

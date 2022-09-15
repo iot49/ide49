@@ -1,10 +1,14 @@
 app:
 
   services:
-    - config
     - nginx
     - jupyter
-    - homeassistant
+    - code-server
+    - duplicati
+    - smb
+    - mosquitto
+    - wireshark
+    - balena-cli
 
   fleets:
     - ide49
