@@ -25,17 +25,3 @@ labels:
 ```
 
 in `compose.yml`.
-
-#### `bin/add_hostname`
-
-Adds the hostname to /etc/hosts without needing sudo to enable sudo without root.
-
-Solves a chicken-and-egg issue in containers (e.g. jupyter stack) that lack this entry.
-
-Does the same as
-
-```bash
-bash -c 'echo "127.0.0.1" `hostname` >> /etc/hosts'
-```
-
-but without sudo.
