@@ -14,7 +14,6 @@ addgroup -g 2000 config
 chown -R root:config .
 chmod -R g+w .
 chmod -R a+rx bin
-chmod a+xs bin/add_hostname
 
 # keep the serive running forever ...
 sleep infinity
