@@ -19,3 +19,5 @@ homeassistant:
         - 8123
     volumes:
         - homeassistant:/config
+        # .secrets.yaml
+        - iot-home:/service-config/iot-home

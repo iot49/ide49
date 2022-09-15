@@ -98,8 +98,8 @@ fi
 # Link to secrets.yaml
 #
 
-secrets_link=/service-config/config/secrets.yaml
-[[ ! -L ${secrets_link} ]] && ln -s ${secrets_link}
+secrets_link=/service-config/iot-home/.secrets.yaml
+[[ ! -L ${secrets_link} ]] && ln -s ${secrets_link} secrets.yaml
 
 #
 # Run homeassistant
