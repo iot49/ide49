@@ -17,5 +17,5 @@ app:
     - postgres
 
   fleets:
-    - test-app
-    # - custom
+    # - test-app
+    - custom

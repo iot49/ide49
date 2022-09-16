@@ -1,7 +1,0 @@
-app:
-
-  services:
-    - config
-    - nginx
-    - jupyter
-    - homeassistant
