@@ -117,7 +117,7 @@ class Builder:
             yaml.dump(dc, file, default_flow_style=False, sort_keys=False)
 
     def _push(self):
-        if not self._conf.push:
+        if self._conf.nopush:
             return
         for fleet in jq('.app.fleets').transform(self._app):
             try:
@@ -143,8 +143,8 @@ def args(argv):
                         help='app specification in app/ folder')
     parser.add_argument('--tag', default=None,
                         help='optional balena release tag')
-    parser.add_argument('--push', action='store_true',
-                        help="push to fleet if set")
+    parser.add_argument('--nopush', action='store_false',
+                        help="skip pushing to fleet if set")
     parser.add_argument('--nocache', action='store_true',
                         help="don't use previously built images when building the app")
 
