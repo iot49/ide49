@@ -87,6 +87,3 @@ RUN python -m iot_kernel.install \
  && fix-permissions "${CONDA_DIR}"
 
 ENV BALENA_RELEASE_HASH=%%BALENA_RELEASE_HASH%%
-
-# override upstream start.sh
-COPY jstart.sh /usr/local/bin/start.sh

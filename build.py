@@ -143,7 +143,7 @@ def args(argv):
                         help='app specification in app/ folder')
     parser.add_argument('--tag', default=None,
                         help='optional balena release tag')
-    parser.add_argument('--nopush', action='store_false',
+    parser.add_argument('--nopush', action='store_true',
                         help="skip pushing to fleet if set")
     parser.add_argument('--nocache', action='store_true',
                         help="don't use previously built images when building the app")
