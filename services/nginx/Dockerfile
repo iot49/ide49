@@ -4,6 +4,7 @@ RUN apk update \
  && apk add --no-cache \
     apache2-utils \
     bash \
+    iproute2 \
     jq \
     nano \
     openssl \

@@ -1,7 +1,0 @@
-#! /bin/bash
-
-root=/service-config
-
-find $root -name "._*"                -print -delete 2>/dev/null
-find $root -name ".DS_Store"          -print -delete 2>/dev/null
-find $root -name ".ipynb_checkpoints" -print -exec rm -rf {} + 2>/dev/null

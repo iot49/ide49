@@ -13,7 +13,7 @@ env_file=/service-config/iot-home/.env
 set -a; [[ -f ${env_file} ]] && source ${env_file}; set +a
 
 # (conditionally) mount $HOME
-sudo /bin/bash -c "HOME=${HOME}; source /usr/local/bin/samba-mount.sh"
+sudo /bin/bash -c "HOME=/config/workspace/; source /usr/local/bin/samba-mount.sh"
 
 # Note: /config/custom-cont-init.d executed (if it exists) when code-server starts
 

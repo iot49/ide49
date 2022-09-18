@@ -7,7 +7,7 @@ function setup_user {
     SMB_PASS=${SAMBA_PASSWORD:=iot49}
     useradd --no-create-home -g users -u 1000 $SMB_USER
     usermod -aG sambashare $SMB_USER
-    printf "${SMB_PASS}\n${SMB_PASS}\n" | smbpasswd -a -s $SMB_USER
+    printf "%s\n%s\n" ${SMB_PASS} ${SMB_PASS} | smbpasswd -a -s $SMB_USER
     smbpasswd -e $SMB_USER
 }
 

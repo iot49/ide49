@@ -10,6 +10,7 @@ homeassistant:
         - PUID=1000
         - PGID=1000
         - UMASK=007
+        - EXTRA_GID=dialout
         # for dbus-send
         # see https://forums.balena.io/t/issues-with-dbus-in-generic-aarch64-image/259847
         - DBUS_SYSTEM_BUS_ADDRESS=unix:path=/host/run/dbus/system_bus_socket

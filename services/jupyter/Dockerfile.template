@@ -66,23 +66,27 @@ RUN mamba install --quiet --yes \
     twine \
  && mamba clean --quiet --all -f -y
 
-# These are not on conda
+# PyPi installs (not all are available on Conda)
 RUN pip install --default-timeout=1000 \
     asyncio-mqtt \
     bleak \
     ghp-import \
     gpiozero \
+    gpxpy \
     hass_pyscript_kernel \
     iot-kernel \
-    # not available on conda for linux64
     jupyter-book \
     joulescope \
     nest_asyncio \
     RPi.Gpio \
-    rshell
+    rshell \
+    pyserial-asyncio
     
 RUN python -m iot_kernel.install \
  && jupyter pyscript install \
  && fix-permissions "${CONDA_DIR}"
 
 ENV BALENA_RELEASE_HASH=%%BALENA_RELEASE_HASH%%
+
+# override upstream start.sh
+COPY jstart.sh /usr/local/bin/start.sh

@@ -8,6 +8,7 @@ duplicati:
         - CLI_ARGS=--webservice-interface=any
     volumes:
         - duplicati:/config
+        - backup:/backup
         - ALL:/service-config
     expose:
         - 8200

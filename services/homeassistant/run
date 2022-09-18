@@ -1,6 +1,8 @@
 #!/usr/bin/with-contenv bashio
 # shellcheck shell=bash
 
+# customizations (Link to secrets.yaml, near end of file)
+
 USER="${USER:-homeassistant}"
 GROUP="$USER"
 PUID="${PUID:-1000}"
@@ -98,8 +100,10 @@ fi
 # Link to secrets.yaml
 #
 
-secrets_link=/service-config/iot-home/.secrets.yaml
-[[ ! -L ${secrets_link} ]] && ln -s ${secrets_link} secrets.yaml
+secrets_src=/service-config/iot-home/.secrets.yaml
+secrets_dst=/config/secrets.yaml
+rm -f ${secrets_dst}
+ln -s ${secrets_src} ${secrets_dst}
 
 #
 # Run homeassistant

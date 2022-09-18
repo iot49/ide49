@@ -4,11 +4,11 @@ influxdb:
     environment:
       # https://github.com/docker-library/docs/blob/master/influxdb/README.md#automated-setup
       - DOCKER_INFLUXDB_INIT_MODE=setup
-      - DOCKER_INFLUXDB_INIT_USERNAME=!secret influxdb_user
-      - DOCKER_INFLUXDB_INIT_PASSWORD=!secret influxdb_pwd
-      - DOCKER_INFLUXDB_INIT_ORG=!secret influxdb_user
-      - DOCKER_INFLUXDB_INIT_BUCKET=!secret influxdb_db
-      - DOCKER_INFLUXDB_INIT_ADMIN_TOKEN=!secret influxdb_token
+      - DOCKER_INFLUXDB_INIT_USERNAME=!secret influxdb_username
+      - DOCKER_INFLUXDB_INIT_PASSWORD=!secret influxdb_password
+      - DOCKER_INFLUXDB_INIT_ORG=!secret influxdb_org
+      - DOCKER_INFLUXDB_INIT_BUCKET=!secret influxdb_bucket
+      - DOCKER_INFLUXDB_INIT_ADMIN_TOKEN=!secret influxdb_admin_token
     ports:
       - "8086:8086"
     restart: unless-stopped
