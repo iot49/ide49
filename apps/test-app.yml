@@ -5,8 +5,10 @@ app:
     - jupyter
     - code-server
     - duplicati
+    - smb
     - homeassistant
     - esphome
+    - balena-cli
 
   fleets:
     - test-app

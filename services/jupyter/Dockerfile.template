@@ -98,4 +98,5 @@ RUN python -m iot_kernel.install \
  && jupyter pyscript install \
  && fix-permissions "${CONDA_DIR}"
 
-ENV BALENA_RELEASE_HASH=%%BALENA_RELEASE_HASH%%
+# requires container rebuild on each run
+# ENV BALENA_RELEASE_HASH=%%BALENA_RELEASE_HASH%%
