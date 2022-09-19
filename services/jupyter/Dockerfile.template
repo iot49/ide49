@@ -24,6 +24,18 @@ RUN apt-get update --yes \
     libffi-dev pkg-config libnewlib-arm-none-eabi gcc-arm-none-eabi \
     python3-usb \
     dfu-util \
+    # esp32 idf requirements
+    apt-utils \
+    bison \
+    ccache \
+    check \
+    flex \
+    gperf \
+    lcov \
+    libusb-1.0-0-dev \
+    ninja-build \
+    libpython2.7 \
+    zip \
  && apt-get clean && rm -rf /var/lib/apt/lists/*
 
 # compile & install bluez > 5.50

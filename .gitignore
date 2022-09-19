@@ -1,0 +1,47 @@
+# Secrets #
+###########
+.secrets.yaml
+docker-compose.yml
+
+# OS generated files #
+######################
+.DS_Store
+._*
+ehthumbs.db
+Icon?
+Thumbs.db
+
+# Direnv #
+##########
+.direnv
+.envrc
+
+# Jupyter #
+###########
+.ipynb_checkpoints
+Untitled*.ipynb
+
+# kicad #
+#########
+fp-info-cache
+
+# setup #
+#########
+build/
+dist/
+*egg-info/
+
+# Syncthing #
+#############
+.sync*
+*sync-conflict-*
+
+# Misc #
+########
+.vscode
+*tmp
+*mpy
+__pycache__/
+*.py[cod]
+*$py.class
+*bak

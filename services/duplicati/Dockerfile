@@ -1,4 +1,4 @@
-FROM linuxserver/duplicati:latest
+FROM linuxserver/duplicati
 
 # Enable udev for detection of dynamically plugged devices
 ENV UDEV=on

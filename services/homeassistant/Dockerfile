@@ -1,5 +1,5 @@
 # FROM homeassistant/home-assistant:stable
-FROM homeassistant/home-assistant:2022.8.7
+FROM homeassistant/home-assistant:2022.9.2
 
 RUN apk add \
     github-cli \

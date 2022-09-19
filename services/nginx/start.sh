@@ -29,6 +29,7 @@ rsync --update -a ${config_dir}/conf/ /etc/nginx/
 # Note: do this each time in case HOST_IP changes (I have no clue how it is set)
 host_ip=`ip route | awk '{print $3}' | head -n 1`
 sed "s/HOST_IP/$host_ip/g" /etc/nginx/nginx.template.conf > /etc/nginx/nginx.conf
+echo ${host_ip} > /etc/nginx/host_ip
 
 # conditionally install default web content
 # Note: does not overwrite existing files (delete file and restart service to update)

@@ -2,9 +2,13 @@
 
 # enable bluetooth for user 'iot'
 
-host_ip=`ip route | grep 172.1 | awk '{print $NF}'`
-ssh -q -o 'StrictHostKeyChecking no' -p 22222 root@${host_ip} << 'EOF'
+# `ip route | grep 172.1 | awk '{print $NF}'` does does not work reliably for host network
+# get from service running as bridge, e.g. nginx
 
+host_ip=`cat /etc/nginx/host_ip 2>/dev/null || ip route | grep 172.1 | awk '{print $NF}'`
+
+ssh -q -o 'StrictHostKeyChecking no' -p 22222 root@${host_ip} << 'EOF'
+# cat /etc/dbus-1/system.d/bluetooth.conf
 if [ -f /etc/dbus-1/system.d/bluetooth.conf ] \
 && ! grep -q '<policy user="iot">' /etc/dbus-1/system.d/bluetooth.conf
 then
