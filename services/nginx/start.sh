@@ -1,5 +1,8 @@
 #! /bin/bash
 
+config_dir=/usr/local/src/nginx
+www_dir=/service-config/www
+
 # load environment (DNS_NAME, ...)
 env_file=/service-config/iot-home/.env
 set -a; [[ -f ${env_file} ]] && source ${env_file}; set +a
@@ -17,8 +20,6 @@ export HOST_NAME=$(curl -s -X GET --header "Content-Type:application/json" \
 HOST_NAME="${HOST_NAME%\"}"
 HOST_NAME="${HOST_NAME#\"}"
 
-config_dir=/usr/local/src/nginx
-
 # conditionally update default configuration
 # Note: updates existing (nginx.template.conf) ONLY if ${config_dir}/conf/ is newer
 # E.g. edits of ${config_dir}/conf/nginx.template.conf will persist until a new version
@@ -33,7 +34,6 @@ echo ${host_ip} > /etc/nginx/host_ip
 
 # conditionally install default web content
 # Note: does not overwrite existing files (delete file and restart service to update)
-www_dir=/service-config/www
 if [[ ! -f ${www_dir}/index.html ]]; then
     rsync --ignore-existing -a ${config_dir}/www/. ${www_dir}
     chown -R 1000:100 ${www_dir}
@@ -72,7 +72,7 @@ if [[ $HOST_NAME != $DNS_NAME || ! -f /etc/nginx/ssl/cert.crt ]]; then
     openssl req -x509 -nodes -days 3650 -newkey rsa:2048 \
         -keyout cert.key -out cert.crt -config cert.conf       
     openssl pkcs12 -export -out cert.pfx -inkey cert.key -in cert.crt -passout pass:
-    cp cert.crt /etc/nginx/html
+    cp cert.crt ${www_dir}
 fi
 
 # start the server

@@ -5,20 +5,35 @@
 <title>IOT49</title>
 <style>
     body {
-        width: 35em;
-        margin: 0 auto;
-        font-family: Tahoma, Verdana, Arial, sans-serif;
+      width: 35em;
+      margin: 0 auto;
+      font-family: Tahoma, Verdana, Arial, sans-serif;
     }
     a {
-        color: blue;
-        text-decoration: none;
+      color: white;
+      text-decoration: none;
+      text-align: center;
+      margin: auto;
+      vertical-align: middle; 
+      display: inline-block;
     }
     img.logo {
-        height: 50px;
+      width: 90px;
     }
-    td {
-        padding: 15px;
+    .grid-container {
+      display: grid;
+      grid-template-columns: auto auto auto;
+      background-color: white;
+      padding: 1px;
     }
+    .grid-item {
+      background-color: white;
+      border: none;
+      padding: 10px;
+      font-size: 32px;
+      text-align: center;
+    }
+
 </style>
 </head>
 
@@ -26,106 +41,19 @@
     <h1 style="text-align: center">ide49</h1>
     <h3 style="text-align: center">Programming Tools for Microcontrollers</h3>
 
-    <table style="width:500px">
-        <tr>
-            <td>
-                <a href="/jupyter"><img class="logo" src="logos/jupyter.svg">
-            </td>
-            <td>
-                Interactive coding with <a href="https://jupyterlab.readthedocs.io/en/latest/">Jupyter Lab</a>.
-            </td>
-        </tr>
+    <div class="grid-container">
+      <a class="grid-item" href="/jupyter" title="jupyter lab"><img class="logo" src="logos/jupyter.svg"></a>
+      <a class="grid-item" href="/code-server" title="text editor"><img class="logo" src="logos/vsc.svg"></a>
+      <a class="grid-item" href="/duplicati" title="backup"><img class="logo" src="logos/duplicati.png"></a>
+      <a class="grid-item" href="/wireshark" title="network traffic analysis"><img class="logo" src="logos/wireshark.png"></a>
+      <a class="grid-item" href="/balena-cli" title="Balena tools"><img class="logo" src="logos/balena.png"></a>
+      <a class="grid-item" href="/homeassistant" title="Home Assistant"><img class="logo" src="logos/homeassistant.svg"></a>
+      <a class="grid-item" href="/esphome" title="ESPHome"><img class="logo" src="logos/esphome.svg"></a>
+      <a class="grid-item" href="/grafana" title="Grafana"><img class="logo" src="logos/grafana.svg"></a>
+      <a class="grid-item" href="/influxdb" title="InfluxDB 2"><img class="logo" src="logos/influxdb.svg"></a>
+      <a class="grid-item" href="https://iot49.org" title="ide49 Documentation"><img class="logo" src="logos/iot49.png"></a>
+      <a class="grid-item" href="/roulotte" title="Roulotte Documentation"><img class="logo" src="logos/roulotte.png"></a>
+    </div>
 
-        <tr>
-            <td>
-                <a href="/code-server"><img class="logo" src="logos/vsc.svg">
-            </td>
-            <td>
-                <a href=https://code.visualstudio.com/docs">Visual Studio Code Editor.</a>
-            </td>
-        </tr>
-        <tr>
-            <td>
-                <a href="/duplicati"><img class="logo" src="logos/duplicati.png">
-            </td>
-            <td>
-                <a href="https://www.duplicati.com/">Duplicati</a>, versatile backup to the cloud or local storage.
-            </td>
-        </tr>
-
-        <tr>
-            <td>
-                <a href="/wireshark"><img class="logo" src="logos/wireshark.svg">
-            </td>
-            <td>
-                <a href="https://www.wireshark.org/docs/">Wireshark</a> IP packet analyzer.
-            </td>
-        </tr>
-        
-        <tr>
-            <td>
-                <a href="/balena-cli"><img class="logo" src="logos/balena.png">
-            </td>
-            <td>
-                <a href="https://www.balena.io/docs/reference/balena-cli/">Balena command line tools</a>. Build and modify IoT projects, including <i>ide49</i>.
-            </td>
-        </tr>
-
-        <tr>
-            <td>
-                <a href="/homeassistant"><img class="logo" src="logos/homeassistant.svg">
-            </td>
-            <td>
-                Automation with <a href="https://www.home-assistant.io">Home Assistant</a>.
-            </td>
-        </tr>
-
-        <tr>
-            <td>
-                <a href="/esphome"><img class="logo" src="logos/esphome.svg">
-            </td>
-            <td>
-                ESP32 control with <a href="https://esphome.io">EspHome</a>.
-            </td>
-        </tr>
-
-        <tr>
-            <td>
-                <a href="/plex"><img class="logo" src="logos/plex.svg">
-            </td>
-            <td>
-                <a href="https://www.plex.tv">Plex</a> media server.
-            </td>
-        </tr>
-
-        <tr>
-            <td>
-                <a href="/influxdb"><img class="logo" src="logos/influxdb.svg">
-            </td>
-            <td>
-                <a href="https://www.influxdata.com">InfluxDB 2</a> database.
-            </td>
-        </tr>
-
-        <tr>
-            <td>
-                <a href="/grafana"><img class="logo" src="logos/grafana.svg">
-            </td>
-            <td>
-                <a href="https://grafana.com">Grafana</a> data visualization.
-            </td>
-        </tr>
-
-        <tr>
-            <td>
-                <a href="https://iot49.org"><img class="logo" src="logos/docs.svg">
-            </td>
-            <td>
-                Documentation for <i>ide49</i>.
-            </td>
-        </tr>
-
-    </table>
-
-</body>
+  </body>
 </html>
