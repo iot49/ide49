@@ -1,0 +1,21 @@
+app:
+
+  services:
+    - nginx
+    - jupyter
+    - code-server
+    - duplicati
+    - smb
+    # - mosquitto
+    # - wireshark
+    - balena-cli
+    - plex
+    - homeassistant
+    - esphome
+    # - grafana
+    # - influxdb
+    # - postgres
+
+  fleets:
+    # - test-app
+    - roulotte
