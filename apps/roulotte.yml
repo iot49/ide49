@@ -9,12 +9,13 @@ app:
     # - mosquitto
     # - wireshark
     - balena-cli
-    - plex
+    - docker
+    # - plex
     - homeassistant
     - esphome
-    # - grafana
-    # - influxdb
-    # - postgres
+    - grafana
+    - influxdb
+    - postgres
 
   fleets:
     # - test-app
