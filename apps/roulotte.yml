@@ -6,11 +6,11 @@ app:
     - code-server
     - duplicati
     - smb
-    # - mosquitto
-    # - wireshark
+    - mosquitto
+    - wireshark
     - balena-cli
     - docker
-    # - plex
+    - plex
     - homeassistant
     - esphome
     - grafana
