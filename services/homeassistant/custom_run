@@ -1,7 +1,13 @@
 #!/usr/bin/with-contenv bashio
 # shellcheck shell=bash
 
-USER="homeassistant"
+# BEB customized
+
+# BEB Mount dynamically plugged devices (/dev). Requires privileged container.
+/bin/bash -c "UDEV=${UDEV:-on}; source /usr/local/bin/balena-entry.sh"
+
+# BEB only users iot and root have permission to access BT
+USER="iot"  
 GROUP="$USER"
 PUID="${PUID:-1000}"
 PGID="${PGID:-1000}"
@@ -92,6 +98,16 @@ su "$USER" \
 if [ -n "${UMASK}" ]; then
   bashio::log.info "Setting umask: $UMASK"
   umask "$UMASK"
+fi
+
+#
+# BEB Link secrets.yaml
+#
+secrets_src=/service-config/iot-home/.secrets.yaml
+secrets_dst=/config/secrets.yaml
+if [ ! -L ${secrets_dst} ]; then
+    rm -f ${secrets_dst}
+    ln -s ${secrets_src} ${secrets_dst}
 fi
 
 #
