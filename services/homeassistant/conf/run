@@ -1,12 +1,10 @@
 #!/usr/bin/with-contenv bashio
 # shellcheck shell=bash
 
-# customizations (Link to secrets.yaml, near end of file)
-
-USER="${USER:-homeassistant}"
+USER="homeassistant"
 GROUP="$USER"
 PUID="${PUID:-1000}"
-PGID="${PGID:-100}"
+PGID="${PGID:-1000}"
 
 UMASK="${UMASK:-}"
 
@@ -45,7 +43,7 @@ if [ -n "$user" ]; then
   bashio::log.notice "Replacing existing user with uid $PUID: $user"
   deluser "$user"
 fi
-adduser -G "$GROUP" -D -u "$PUID" "$USER" --home /config
+adduser -G "$GROUP" -D -u "$PUID" "$USER"
 
 if [ -n "${EXTRA_GID:-}" ]; then
   bashio::log.info "Resolving supplementary GIDs: $EXTRA_GID"
@@ -97,15 +95,6 @@ if [ -n "${UMASK}" ]; then
 fi
 
 #
-# Link to secrets.yaml
-#
-
-secrets_src=/service-config/iot-home/.secrets.yaml
-secrets_dst=/config/secrets.yaml
-rm -f ${secrets_dst}
-ln -s ${secrets_src} ${secrets_dst}
-
-#
 # Run homeassistant
 #
 
@@ -121,9 +110,10 @@ export HOME
 #   https://github.com/home-assistant/core/blob/dev/rootfs/etc/services.d/home-assistant/run
 cd "$CONFIG_PATH" || bashio::exit.nok "Can't find config folder: $CONFIG_PATH"
 
-# Enable Jemalloc for Home Assistant Core, unless disabled
+# Enable mimalloc for Home Assistant Core, unless disabled
 if [[ -z "${DISABLE_JEMALLOC+x}" ]]; then
   export LD_PRELOAD="/usr/local/lib/libjemalloc.so.2"
+  export MALLOC_CONF="background_thread:true,metadata_thp:auto,dirty_decay_ms:20000,muzzy_decay_ms:20000"
 fi
 
 bashio::log.info "Starting homeassistant"

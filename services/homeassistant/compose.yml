@@ -1,12 +1,13 @@
 homeassistant:
-    image: homeassistant/home-assistant:2022.8.7
-    # build: .
+    # image: homeassistant/home-assistant:2022.8.7
+    build: .
     restart: unless-stopped
     privileged: true
     network_mode: host
     environment:
         # https://github.com/tribut/homeassistant-docker-venv
         # don't change USER (`iot` is required for bluetooth to work)
+        - TZ=!secret time_zone
         - USER=iot
         - PUID=1000
         - PGID=1000
@@ -21,5 +22,5 @@ homeassistant:
         - 8123
     volumes:
         - homeassistant:/config
-        # link to /service-config/iot-home/.secrets.yaml
+        # for link to /service-config/iot-home/.secrets.yaml
         - iot-home:/service-config/iot-home
