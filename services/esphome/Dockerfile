@@ -3,10 +3,6 @@
 # FROM homeassistant/home-assistant:stable
 FROM esphome/esphome
 
-RUN apk add \
-    nano \
-    rsync
-
 COPY conf /usr/local/bin
 
 CMD [ "/bin/bash", "/usr/local/bin/start.sh" ]
