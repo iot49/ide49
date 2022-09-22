@@ -1,5 +1,6 @@
 esphome:
-    image: esphome/esphome
+    # image: esphome/esphome
+    build: .
     restart: unless-stopped
     privileged: true
     network_mode: host
