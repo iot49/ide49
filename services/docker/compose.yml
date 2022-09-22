@@ -5,4 +5,5 @@ docker:
     restart: unless-stopped
     privileged: true
     volumes:
+        - docker:/var/lib/docker
         - iot-home:/service-config/iot-home

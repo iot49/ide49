@@ -1,6 +1,0 @@
-{
-    "storage-driver": "overlay2",
-    "graph": "/data",
-    "dns": ["8.8.8.8"],
-    "iptables": false
-}
