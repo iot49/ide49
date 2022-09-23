@@ -8,3 +8,5 @@ RUN chmod a+x /usr/local/bin/custom-entrypoint.sh
 
 # custom entrypoint that sets up udev automount
 ENTRYPOINT ["/usr/local/bin/custom-entrypoint.sh"]
+
+CMD ["dashboard", "/config"]
