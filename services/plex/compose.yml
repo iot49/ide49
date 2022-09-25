@@ -4,7 +4,8 @@ plex:
     privileged: true
     network_mode: host
     volumes:
-        - plex-config:/config
+        - plex:/config
+        - media:/media
     environment:
       - PUID=1000
       - PGID=1000
