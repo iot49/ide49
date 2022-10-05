@@ -7,7 +7,6 @@
 # - ID_FS_UUID_ENC: Partition's UUID (i.e: 498E-12EF)
 # - ID_FS_LABEL_ENC: Partition's label (i.e: YOURDEVICENAME)
 
-
 echo unmount $1
 
 # Make sure we have a valid device name
