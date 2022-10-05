@@ -26,8 +26,8 @@ jobs:
         # It doesn't make sense to lint deleted files.
         # Therefore we specify we are only interested in added or modified files.
         filters: |
-          changes:
+          builds:
             - 'services/**'
     - name: Lint Markdown
-      if: ${{ steps.filter.outputs.changes == 'true' }}
-      run: echo ${{ steps.filter.outputs.changes_files }}
+      if: ${{ steps.filter.outputs.builds == 'true' }}
+      run: echo ${{ steps.filter.outputs.builds_files }}

@@ -13,6 +13,6 @@ balena-cli:
     expose:
         - 8891
     depends_on:
-        # V2
+        # V3
         # do not start early, may set wrong owner on .local
         - jupyter
