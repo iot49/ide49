@@ -14,12 +14,12 @@ jobs:
     outputs:
       packages: ${{ steps.filter.outputs.changes }}
     steps:
-    # For pull requests it's not necessary to checkout the code
-    - uses: dorny/paths-filter@v2
+    - uses: actions/checkout@v3
+    - uses: dorny/paths-filter@v2   
       id: filter
       with:
         filters: |
-          dockers: services/**/Dockerfile
+          dockers: services/**
 
   # JOB to build and test each of modified packages
   build:
