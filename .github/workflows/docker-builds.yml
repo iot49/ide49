@@ -20,6 +20,7 @@ jobs:
       with:
         filters: |
           dockers: services/**
+          actions: .github/**
 
   # JOB to build and test each of modified packages
   build:
@@ -31,8 +32,7 @@ jobs:
         package: ${{ fromJSON(needs.changes.outputs.packages) }}
     runs-on: ubuntu-latest
     steps:
-      - name: List Folders
-        uses: actions/checkout@v3
-      - run: |
-          echo Files
-          echo ${{ fromJSON(needs.changes.outputs.packages) }}
+      - uses: actions/checkout@v3
+      - run: echo ""🎉 The job was automatically triggered by a ${{ github.event_name }} event."
+      - run: echo "🐧 This job is now running on a ${{ runner.os }} server hosted by GitHub!"
+      - run: echo ${{ fromJSON(needs.changes.outputs.packages) }}
