@@ -20,8 +20,11 @@ jobs:
       with:
         list-files: json
         filters: |
-          dockers: services/**
-          actions: .github/**
+          changed:
+            - '**'
+    - name: List Files
+      steps:
+        - run: echo ${{ steps.filter.outputs.changed_files }}
 
   # JOB to build and test each of modified packages
   build:
