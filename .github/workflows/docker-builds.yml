@@ -15,7 +15,6 @@ jobs:
     outputs:
       # Expose matched filters as job 'packages' output variable
       packages: ${{ steps.filter.outputs.changes_files }}
-      list-files: json
     steps:
     # For pull requests it's not necessary to checkout the code
     - name: Checkout code
@@ -24,19 +23,23 @@ jobs:
       uses: dorny/paths-filter@v2
       id: filter
       with:
+        list-files: json
         filters: |
           dockers: "services/**"
           actions: ".github/**"
+    - name: List files
+      run: echo ${{ steps.filter.outputs.changes_files }}
 
   # JOB to build and test each of modified packages
   build:
     needs: changes
     strategy:
       matrix:
-        # Parse JSON array containing names of all filters matching any of changed files
-        # e.g. ['package1', 'package2'] if both package folders contains changes
+        # Parse JSON array containing names of all changed files
         package: ${{ fromJSON(needs.changes.outputs.packages) }}
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v2
+      - uses: actions/checkout@v3
+      - run: echo needs ${{ fromJSON(needs.changes.outputs.packages) }}
+      - run: echo packages ${{ needs.changes.outputs.packages }}
       - run: echo folders ${{ fromJSON(steps.filter.outputs.packages) }}
