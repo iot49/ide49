@@ -9,6 +9,6 @@ arm32:
         - JUPYTER_PORT=8889
     expose:
         - 8889
-    # V3
+    # V4
     depends_on:
         - smb
