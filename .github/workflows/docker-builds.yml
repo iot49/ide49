@@ -18,7 +18,10 @@ jobs:
       list-files: json
     steps:
     # For pull requests it's not necessary to checkout the code
-    - uses: dorny/paths-filter@v2
+    - name: Checkout code
+      uses: actions/checkout@v3 
+    - name: Find changed files
+      uses: dorny/paths-filter@v2
       id: filter
       with:
         filters: |
