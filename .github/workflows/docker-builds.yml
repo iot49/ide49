@@ -11,8 +11,10 @@ on:
 jobs:
   changes:
     runs-on: ubuntu-latest
+    outputs:
+      folders: ${{ steps.filter.outputs.build_files}}
     steps:
-    - uses: actions/checkout@v3
+    - uses: actions/checkout@v3 
     - uses: dorny/paths-filter@v2
       id: filter
       with:
@@ -26,11 +28,11 @@ jobs:
         # It doesn't make sense to lint deleted files.
         # Therefore we specify we are only interested in added or modified files.
         filters: |
-          builds:
+          build:
             - 'services/**'
-    - name: Lint Markdown
+    - name: File List
       if: ${{ steps.filter.outputs.builds == 'true' }}
-      run: echo ${{ steps.filter.outputs.builds_files }}
+      run: echo ${{ steps.filter.outputs.build_files }}
 
   build:
     needs: changes
@@ -38,8 +40,9 @@ jobs:
       matrix:
         # Parse JSON array containing names of all filters matching any of changed files
         # e.g. ['package1', 'package2'] if both package folders contains changes
-        package: ${{ fromJSON(steps.filter.outputs.builds_files) }}
+        package: ${{ fromJSON(steps.filter.outputs.folders) }}
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v3
       - run: echo Matrix
+      - run: echo folders ${{ fromJSON(steps.filter.outputs.folders) }}
