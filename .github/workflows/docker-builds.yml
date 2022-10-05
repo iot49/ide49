@@ -26,6 +26,7 @@ jobs:
       with:
         filters: |
           dockers: "services/**"
+          actions: ".github/**"
 
   # JOB to build and test each of modified packages
   build:
