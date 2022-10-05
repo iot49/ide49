@@ -11,37 +11,23 @@ on:
 jobs:
   changes:
     runs-on: ubuntu-latest
-    outputs:
-      packages: ${{ steps.filter.outputs.changes }}
     steps:
     - uses: actions/checkout@v3
-    - uses: dorny/paths-filter@v2   
+    - uses: dorny/paths-filter@v2
       id: filter
       with:
-        list-files: json
-        filters: |
-          changed:
-            - '**'
-    - name: List Files
-      steps:
-        - run: echo ${{ steps.filter.outputs.changed_files }}
+        # Enable listing of files matching each filter.
+        # Paths to files will be available in `${FILTER_NAME}_files` output variable.
+        # Paths will be escaped and space-delimited.
+        # Output is usable as command-line argument list in Linux shell
+        list-files: shell
 
-  # JOB to build and test each of modified packages
-  build:
-    needs: changes
-    strategy:
-      matrix:
-        # Parse JSON array containing names of all filters matching any of changed files
-        # e.g. ['package1', 'package2'] if both package folders contains changes
-        package: ${{ fromJSON(needs.changes.outputs.packages) }}
-        version: [12, 14]
-    runs-on: ubuntu-latest
-    steps:
-      - uses: actions/checkout@v3
-      - run: echo "🎉 The job was automatically triggered by a ${{ github.event_name }} event."
-      - run: echo "🐧 This job is now running on a ${{ runner.os }} server hosted by GitHub!"
-      - run: echo version ${{ matrix.version }}
-      - run: echo package ${{ matrix.package }}
-      - run: echo outputs ${{ fromJSON(needs.changes.outputs.packages) }}
-      - run: echo actions ${{ steps.filter.outputs.actions }}
-      - run: echo dockers ${{ steps.filter.outputs.dockers }}
+        # In this example changed files will be checked by linter.
+        # It doesn't make sense to lint deleted files.
+        # Therefore we specify we are only interested in added or modified files.
+        filters: |
+          markdown:
+            - '**'
+    - name: Lint Markdown
+      if: ${{ steps.filter.outputs.markdown == 'true' }}
+      run: echo ${{ steps.filter.outputs.markdown_files }}
