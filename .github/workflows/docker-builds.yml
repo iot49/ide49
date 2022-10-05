@@ -40,7 +40,7 @@ jobs:
       matrix:
         # Parse JSON array containing names of all filters matching any of changed files
         # e.g. ['package1', 'package2'] if both package folders contains changes
-        package: ${{ fromJSON(steps.filter.outputs.folders) }}
+        package: ${{ fromJSON(needs.filter.outputs.folders) }}
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v3
