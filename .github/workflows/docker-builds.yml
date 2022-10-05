@@ -39,3 +39,5 @@ jobs:
       - run: echo version ${{ matrix.version }}
       - run: echo package ${{ matrix.package }}
       - run: echo outputs ${{ fromJSON(needs.changes.outputs.packages) }}
+      - run: echo actions ${{ steps.filter.outputs.actions }}
+      - run: echo dockers ${{ steps.filter.outputs.dockers }}
