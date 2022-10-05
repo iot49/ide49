@@ -26,8 +26,8 @@ jobs:
         # It doesn't make sense to lint deleted files.
         # Therefore we specify we are only interested in added or modified files.
         filters: |
-          docker-builds:
+          changes:
             - 'services/**'
     - name: Lint Markdown
-      if: ${{ steps.filter.outputs.markdown == 'true' }}
-      run: echo ${{ steps.filter.outputs.markdown_files }}
+      if: ${{ steps.filter.outputs.changes == 'true' }}
+      run: echo ${{ steps.filter.outputs.changes_files }}
