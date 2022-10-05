@@ -33,6 +33,6 @@ jobs:
     steps:
       - name: List Folders
         uses: actions/checkout@v3
-        run: |
+      - run: |
           echo Files
           echo ${{ fromJSON(needs.changes.outputs.packages) }}
