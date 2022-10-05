@@ -37,7 +37,8 @@ jobs:
     strategy:
       matrix:
         # Parse JSON array containing names of all changed files
-        package: ${{ needs.changes.outputs.packages }}
+        # package: ${{ needs.changes.outputs.packages }}
+        pkgs: ${{ fromJSON(needs.changes.outputs.packages) }}
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v3
