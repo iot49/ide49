@@ -26,8 +26,8 @@ jobs:
         list-files: json
         filters: |
           changes:
-            - "services/**"
-            - ".github/**"
+            - "services/**/Dockerfile"
+            # - ".github/**"
     - name: List files
       run: echo ${{ steps.filter.outputs.changes_files }}
 
@@ -42,4 +42,5 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v3
+      - run: echo matrix ${{ matrix.pkgs }}
       - run: echo packages ${{ needs.changes.outputs.packages }}

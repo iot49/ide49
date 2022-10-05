@@ -6,7 +6,7 @@ mkdir -p "$tmp_mount"
 if mount -t devtmpfs none "$tmp_mount" &> /dev/null; then
         PRIVILEGED=true
         umount "$tmp_mount"
-else 
+else
         PRIVILEGED=false
 fi
 rm -rf "$tmp_mount"
