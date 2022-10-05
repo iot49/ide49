@@ -14,7 +14,7 @@ jobs:
     runs-on: ubuntu-latest
     outputs:
       # Expose matched filters as job 'packages' output variable
-      packages: ${{ steps.filter.outputs.changes }}
+      packages: ${{ steps.filter.outputs.changes_files }}
       list-files: json
     steps:
     # For pull requests it's not necessary to checkout the code
@@ -39,4 +39,4 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v2
-      - run: echo folders ${{ fromJSON(steps.filter.outputs.changes_files) }}
+      - run: echo folders ${{ fromJSON(steps.filter.outputs.packages) }}
