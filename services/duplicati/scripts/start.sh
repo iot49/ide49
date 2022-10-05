@@ -1,5 +1,6 @@
 #!/bin/bash
 
+# V1
 # duplicati container does not have the balena ENTRYPOINT entry.sh
 /bin/bash /usr/src/scripts/entry.sh
 
@@ -14,3 +15,4 @@ done
 
 # Prevent container from exiting
 sleep infinity
+

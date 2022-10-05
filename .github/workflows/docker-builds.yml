@@ -8,41 +8,41 @@ on:
     branches:
       - main
 
+for file in `git diff --dirstat=files,0 HEAD~1 | sed 's/^[ 0-9.]*% //g' | awk -F/ 'BEGIN {OFS="/"} {print $1,$2,""}'`; do
+    echo File $file
+    if [ -f $file/Dockerfile ]; then
+        echo Dockerfile!
+    fi
+done
+
 jobs:
   changes:
     runs-on: ubuntu-latest
     outputs:
-      folders: ${{ steps.filter.outputs.build_files}}
+      build_image: ${{ steps.filter.outputs.build_image }}
     steps:
-    - uses: actions/checkout@v3 
-    - uses: dorny/paths-filter@v2
-      id: filter
-      with:
-        # Enable listing of files matching each filter.
-        # Paths to files will be available in `${FILTER_NAME}_files` output variable.
-        # Paths will be escaped and space-delimited.
-        # Output is usable as command-line argument list in Linux shell
-        list-files: json
-
-        # In this example changed files will be checked by linter.
-        # It doesn't make sense to lint deleted files.
-        # Therefore we specify we are only interested in added or modified files.
-        filters: |
-          build:
-            - 'services/**'
-    - name: File List
-      if: ${{ steps.filter.outputs.builds == 'true' }}
-      run: echo ${{ steps.filter.outputs.build_files }}
+      - name: Checkout code
+        uses: actions/checkout@v3 
+      - name: Check for modified services
+        id: check_files
+        run: |
+          echo "list of modified files"
+          git diff --name-only HEAD^ HEAD
+          echo "check for Dockfiles"
+          for file in `git diff --dirstat=files,0 HEAD~1 | sed 's/^[ 0-9.]*% //g' | awk -F/ 'BEGIN {OFS="/"} {print $1,$2,""}'`; do
+              echo File $file
+              if [ -f $file/Dockerfile ]; then
+                  echo Dockerfile! at $file/Dockerfile
+                  echo "::set-output name=build_image::true"
+              fi
+          done
 
   build:
+    name: Build
     needs: changes
-    strategy:
-      matrix:
-        # Parse JSON array containing names of all filters matching any of changed files
-        # e.g. ['package1', 'package2'] if both package folders contains changes
-        package: ${{ fromJSON(needs.filter.outputs.folders) }}
+    if needs.check.outputs.build_image == 'true'
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v3
       - run: echo Matrix
-      - run: echo folders ${{ fromJSON(steps.filter.outputs.folders) }}
+      - run: echo folders ${{ fromJSON(steps.filter.outputs.build_image) }}

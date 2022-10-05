@@ -1,6 +1,6 @@
 #!/bin/bash
 
-# This command only works in privileged container
+# This command only works in privileged container!
 tmp_mount='/tmp/_balena'
 mkdir -p "$tmp_mount"
 if mount -t devtmpfs none "$tmp_mount" &> /dev/null; then
