@@ -10,7 +10,7 @@ on:
   push:
     paths:
       - "**/Dockerfile"
-      - ".github"
+      - ".github/**"
     branches:
       - main
   workflow_dispatch:
@@ -24,4 +24,4 @@ jobs:
 
     steps:
       - name: Overview
-        run: echo Hello from Overview
+        run: echo "Hello from Overview!"
