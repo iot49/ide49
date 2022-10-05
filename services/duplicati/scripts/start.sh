@@ -15,4 +15,3 @@ done
 
 # Prevent container from exiting
 sleep infinity
-

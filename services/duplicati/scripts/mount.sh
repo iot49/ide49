@@ -5,7 +5,7 @@
 # - ID_BUS: Bus type (i.e: usb)
 # - ID_FS_TYPE: Device filesystem (i.e: vfat)
 # - ID_FS_UUID_ENC: Partition's UUID (i.e: 498E-12EF)
-# - ID_FS_LABEL_ENC: Partition's label (i.e: YOURDEVICENAME)
+# - ID_FS_LABEL_ENC: Partition's label (i.e: YOURDEVICENAME) 
 
 # Make sure we have a valid device name
 DEVNAME=${DEVNAME:=$1}
