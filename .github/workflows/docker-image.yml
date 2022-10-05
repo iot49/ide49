@@ -10,9 +10,9 @@ on:
   push:
     paths:
       - "**/Dockerfile"
+      - ".github"
     branches:
       - main
-      - master
   workflow_dispatch:
 
 
