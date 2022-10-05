@@ -36,6 +36,6 @@ jobs:
       - uses: actions/checkout@v3
       - run: echo "🎉 The job was automatically triggered by a ${{ github.event_name }} event."
       - run: echo "🐧 This job is now running on a ${{ runner.os }} server hosted by GitHub!"
-      - run: echo ${{ matrix.version }}
-      - run: echo ${{ matrix.package }}
-      - run: echo ${{ fromJSON(needs.changes.outputs.packages) }}
+      - run: echo version ${{ matrix.version }}
+      - run: echo package ${{ matrix.package }}
+      - run: echo outputs ${{ fromJSON(needs.changes.outputs.packages) }}
