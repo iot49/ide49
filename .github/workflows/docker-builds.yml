@@ -1,3 +1,13 @@
+name: Docker Builds
+
+on:
+  push:
+    branches:
+      - main
+  pull_request:
+    branches:
+      - main
+
 jobs:
   # JOB to run change detection
   changes:
