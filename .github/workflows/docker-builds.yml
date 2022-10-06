@@ -40,6 +40,8 @@ jobs:
     steps:
       - run: |
           echo build ${{ matrix.dockerfile }}
+          echo dir `dirname ${{ matrix.dockerfile }}`
+          ls
           cd `dirname ${{ matrix.dockerfile }}`
       - name: Checkout code
         uses: actions/checkout@v3
