@@ -13,8 +13,8 @@ jobs:
   changes:
     runs-on: ubuntu-latest
     outputs:
-      # Expose matched filters as job 'packages' output variable
-      packages: ${{ steps.filter.outputs.changes_files }}
+      # Expose matched files output variable
+      dockerfiles: ${{ steps.filter.outputs.docker_files }}
     steps:
     # For pull requests it's not necessary to checkout the code
     - name: Checkout code
@@ -25,22 +25,21 @@ jobs:
       with:
         list-files: json
         filters: |
-          changes:
+          docker:
             - "services/**/Dockerfile"
-            # - ".github/**"
     - name: List files
-      run: echo ${{ steps.filter.outputs.changes_files }}
+      run: echo ${{ steps.filter.outputs.docker_files }}
 
-  # JOB to build and test each of modified packages
+  # JOB to build and test each of modified dockerfiles
   build:
     needs: changes
     strategy:
       matrix:
-        # Parse JSON array containing names of all changed files
-        # package: ${{ needs.changes.outputs.packages }}
-        pkgs: ${{ fromJSON(needs.changes.outputs.packages) }}
+        dockerfile: ${{ fromJSON(needs.changes.outputs.dockerfiles) }}
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v3
-      - run: echo matrix ${{ matrix.pkgs }}
-      - run: echo packages ${{ needs.changes.outputs.packages }}
+      - run: echo Build ${{ matrix.dockerfile }}
+      - run: |
+          cd `dirname ${{ matrix.pkgs }}`
+          ls
