@@ -43,14 +43,11 @@ jobs:
         run: |
           dir="$(dirname ${{ matrix.dockerfile }})"
           service="$(basename $dir)"
+          date="$(date "+%Y-%m-%d")"
           echo "dir=$dir" >> $GITHUB_ENV
           echo "service=$service" >> $GITHUB_ENV
+          echo "date=$date" >> $GITHUB_ENV
           echo Build docker image $service
-          ls
-      - name: ENV
-        run: |
-          echo ENV dir=${{ env.dir }}
-          echo ENV service=${{ env.service }}
       - name: Login to Docker Hub
         uses: docker/login-action@v2  
         with:
@@ -66,6 +63,6 @@ jobs:
           context: ${{ env.dir }}
           tags: |
             ${{ secrets.DOCKER_HUB_USERNAME }}/${{ env.service }}:latest,
-            ${{ secrets.DOCKER_HUB_USERNAME }}/${{ env.service }}:2022-10-06
+            ${{ secrets.DOCKER_HUB_USERNAME }}/${{ env.service }}:${{ env.date }}
           platforms: linux/amd64,linux/arm64
           push: true
