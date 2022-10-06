@@ -39,7 +39,6 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v3
-      - run: echo Build ${{ matrix.dockerfile }}
       - run: |
-          cd `dirname ${{ matrix.pkgs }}`
+          cd `dirname ${{ matrix.dockerfile }}`
           ls
