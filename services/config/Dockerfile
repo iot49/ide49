@@ -1,5 +1,5 @@
 # FROM resin/%%RESIN_MACHINE_NAME%%-debian:jessie
-FROM debian:bullseye-slim
+FROM debian:buster-slim
 
 WORKDIR /usr/src/app/
 ENV INITSYSTEM on
