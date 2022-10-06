@@ -64,6 +64,5 @@ jobs:
           GITHUB_TOKEN: ${{ secrets.token }}
         with:
           context: services/nginx
-          file: ./Dockerfile
           push: true
           tags: ${{ secrets.DOCKER_HUB_USERNAME }}/${{ env.service }}:latest
