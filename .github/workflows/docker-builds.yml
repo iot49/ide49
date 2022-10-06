@@ -16,7 +16,6 @@ jobs:
       # Expose matched files output variable
       dockerfiles: ${{ steps.filter.outputs.docker_files }}
     steps:
-    # For pull requests it's not necessary to checkout the code
     - name: Checkout code
       uses: actions/checkout@v3 
     - name: Find changed files
@@ -29,10 +28,6 @@ jobs:
             - "services/**/Dockerfile"
     - name: List files
       run: echo ${{ steps.filter.outputs.docker_files }}
-
-
-
-
 
   # JOB to build and test each of modified dockerfiles
   build:
@@ -54,8 +49,8 @@ jobs:
           ls
       - name: ENV
         run: |
-          echo ENV dir 1 ${{ env.dir }} 2
-          echo ENV service 1 ${{ env.service }} 2
+          echo ENV dir=${{ env.dir }}
+          echo ENV service=${{ env.service }}
      - name: Login to Docker Hub
         uses: docker/login-action@v2  
         with:
@@ -68,7 +63,7 @@ jobs:
         env:
           GITHUB_TOKEN: ${{ secrets.token }}
         with:
-          context: services/nginx
+          context: .
           file: ./Dockerfile
           push: true
           tags: ${{ secrets.DOCKER_HUB_USERNAME }}/${{ env.service }}:latest
