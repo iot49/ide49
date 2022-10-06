@@ -4,3 +4,5 @@ for file in `git diff --dirstat=files,0 HEAD~1 | sed 's/^[ 0-9.]*% //g' | awk -F
         echo Dockerfile!
     fi
 done
+
+echo "action_state=`dirname a/b/c`"

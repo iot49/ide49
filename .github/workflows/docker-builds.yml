@@ -42,8 +42,9 @@ jobs:
         uses: actions/checkout@v3
       - name: ls
         run: |
-          echo "DIR=blabla" >> $GITHUB_ENV
-          echo DIR ${{ env.DIR }}
+          echo "dir=`dirname ${{ matrix.dockerfile }}`"
+          echo "dir=`dirname ${{ matrix.dockerfile }}`" >> $GITHUB_ENV
+          echo dir ${{ env.dir }}
           echo build ${{ matrix.dockerfile }}
           echo dir `dirname ${{ matrix.dockerfile }}`
           ls
@@ -64,7 +65,7 @@ jobs:
         env:
           GITHUB_TOKEN: ${{ secrets.token }}
         with:
-          context: ${{ env.DIR }}
+          context: ${{ env.dir }}
           file: ./Dockerfile
           push: true
           tags: ${{ secrets.DOCKER_HUB_USERNAME }}/simplewhale:latest
