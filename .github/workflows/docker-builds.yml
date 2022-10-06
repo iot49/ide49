@@ -30,6 +30,10 @@ jobs:
     - name: List files
       run: echo ${{ steps.filter.outputs.docker_files }}
 
+
+
+
+
   # JOB to build and test each of modified dockerfiles
   build:
     needs: changes
@@ -64,7 +68,6 @@ jobs:
         env:
           GITHUB_TOKEN: ${{ secrets.token }}
         with:
-          # context: ${{ env.dir }}
           context: services/nginx
           file: ./Dockerfile
           push: true
