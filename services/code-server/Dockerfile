@@ -9,4 +9,3 @@ RUN apt-get update --yes \
 COPY samba-mount.sh start.sh /usr/local/bin/
 
 CMD [ "/bin/bash", "/usr/local/bin/start.sh" ]
-

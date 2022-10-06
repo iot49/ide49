@@ -18,4 +18,3 @@ COPY scripts scripts
 RUN chmod +x scripts/*
 
 CMD [ "/bin/bash", "/usr/src/scripts/start.sh" ]
-
