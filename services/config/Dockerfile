@@ -17,3 +17,4 @@ COPY start.sh ./
 
 CMD ["bash", "start.sh"]
 
+ 
