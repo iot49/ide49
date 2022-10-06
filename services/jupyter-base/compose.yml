@@ -1,0 +1,13 @@
+nginx:
+    build: .
+    restart: unless-stopped
+    privileged: true
+    labels:
+        io.balena.features.supervisor-api: 1
+    ports:
+        - 80:80
+        - 443:443
+    volumes:
+        - nginx:/etc/nginx
+        - www:/service-config/www
+        - iot-home:/service-config/iot-home
