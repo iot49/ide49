@@ -1,0 +1,19 @@
+# FROM resin/%%RESIN_MACHINE_NAME%%-debian:jessie
+FROM debian:bullseye-slim
+
+WORKDIR /usr/src/app/
+ENV INITSYSTEM on
+
+# python-dbus for dbus communication
+# python-flash for example server
+RUN apt-get update && \
+    apt-get install -yq \
+      python-dbus \
+      python-flask
+
+COPY *.py ./
+COPY avahi avahi
+COPY start.sh ./
+
+CMD ["bash", "start.sh"]
+

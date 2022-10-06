@@ -1,0 +1,7 @@
+app:
+
+  services:
+    - jupyter-base
+
+  fleets:
+    - test-amd64
