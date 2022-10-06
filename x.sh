@@ -6,3 +6,6 @@ for file in `git diff --dirstat=files,0 HEAD~1 | sed 's/^[ 0-9.]*% //g' | awk -F
 done
 
 echo "action_state=`dirname a/b/c`"
+
+          # echo "dir=`dirname ${{ matrix.dockerfile }}`"
+          # echo "dir=`dirname ${{ matrix.dockerfile }}`" >> $GITHUB_ENV

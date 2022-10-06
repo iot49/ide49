@@ -46,8 +46,6 @@ jobs:
           service="$(basename $dir)"
           echo "dir=$dir" >> $GITHUB_ENV
           echo "service=$service" >> $GITHUB_ENV
-          # echo "dir=`dirname ${{ matrix.dockerfile }}`"
-          # echo "dir=`dirname ${{ matrix.dockerfile }}`" >> $GITHUB_ENV
           echo build ${{ matrix.dockerfile }}
           echo dir `dirname ${{ matrix.dockerfile }}`
           echo LS 1 ---------------
