@@ -63,6 +63,9 @@ jobs:
         env:
           GITHUB_TOKEN: ${{ secrets.token }}
         with:
-          context: services/nginx
+          context: ${{ env.dir }}
+          tags: |
+            ${{ secrets.DOCKER_HUB_USERNAME }}/${{ env.service }}:latest,
+            ${{ secrets.DOCKER_HUB_USERNAME }}/${{ env.service }}:2022-10-06
+          platforms: linux/amd64,linux/arm64
           push: true
-          tags: ${{ secrets.DOCKER_HUB_USERNAME }}/${{ env.service }}:latest
