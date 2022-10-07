@@ -9,14 +9,14 @@ if ! grep -q `hostname` /etc/hosts; then
 fi
 
 # device environment (e.g. DNS_NAME); applies to all services
-rsync --ignore-existing -a /usr/local/scripts/ ${iot_home}
+rsync --ignore-existing -a --chown iot:users /usr/local/scripts/ ${iot_home}
 set -a; source ${iot_home}/.env; set +a
 
 # Enable dynamically plugged devices (/dev). Requires privileged container.
 sudo /bin/bash -c "UDEV=${UDEV:-off}; source /usr/local/bin/balena-entry.sh"
 
 # Add ${CONDA_DIR}/bin to sudo secure_path (from official jupyter docker start.sh)
-sudo su -  << EOF
+sudo su - << EOF
    sed -r "s#Defaults\s+secure_path\s*=\s*\"?([^\"]+)\"?#Defaults secure_path=\"\1:${CONDA_DIR}/bin\"#" /etc/sudoers | grep secure_path > /etc/sudoers.d/path
 EOF
 

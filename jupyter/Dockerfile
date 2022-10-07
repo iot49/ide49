@@ -33,21 +33,17 @@ RUN apt-get update --yes \
     # libdbus-glib-1-dev libdbus-1-dev \
  && apt-get clean && rm -rf /var/lib/apt/lists/*
 
-# rename user jovyan -> "${IOT_USER}"
-# do not change group ${NB_UID}:${NB_GID}
+# rename user jovyan -> "${NB_USER}"
 
 # can't redefine value of ARG NB_USER defined in base container
-ARG IOT_USER="iot"
+ENV NB_USER="iot"
+ENV HOME="/home/${NB_USER}"
 
-ENV NB_USER="${IOT_USER}"
-ENV HOME="/home/${IOT_USER}"
-
-RUN usermod --home "/home/${IOT_USER}" --login "${IOT_USER}" -a -G users,dialout jovyan \
- && mkdir "/home/${IOT_USER}" \
- # in case volume mount is not used
- && chown "${NB_UID}:${NB_GID}" "/home/${IOT_USER}" \
+RUN usermod --home "/home/${NB_USER}" --login "${NB_USER}" -a -G users,dialout jovyan \
+ && mkdir "/home/${NB_USER}" \
+ && chown "${NB_UID}:${NB_GID}" "/home/${NB_USER}" \
  && fix-permissions "${HOME}" \
- && echo "${IOT_USER} ALL=(ALL) NOPASSWD:ALL" | EDITOR="tee -a" visudo \
+ && echo "${NB_USER} ALL=(ALL) NOPASSWD:ALL" | EDITOR="tee -a" visudo \
  && echo 'iot ALL=(ALL) NOPASSWD:ALL' | EDITOR='tee -a' visudo
 
 # COPY start.sh /usr/local/bin/
