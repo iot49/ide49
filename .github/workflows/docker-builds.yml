@@ -14,6 +14,7 @@ jobs:
     runs-on: ubuntu-latest
     outputs:
       # Expose matched files output variable
+      docker: ${{ steps.filter.outputs.docker }}
       dockerfiles: ${{ steps.filter.outputs.docker_files }}
     steps:
     - name: Checkout code
@@ -32,6 +33,7 @@ jobs:
   # JOB to build and test each of modified dockerfiles
   build:
     needs: changes
+    if: ${{ needs.changes.outputs.docker == 'true' }}
     strategy:
       matrix:
         dockerfile: ${{ fromJSON(needs.changes.outputs.dockerfiles) }}
