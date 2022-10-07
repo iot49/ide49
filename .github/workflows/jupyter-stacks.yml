@@ -32,14 +32,13 @@ jobs:
     if: ${{ needs.changes.outputs.docker == 'true' }}
     strategy:
       matrix:
-        # add addional base images as needed
-        base: [ "base-notebook" ]
-        # base: [ "base-notebook", "scipy-notebook" ]
+        # add addional base images as desired
+        base: [ "base-notebook", "scipy-notebook" ]
     runs-on: ubuntu-latest
     steps:
       - name: Checkout code
         uses: actions/checkout@v3
-      - name: ls
+      - name: Environment
         run: |
           date="$(date "+%Y-%m-%d")"
           echo "date=$date" >> $GITHUB_ENV
@@ -63,6 +62,5 @@ jobs:
           tags: |
             ${{ secrets.DOCKER_HUB_USERNAME }}/${{ matrix.base }}:latest,
             ${{ secrets.DOCKER_HUB_USERNAME }}/${{ matrix.base }}:${{ env.date }}
-          platforms: linux/amd64
-          # platforms: linux/amd64,linux/arm64
+          platforms: linux/amd64,linux/arm64
           push: true
