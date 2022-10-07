@@ -15,3 +15,23 @@ COPY ./www /usr/local/src/nginx/www
 COPY ./start.sh /usr/local/bin/start.sh
 
 CMD [ "/bin/bash", "/usr/local/bin/start.sh" ]
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
