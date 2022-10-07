@@ -32,12 +32,8 @@ jobs:
     if: ${{ needs.changes.outputs.docker == 'true' }}
     strategy:
       matrix:
-        # add base images as needed
-        base: |
-        [
-          "jupyter/base-notebook",
-          "jupyter/scipy-notebook"
-        ]
+        # add addional base images as needed
+        base: [ "jupyter/base-notebook", "jupyter/scipy-notebook" ]
     runs-on: ubuntu-latest
     steps:
       - name: Checkout code
