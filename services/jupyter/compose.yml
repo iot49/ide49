@@ -12,6 +12,7 @@ jupyter:
         - UDEV=on
     volumes:
         - iot-home:/home/iot
+        - nginx:/service-config/nginx
         - ALL:/service-config
     expose:
         - 8888

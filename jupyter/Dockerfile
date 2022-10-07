@@ -35,18 +35,13 @@ RUN apt-get update --yes \
 
 # rename user jovyan -> "${NB_USER}"
 
-# can't redefine value of ARG NB_USER defined in base container
 ENV NB_USER="iot"
 ENV HOME="/home/${NB_USER}"
 
 RUN usermod --home "/home/${NB_USER}" --login "${NB_USER}" -a -G users,dialout jovyan \
- && mkdir "/home/${NB_USER}" \
- && chown "${NB_UID}:${NB_GID}" "/home/${NB_USER}" \
- && fix-permissions "${HOME}" \
  && echo "${NB_USER} ALL=(ALL) NOPASSWD:ALL" | EDITOR="tee -a" visudo \
  && echo 'iot ALL=(ALL) NOPASSWD:ALL' | EDITOR='tee -a' visudo
 
-# COPY start.sh /usr/local/bin/
 COPY conf /usr/local
 
 WORKDIR ${HOME}

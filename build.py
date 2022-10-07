@@ -103,6 +103,8 @@ class Builder:
                     del s['volumes'][i]
                     for v in volumes:
                         s['volumes'].append(f"{v}:{root_dir}/{v}")
+                    # remove duplicates
+                    s['volumes'] = list(set(s['volumes']))
 
 
         # assemble docker-compose.yml
