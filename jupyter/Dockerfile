@@ -30,7 +30,7 @@ RUN apt-get update --yes \
     # often useful
     nano \
     # dbus - move to derived container
-    libdbus-glib-1-dev libdbus-1-dev \
+    # libdbus-glib-1-dev libdbus-1-dev \
  && apt-get clean && rm -rf /var/lib/apt/lists/*
 
 # rename user jovyan -> "${IOT_USER}"

@@ -61,9 +61,8 @@ jobs:
           build-args: 
             BASE=${{ matrix.base }}
           tags: |
-            ttmetro/${{ matrix.base }}:latest
-          # ${{ secrets.DOCKER_HUB_USERNAME }}/${{ matrix.base }}:latest,
-          # ${{ secrets.DOCKER_HUB_USERNAME }}/${{ matrix.base }}:${{ env.date }}
+            ${{ secrets.DOCKER_HUB_USERNAME }}/${{ matrix.base }}:latest,
+            ${{ secrets.DOCKER_HUB_USERNAME }}/${{ matrix.base }}:${{ env.date }}
           platforms: linux/amd64
           # platforms: linux/amd64,linux/arm64
-          push: true
+          load: true
