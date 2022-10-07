@@ -1,5 +1,5 @@
 # BASE: see https://jupyter-docker-stacks.readthedocs.io/ & Dockerhub for selection
-# E.g.  jupyter/base-notebook
+# E.g.  jupyter/base-notebook 
 #       jupyter/scipy-notebook
 
 ARG BASE="jupyter/base-notebook"
