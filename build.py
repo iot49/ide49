@@ -40,8 +40,12 @@ class Builder:
         errors = 0
 
         # secrets
-        with open(os.path.expanduser('~/.secrets.yaml')) as file:
-            secrets = yaml.safe_load(file)
+        try:
+            with open(os.path.expanduser('~/.secrets.yaml')) as file:
+                secrets = yaml.safe_load(file)
+        except FileNotFoundError:
+            print(f"****** WARNING: .secrets.yaml not found")
+            secrets = {}
       
         # services included in app
         services = jq('.app.services').transform(self._app)

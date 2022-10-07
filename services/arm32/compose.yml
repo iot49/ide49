@@ -1,5 +1,5 @@
 arm32:
-    build: ./plugins/arm32
+    build: .
     restart: unless-stopped
     privileged: true
     volumes:
