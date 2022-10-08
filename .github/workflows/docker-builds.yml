@@ -41,7 +41,7 @@ jobs:
     steps:
       - name: Checkout code
         uses: actions/checkout@v3
-      - name: ls
+      - name: Set up environment
         run: |
           dir="$(dirname ${{ matrix.dockerfile }})"
           service="$(basename $dir)"
