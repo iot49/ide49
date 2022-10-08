@@ -7,14 +7,15 @@ RUN apt-get update --yes \
     build-essential \
     dbus \
     libdbus-glib-1-dev \
+    # libdbus-1-dev \
  && apt-get clean && rm -rf /var/lib/apt/lists/*
 
 RUN pip install --default-timeout=1000 \
     dbus-python \
     mdns-publisher
 
-COPY app.py /
+# COPY app.py /
 
-CMD [ "python", "/app.py" ]
+# CMD [ "python", "/app.py" ]
 
-# CMD [ "mdns-publish-cname", "a.local", "a.b.local", "m.n.local" ]
+CMD [ "mdns-publish-cname", "a.local", "a.b.local", "m.n.local" ]

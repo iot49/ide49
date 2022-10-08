@@ -6,6 +6,6 @@ mdns-publisher:
     labels:
         io.balena.features.dbus: 1
     environment:
-        DBUS_SYSTEM_BUS_ADDRESS: 'unix:path=/host/run/dbus/system_bus_socket'
-        MDNS_DOMAINS: >-
-            [ "a.local", "a.b.local", "r.s.local" ]
+        - DBUS_SYSTEM_BUS_ADDRESS=unix:path=/host/run/dbus/system_bus_socket
+        - MDNS_DOMAIN="amd64"
+        - MDNS_SUBDOMAINS="jupyter, balena-cli, codeserver"
