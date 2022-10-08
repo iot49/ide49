@@ -1,12 +1,11 @@
 #!/usr/bin/env python
 import os
+from xml import dom
 
-args = ['mdns-publish-cname']
+domain = os.getenv('MDNS_DOMAIN')
+subdomains = os.getenv('MDNS_SUBDOMAINS').split(',')
 
-with open('/home/pi/.mdns-aliases', 'r') as f:
-    for line in f.readlines():
-      line = line.strip()
-      if line:
-        args.append(line.strip())
+mdns_names = [ "mdns-publish-cname", f"{domain}.local" ]
+mdns_names.extend([ f"{s.strip()}.{domain}.local" for s in subdomains ])
 
-os.execv('/home/pi/.local/bin/mdns-publish-cname', args)
+os.execv('/usr/local/bin/mdns-publish-cname', mdns_names) 

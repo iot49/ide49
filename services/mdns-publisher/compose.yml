@@ -7,5 +7,5 @@ mdns-publisher:
         io.balena.features.dbus: 1
     environment:
         - DBUS_SYSTEM_BUS_ADDRESS=unix:path=/host/run/dbus/system_bus_socket
-        - MDNS_DOMAIN="amd64"
-        - MDNS_SUBDOMAINS="jupyter, balena-cli, codeserver"
+        - MDNS_DOMAIN=amd64
+        - MDNS_SUBDOMAINS=jupyter, balena-cli, codeserver
