@@ -44,7 +44,6 @@ class Builder:
             with open(os.path.expanduser('~/.secrets.yaml')) as file:
                 secrets = yaml.safe_load(file)
         except FileNotFoundError:
-            print(f"****** WARNING: .secrets.yaml not found")
             secrets = {}
       
         # services included in app
@@ -129,6 +128,7 @@ class Builder:
             try:
                 print(f"{'-'*30} Push to fleet {fleet}")
                 nocache = '--nocache' if conf.nocache else ''
+                # cmd = [ 'balena', 'push', fleet ]
                 cmd = [ 'balena', 'push', fleet ]
                 if conf.nocache: cmd.append('--nocache')
                 subprocess.run(cmd, check=True)
