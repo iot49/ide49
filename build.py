@@ -128,7 +128,6 @@ class Builder:
             try:
                 print(f"{'-'*30} Push to fleet {fleet}")
                 nocache = '--nocache' if conf.nocache else ''
-                # cmd = [ 'balena', 'push', fleet ]
                 cmd = [ 'balena', 'push', fleet ]
                 if conf.nocache: cmd.append('--nocache')
                 subprocess.run(cmd, check=True)

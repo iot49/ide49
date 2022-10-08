@@ -1,5 +1,6 @@
 jupyter:
-    build: .
+    image: ttmetro/jupyter
+    # build: .
     restart: unless-stopped
     privileged: true
     network_mode: host
