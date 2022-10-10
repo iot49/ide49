@@ -13,10 +13,7 @@ RUN pip install --default-timeout=1000 \
 
 FROM python:3.10-slim-bullseye
 
-# this is for sure required
 COPY --from=builder /usr/local/lib/python3.10/site-packages /usr/local/lib/python3.10/site-packages
-
-# this depends on what you are installing
 COPY --from=builder /usr/local/bin /usr/local/bin
 
 RUN apt-get update --yes \
