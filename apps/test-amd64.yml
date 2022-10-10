@@ -5,6 +5,7 @@ app:
     # - jupyter-base
     - jupyter
     - mdns-publisher
+    - http-tester
     # - config
 
   fleets:
