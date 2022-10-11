@@ -2,10 +2,10 @@ app:
 
   services:
     - config
-    # - n
-    # - mdns-publisher
-    # - http-tester
-    # - jupyter
+    - nginx
+    - mdns-publisher
+    - http-tester
+    - jupyter
 
   fleets:
     - 192.168.1.82

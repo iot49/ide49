@@ -1,12 +1,7 @@
 #!/bin/bash
 
-echo SERVICES   -$SERVICES-
-echo VOLUMES    -$VOLUMES-
-echo HTTP_PORTS -$HTTP_PORTS-
-
 # default configuration
 config=/service-config/config
-echo chown -R 0:100 ${config}
 chown -R 0:100 ${config}
 cd ${config}
 rsync --ignore-existing -a --chown 0:100 /usr/local/config/ .
@@ -20,8 +15,9 @@ set -a; source .env; set +a
 # enable bluetooth for uid 1000
 source /usr/local/bin/configure-bluetooth.sh
 
-# nginx configuration
-
+# ${config}/.nginx /.nginx 
 python /usr/local/src/app.py
+
+# cat ${config}/.nginx 
 
 sleep infinity

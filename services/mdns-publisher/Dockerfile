@@ -20,10 +20,12 @@ RUN apt-get update --yes \
  && apt-get install --yes --no-install-recommends \
     dbus \
     libdbus-glib-1-dev \
+    curl \
+    jq \
  && apt-get clean && rm -rf /var/lib/apt/lists/*
 
-COPY app.py /
+COPY conf /etc/local
 
-CMD [ "python", "/app.py" ]
+CMD [ "/bin/bash", "/etc/local/bin/start.sh" ]
 
 # CMD [ "mdns-publish-cname", "a.local", "a.b.local", "m.n.local" ]

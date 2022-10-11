@@ -12,10 +12,10 @@ from pprint import pprint
 
 MACROS = '''
 {% macro all_volumes() %}
-    {% for v in volumes %}
+    {%- for v in volumes -%}
     - {{ v }}:/service-config/{{ v }}
-    {% endfor %}
-{% endmacro %}
+    {% endfor -%}
+{% endmacro -%}
 '''
 
 class Builder:
@@ -41,15 +41,17 @@ class Builder:
             print("***** ERRORS in spec - aborting.")
             sys.exit(1)
 
-    def _read_specs(self, services, secrets, volumes=[], http_ports={}):
+    def _read_specs(self, services, **args):
         specs = dict()
         vols = list()
-        http_p = dict()
+        ports = dict()
         for service in services:
             try:
                 file_name = os.path.join('services', service, 'compose.yml')
-                with open(file_name) as file:                    
-                    spec = yaml.safe_load(Template(MACROS + '\n' + file.read()).render(services=services, volumes=volumes, secrets=secrets, http_ports=http_ports))
+                with open(file_name) as file:
+                    template = Template(MACROS + '\n' + file.read())
+                    # print('>'*50, template.render(services=services, **args))
+                    spec = yaml.safe_load(template.render(services=services, **args))
                     vols.extend([ v.split(':')[0] for v in spec.get('volumes') or [] ])
                     self._error(not isinstance(spec, dict), f"Malformed compose specifiation for {service}")
                     specs[service] = spec
@@ -65,9 +67,9 @@ class Builder:
                 else:
                     self._error(not 'image' in spec, f"Either 'build' or 'image' must be present in compose specifiaction for {service}")
                     if spec.get('http_port'):
-                        http_p[service] = (spec['http_port'], spec.get('network_mode') == 'host')
+                        ports[service] = (spec['http_port'], spec.get('network_mode') == 'host')
         self._check_errors()
-        return (specs, list(set(vols)), http_p)
+        return (specs, { 'services': services, 'volumes': list(set(vols)), 'http_ports': ports })
  
     def _build(self):
         errors = 0
@@ -83,15 +85,15 @@ class Builder:
         services = self._app.get('app').get('services')
         
         # pass 1: extract volumes from compose.yml files
-        specs, volumes, http_ports = self._read_specs(services, secrets)
-        
+        specs, args = self._read_specs(services, secrets=secrets, volumes=[], http_ports={})
+
         # pass 2: process compose.yml files with correct volumes data
-        specs, _, _ = self._read_specs(services, secrets, volumes, http_ports)
-        pprint(http_ports)
+        specs, args = self._read_specs(**args)
 
         # assemble docker-compose.yml
         dc = dict()
         dc['version'] = 2
+        volumes = args['volumes']
         if len(volumes) > 0: dc['volumes'] = dict.fromkeys(volumes)
         svcs = {}
         for k, v in specs.items():

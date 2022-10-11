@@ -10,28 +10,6 @@ RUN apk update \
     openssl \
     rsync
 
-COPY ./conf /usr/local/src/nginx/conf
-COPY ./www /usr/local/src/nginx/www
-COPY ./start.sh /usr/local/bin/start.sh
+COPY conf /usr/local/
 
 CMD [ "/bin/bash", "/usr/local/bin/start.sh" ]
- 
- 
- 
- 
- 
- 
- 
- 
- 
- 
- 
- 
- 
- 
- 
- 
- 
- 
- 
- 

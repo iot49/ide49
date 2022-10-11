@@ -11,5 +11,6 @@ volumes:
     - config:/service-config/config
 environment:
     - VOLUMES={{ volumes }}
-    - HTTP_HOSTS={{ http_hosts }}
     - SERVICES={{ services | join(",") }}
+    - HTTP_PORTS={{ http_ports | tojson() | replace('\n', '') | replace(' ', '')}}
+

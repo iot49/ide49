@@ -12,9 +12,12 @@ if ! grep -q `hostname` /etc/hosts; then
     sudo bash -c 'echo "127.0.0.1" `hostname` >> /etc/hosts'
 fi
 
-# device environment (e.g. DNS_NAME); applies to all services
+# device environment; applies to all services
 rsync --ignore-existing -a --chown iot:users /usr/local/scripts/ ${iot_home}
-set -a; source ${iot_home}/.env; set +a
+env_file=/service-config/config/.env
+if [[ -f ${env_file} ]]; then
+    set -a; source ${iot_home}/.env; set +a
+fi
 
 # Enable dynamically plugged devices (/dev). Requires privileged container.
 /bin/bash -c "UDEV=${UDEV:-off}; source /usr/local/bin/balena-entry.sh"
