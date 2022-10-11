@@ -1,7 +1,7 @@
-http-tester:
-    build: ttmetro/http-tester
-    restart: unless-stopped
-    environment:
-        - HTTP_TESTER_PORT=8000
-    ports:
-        - 8000:8000
+image: ttmetro/http-tester
+restart: unless-stopped
+environment:
+    - HTTP_TESTER_PORT=8000
+ports:
+    - 8000:8000
+http_port: 8000

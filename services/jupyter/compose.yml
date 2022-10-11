@@ -1,19 +1,18 @@
-jupyter:
-    image: ttmetro/jupyter
-    # build: .
-    restart: unless-stopped
-    privileged: true
-    network_mode: host
-    labels:
-        io.balena.features.dbus: 1
-        io.balena.features.supervisor-api: 1
-    environment:
-        - DBUS_SYSTEM_BUS_ADDRESS=unix:path=/host/run/dbus/system_bus_socket
-        - JUPYTER_PORT=8888
-        - UDEV=on
-    volumes:
-        - iot-home:/home/iot
-        - nginx:/service-config/nginx
-        - ALL:/service-config
-    expose:
-        - 8888
+image: ttmetro/jupyter
+# build: .
+restart: unless-stopped
+privileged: true
+network_mode: host
+labels:
+    io.balena.features.dbus: 1
+    io.balena.features.supervisor-api: 1
+environment:
+    - DBUS_SYSTEM_BUS_ADDRESS=unix:path=/host/run/dbus/system_bus_socket
+    - JUPYTER_PORT=8888
+    - UDEV=on
+volumes:
+    - iot-home:/home/iot
+    - nginx:/service-config/nginx
+    {{ all_volumes() }}
+ext:
+    http_port: 8888
