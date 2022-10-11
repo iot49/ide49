@@ -1,6 +1,6 @@
 #!/bin/bash
 
-# start.sh runs as user iot
+# start.sh runs as root
 iot_home=/service-config/iot-home
 
 # set home folder ownership

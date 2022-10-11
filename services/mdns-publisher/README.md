@@ -2,6 +2,8 @@
 
 Advertises mdns broadcast domains using the Avahi server of the BalenaOS host.
 
+The domain defaults to `hostname` and can be overriden with environment variable `MDNS_DOMAIN`.
+
 Configuration example:
 
 ```yaml

@@ -1,8 +1,12 @@
 FROM python:3.10-slim-bullseye
 
-COPY start.sh /
+RUN apt-get update --yes \
+ && apt-get install --yes --no-install-recommends \
+    iproute2 \
+    rsync \
+    ssh \
+ && apt-get clean && rm -rf /var/lib/apt/lists/*
 
-CMD ["bash", "start.sh"]
+COPY conf /usr/local
 
- 
- 
+CMD [ "/bin/bash", "/usr/local/bin/start.sh" ]

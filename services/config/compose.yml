@@ -1,11 +1,15 @@
 # image: ttmetro/config
 build: .
 restart: unless-stopped
-privileged: true
-labels:
-    io.balena.features.dbus: '1'
-    io.balena.features.supervisor-api: 1
-environment:
-    - 'DBUS_SYSTEM_BUS_ADDRESS=unix:path=/host/run/dbus/system_bus_socket'
+# privileged: true
+# labels:
+#     io.balena.features.dbus: '1'
+    # io.balena.features.supervisor-api: 1
+# environment:
+#    - 'DBUS_SYSTEM_BUS_ADDRESS=unix:path=/host/run/dbus/system_bus_socket'
 volumes:
-    - config:/config
+    - config:/service-config/config
+environment:
+    - VOLUMES={{ volumes }}
+    - HTTP_HOSTS={{ http_hosts }}
+    - SERVICES={{ services | join(",") }}
