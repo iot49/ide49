@@ -29,8 +29,6 @@ RUN apt-get update --yes \
     udev \
     # often useful
     nano \
-    # dbus - move to derived container
-    # libdbus-glib-1-dev libdbus-1-dev \
  && apt-get clean && rm -rf /var/lib/apt/lists/*
 
 # rename user jovyan -> "${NB_USER}"
@@ -47,5 +45,5 @@ COPY conf /usr/local
 WORKDIR ${HOME}
 CMD [ "/bin/bash", "/usr/local/bin/start.sh" ]
 
-# disable for now
+# disable for now (ip depends on network_mode)
 HEALTHCHECK NONE

@@ -81,4 +81,4 @@ RUN python -m iot_kernel.install \
  && fix-permissions "${CONDA_DIR}"
 
 # start.sh runs as root!
-USER root
+USER root 
