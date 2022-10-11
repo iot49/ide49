@@ -46,3 +46,6 @@ COPY conf /usr/local
 
 WORKDIR ${HOME}
 CMD [ "/bin/bash", "/usr/local/bin/start.sh" ]
+
+# disable for now
+HEALTHCHECK NONE
