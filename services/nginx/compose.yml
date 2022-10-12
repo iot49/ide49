@@ -6,6 +6,8 @@ labels:
 ports:
     - 80:80
     - 443:443
+environment:
+    - HTTP_PORTS={{ http_ports | tojson() | replace('\n', '') | replace(' ', '')}}
 volumes:
     - nginx:/etc/nginx
     - www:/service-config/www

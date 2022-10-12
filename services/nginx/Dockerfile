@@ -8,6 +8,7 @@ RUN apk update \
     jq \
     nano \
     openssl \
+    python3 \
     rsync
 
 COPY conf /usr/local/

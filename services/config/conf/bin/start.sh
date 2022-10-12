@@ -15,9 +15,5 @@ set -a; source .env; set +a
 # enable bluetooth for uid 1000
 source /usr/local/bin/configure-bluetooth.sh
 
-# ${config}/.nginx /.nginx 
-python /usr/local/src/app.py
-
-# cat ${config}/.nginx 
-
 sleep infinity
+

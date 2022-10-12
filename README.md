@@ -26,10 +26,6 @@ to create `docker-compose.yml` for <app>.
 - balenaos on mac
 - service/jupyter
     * compose: set JUPYTER_IP dynamically
-- .nginx
-    * move code generation from config -> nginx
-    * Note: nginx still needs DOMAIN
 - index.html
     * generate dynamically (addresses!)
     * flask?
-    * nginx/python?
