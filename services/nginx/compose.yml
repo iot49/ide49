@@ -9,7 +9,7 @@ ports:
 environment:
     - HTTP_PORTS={{ http_ports | tojson() | replace('\n', '') | replace(' ', '')}}
 volumes:
-    - nginx:/etc/nginx
+    # - nginx:/etc/nginx
     - www:/service-config/www
     - config:/service-config/config
 depends_on:

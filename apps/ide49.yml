@@ -1,15 +1,13 @@
-app:
+services:
+  - nginx
+  - jupyter
+  - code-server
+  - duplicati
+  - smb
+  - mosquitto
+  - wireshark
+  - balena-cli
 
-  services:
-    - nginx
-    - jupyter
-    - code-server
-    - duplicati
-    - smb
-    - mosquitto
-    - wireshark
-    - balena-cli
-
-  fleets:
-    - ide49
-    - ide49-amd64
+fleets:
+  - ide49
+  - ide49-amd64

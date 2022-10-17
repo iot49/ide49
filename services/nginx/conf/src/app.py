@@ -2,6 +2,7 @@
 import os
 import json
 
+domain = os.getenv('MDNS_DOMAIN')
 http_ports = json.loads(os.getenv('HTTP_PORTS'))
 host_ip = os.getenv('HOST_IP')
 
@@ -30,8 +31,7 @@ server {{
     }}
 }}
 """.format(
-    server_name=f"{service}.amd64.local",
+    server_name=f"{service}.{domain}.local",
     url=host_ip if host_mode else service,
     port=port
 ))
-

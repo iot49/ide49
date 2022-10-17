@@ -1,12 +1,14 @@
 #!/usr/bin/env python
 import os
 
-domain = os.getenv('MDNS_DOMAIN') or os.getenv('HOST_NAME', 'iot49')
-subdomains = os.getenv('MDNS_SUBDOMAINS').split(',')
+domain = os.getenv('MDNS_DOMAIN')
+subdomains = os.getenv('MDNS_SUBDOMAINS')
 
 mdns_names = [ "mdns-publish-cname", f"{domain}.local" ]
-mdns_names.extend([ f"{s.strip()}.{domain}.local" for s in subdomains ])
+if len(subdomains) > 0:
+    mdns_names.extend([ f"{s.strip()}.{domain}.local" for s in subdomains.split(',') ])
 
-# print("mdns_names:", mdns_names)
+# print("-"*20, "mdns_names:", mdns_names)
 
-os.execv('/usr/local/bin/mdns-publish-cname', mdns_names) 
+os.execv('/usr/local/bin/mdns-publish-cname', mdns_names)
+

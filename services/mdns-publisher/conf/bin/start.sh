@@ -1,9 +1,7 @@
 #! /bin/bash
 
-export HOST_NAME=$(curl -s -X GET --header "Content-Type:application/json" \
-           "$BALENA_SUPERVISOR_ADDRESS/v1/device/host-config?apikey=$BALENA_SUPERVISOR_API_KEY" | \
-           jq ".network.hostname")
-HOST_NAME="${HOST_NAME%\"}"
-HOST_NAME="${HOST_NAME#\"}"
+# load environment
+env_file=/service-config/config/.env
+set -a; [[ -f ${env_file} ]] && source ${env_file}; set +a
 
 python /etc/local/src/app.py

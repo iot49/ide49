@@ -6,6 +6,7 @@ import subprocess
 import sys
 import yaml
 
+from pathlib import Path
 from jinja2 import Template
 from pprint import pprint
 
@@ -59,15 +60,14 @@ class Builder:
                 self._error(True, f"No 'compose.yml' file for service {service} ({file_name})")
             else:
                 self._check_errors()
-                self._error('build' in spec and 'image' in spec, f"Only one of 'build' or 'image' permitted in compose specification for {service}")
-                if 'build' in spec:
-                    self._error('image' in spec, f"Only either 'build' or 'image' permitted in compose specification for {service}")
-                    self._error(spec['build'] != '.', f"Build argument not '.' for {service}")
+                if 'build' in spec and 'image' in spec:
+                    print(f"service {service}: found 'build' and 'image' directives - building & ignoring image")
+                    spec.pop('image', None)
+                if spec.get('build'):
                     spec['build'] = os.path.join('services', service)
-                else:
-                    self._error(not 'image' in spec, f"Either 'build' or 'image' must be present in compose specifiaction for {service}")
-                    if spec.get('http_port'):
-                        ports[service] = (spec['http_port'], spec.get('network_mode') == 'host')
+                if spec.get('http_port'):
+                    ports[service] = (spec['http_port'], spec.get('network_mode') == 'host')
+                    spec.pop('http_port', None)
         self._check_errors()
         return (specs, { 'services': services, 'volumes': list(set(vols)), 'http_ports': ports })
  
@@ -82,7 +82,7 @@ class Builder:
             secrets = {}
       
         # services used by app
-        services = self._app.get('app').get('services')
+        services = self._app.get('services')
         
         # pass 1: extract volumes from compose.yml files
         specs, args = self._read_specs(services, secrets=secrets, volumes=[], http_ports={})
@@ -92,15 +92,20 @@ class Builder:
 
         # assemble docker-compose.yml
         dc = dict()
-        dc['version'] = 2
+        dc['version'] = '2'
+        dc['services'] = specs
+        # balena needs listing of all volumes
         volumes = args['volumes']
         if len(volumes) > 0: dc['volumes'] = dict.fromkeys(volumes)
-        svcs = {}
-        for k, v in specs.items():
-            v.pop('http_port', None)
-            svcs[k] = v
-        dc['services'] = svcs
-
+        # add path to volumes (when running with docker rather than balena)
+        volumes_dir = self._app.get('volumes_dir')
+        if volumes_dir:
+            for spec in specs.values():
+                if spec.get('volumes'):
+                    spec['volumes'] = list(set([ os.path.join(volumes_dir, v) for v in spec.get('volumes') ]))
+                    for v in spec.get('volumes'):
+                        p, _ = v.split(':')
+                        Path(p).mkdir(parents=True, exist_ok=True)
         # write docker-compose.yml
         def represent_none(self, _):
             return self.represent_scalar('tag:yaml.org,2002:null', '')
@@ -113,7 +118,9 @@ class Builder:
     def _push(self):
         if self._conf.nopush:
             return
-        for fleet in self._app.get('app').get('fleets'):
+        if not self._app.get('fleets'):
+            return
+        for fleet in self._app.get('fleets'):
             try:
                 print(f"{'-'*30} Push to fleet {fleet}")
                 nocache = '--nocache' if conf.nocache else ''

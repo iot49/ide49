@@ -36,9 +36,35 @@ start_hook="/usr/local/bin/start-hook.sh"
 service_rc="${HOME}/.${BALENA_SERVICE_NAME}-rc.sh"
 [[ -f ${service_rc} ]] && setuidgid ${NB_USER} /bin/bash ${service_rc}
 
+
+# Jupyter file location issues:
+#   1) $HOME may be cifs mounted --> store config on ${iot_home}
+#   2) We are running multiple servers - does some data need to be kept separate?
+#      - place NotebookNotary.db_file in per-service location, not sure it's required
+#      - ditto for runtime
+# https://jupyter.readthedocs.io/en/latest/use/jupyter-directories.html
+
+jupyter_config=${iot_home}/.config-jupyter/$BALENA_SERVICE_NAME
+mkdir -p ${jupyter_config}
+chown -R ${NB_UID}:${NB_GID} ${jupyter_config}
+
+# don't share config between services (?)
+export JUPYTER_CONFIG_DIR=${jupyter_config}/.jupyter
+# export JUPYTER_CONFIG_DIR=${iot_home}/.jupyter
+
+# kernelspec, default: ~/.local/share/jupyter/
+export JUPYTER_PATH=${jupyter_config}/.local
+
+# separate runtime directory for each service
+export JUPYTER_RUNTIME_DIR=${jupyter_config}
+
+# sqlite database
+export IPYTHONDIR=${jupyter_config}/.ipython
+
 # run jupyter as user 'iot'
 setuidgid ${NB_USER} \
   jupyter lab --no-browser --allow-root \
     --ServerApp.ip=${JUPYTER_IP:='*'} \
     --ServerApp.port=${JUPYTER_PORT:=8888} \
-    --ServerApp.token="" --ServerApp.password=""
+    --ServerApp.token="" --ServerApp.password="" \
+    --NotebookNotary.db_file="${jupyter_config}/sqlite_db_file.lock"

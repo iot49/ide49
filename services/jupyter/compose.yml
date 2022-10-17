@@ -1,8 +1,7 @@
 image: ttmetro/jupyter
-# build: .
+build: .
 restart: unless-stopped
 privileged: true
-network_mode: host
 labels:
     io.balena.features.dbus: 1
     io.balena.features.supervisor-api: 1
@@ -10,10 +9,11 @@ environment:
     - UDEV=on
     - DBUS_SYSTEM_BUS_ADDRESS=unix:path=/host/run/dbus/system_bus_socket
     - JUPYTER_PORT=8888
-    # host_ip ... this could change!
-    # set dynamically
-    - JUPYTER_IP="172.18.0.1"
 http_port: 8888
+ports:
+    - 7000-7999
 volumes:
     - iot-home:/home/iot
     {{ all_volumes() }}
+
+    

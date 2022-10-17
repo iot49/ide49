@@ -1,22 +1,20 @@
-app:
+services:
+  - nginx
+  - jupyter
+  - code-server
+  - duplicati
+  - smb
+  - mosquitto
+  - wireshark
+  - balena-cli
+  - docker
+  - plex
+  - homeassistant
+  - esphome
+  - grafana
+  - influxdb
+  - postgres
 
-  services:
-    - nginx
-    - jupyter
-    - code-server
-    - duplicati
-    - smb
-    - mosquitto
-    - wireshark
-    - balena-cli
-    - docker
-    - plex
-    - homeassistant
-    - esphome
-    - grafana
-    - influxdb
-    - postgres
-
-  fleets:
-    # - test-app
-    - roulotte
+fleets:
+  # - test-app
+  - roulotte

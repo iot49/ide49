@@ -1,0 +1,10 @@
+services:
+  - config
+  - nginx
+  - mdns-publisher
+  - http-tester
+  - jupyter
+
+fleets:
+  - 192.168.1.90
+  # - test-amd64
