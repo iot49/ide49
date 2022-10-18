@@ -24,6 +24,8 @@ USER ${NB_UID}
 
 # Install Python 3 packages
 RUN mamba install --quiet --yes \
+    # version incompatibility with jupyter-book
+    # jupyter-bokeh
     jupyterlab-spellchecker \
  && mamba clean --quiet --all -f -y
 
@@ -31,8 +33,8 @@ RUN mamba install --quiet --yes \
 RUN pip install --default-timeout=1000 \
     asyncio-mqtt \
     bleak \
-    jupyter-book \
-    jupyter-bokeh
+    jupyter-book
+    
 
 # start.sh runs as root!
 USER root 
