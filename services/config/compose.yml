@@ -1,5 +1,5 @@
-# image: ttmetro/config
-build: .
+image: ttmetro/config
+# build: .
 restart: unless-stopped
 labels:
     io.balena.features.supervisor-api: 1

@@ -29,7 +29,7 @@ class Builder:
     def run(self):
         self._errors = 0
         self._build()
-        self._push()
+        self._deploy()
 
     def _error(self, condition, msg):
         if condition:
@@ -115,21 +115,21 @@ class Builder:
             file.write(f"# MACHINE GENERATED from {conf.app} - DO NOT EDIT\n\n")   
             yaml.dump(dc, file, default_flow_style=False, sort_keys=False)
 
-    def _push(self):
-        if self._conf.nopush:
+    def _deploy(self):
+        if self._conf.action == 'none':
             return
         if not self._app.get('fleets'):
             return
         for fleet in self._app.get('fleets'):
             try:
-                print(f"{'-'*30} Push to fleet {fleet}")
+                print(f"{'-'*30} {self._conf.action} to fleet {fleet}")
                 nocache = '--nocache' if conf.nocache else ''
-                cmd = [ 'balena', 'push', fleet ]
+                cmd = [ 'balena', self._conf.action, fleet ]
                 if conf.nocache: cmd.append('--nocache')
                 if conf.debug: cmd.append('--debug')
                 subprocess.run(cmd, check=True)
             except subprocess.CalledProcessError:
-                print(f"***** push to {fleet} failed")
+                print(f"***** {self._conf.action} to {fleet} failed")
                 sys.exit(1)
             if not conf.tag: continue
             ps = subprocess.Popen(('balena', 'releases', fleet), stdout=subprocess.PIPE)
@@ -143,10 +143,10 @@ def args(argv):
     parser = argparse.ArgumentParser(description='Assemble docker app from spec file and compose-template and push to balena fleet')
     parser.add_argument('app',
                         help='app specification in app/ folder')
+    parser.add_argument('action', default='deploy', nargs='?',
+                        help='deploy (default), build or none')
     parser.add_argument('--tag', default=None,
                         help='optional balena release tag')
-    parser.add_argument('--nopush', action='store_true',
-                        help="skip pushing to fleet if set")
     parser.add_argument('--nocache', action='store_true',
                         help="don't use previously built images when building the app")
     parser.add_argument('--debug', '-d', action='store_true',
@@ -156,5 +156,6 @@ def args(argv):
 
 if __name__ == '__main__':
     conf = args(sys.argv)
+    print(conf)
     builder = Builder(args(sys.argv))
     builder.run()

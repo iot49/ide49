@@ -40,7 +40,7 @@ subjectAltName = @alt_names
 DNS.1 = ${MDNS_DOMAIN}.local
 DNS.2 = *.${MDNS_DOMAIN}.local
 EOF
-
+ 
 # set name for dns advertising & create certificate
 cd /etc/nginx/ssl
 openssl req -x509 -nodes -days 3650 -newkey rsa:2048 \

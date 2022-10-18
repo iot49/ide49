@@ -3,5 +3,8 @@ services:
   - nginx
   - mdns-publisher
   - http-tester
-  - jupyter
-volumes_dir: /Users/ttmetro/Documents/ide49-volumes
+  # - jupyter
+
+fleets:
+  # - 192.168.1.90
+  - test-amd64

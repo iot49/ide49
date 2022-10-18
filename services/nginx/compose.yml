@@ -1,8 +1,5 @@
-build: .
+image: ttmetro/nginx
 restart: unless-stopped
-# privileged: true
-labels:
-    io.balena.features.supervisor-api: 1
 ports:
     - 80:80
     - 443:443
@@ -14,3 +11,4 @@ volumes:
     - config:/service-config/config
 depends_on:
     - config
+    - jupyter
