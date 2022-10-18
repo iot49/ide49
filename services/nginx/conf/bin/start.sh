@@ -13,14 +13,16 @@ rsync --update -a /usr/local/nginx/ /etc/nginx/
 rsync -a /usr/local/nginx/ /etc/nginx/
 chown -R :100 /etc/nginx
 
+mkdir -p /etc/nginx/ssl
+cd /etc/nginx/ssl
+
 # create new certificate, if needed
-if ! grep -q "DNS.1 = ${MDNS_DOMAIN}.local" "/etc/nginx/ssl/cert.conf"; then
+if ! grep -q "DNS.1 = ${MDNS_DOMAIN}.local" "cert.conf"; then
 
 echo "creating certificate for *.${MDNS_DOMAIN}.local"
 
 # configuration for self-signed certificate
-mkdir -p /etc/nginx/ssl
-cat << EOF >/etc/nginx/ssl/cert.conf
+cat << EOF >cert.conf
 [req]
 distinguished_name = req_distinguished_name
 x509_extensions = v3_req
@@ -42,7 +44,6 @@ DNS.2 = *.${MDNS_DOMAIN}.local
 EOF
  
 # set name for dns advertising & create certificate
-cd /etc/nginx/ssl
 openssl req -x509 -nodes -days 3650 -newkey rsa:2048 \
     -keyout cert.key -out cert.crt -config cert.conf       
 openssl pkcs12 -export -out cert.pfx -inkey cert.key -in cert.crt -passout pass:

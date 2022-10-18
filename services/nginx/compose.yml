@@ -1,4 +1,5 @@
 image: ttmetro/nginx
+build: .
 restart: unless-stopped
 ports:
     - 80:80
