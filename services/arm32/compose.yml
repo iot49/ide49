@@ -1,14 +1,11 @@
-arm32:
-    build: .
-    restart: unless-stopped
-    privileged: true
-    volumes:
-        - iot-home:/home/iot
-        - iot-home:/service-config/iot-home
-    environment:
-        - JUPYTER_PORT=8889
-    expose:
-        - 8889
-    # V4
-    depends_on:
-        - smb
+image: ttmetro/arm32
+build: .
+restart: unless-stopped
+privileged: true
+volumes:
+    - iot-home:/home/iot
+    {{ all_volumes() }}
+environment:
+    - JUPYTER_PORT=8889
+http_port: 8889
+

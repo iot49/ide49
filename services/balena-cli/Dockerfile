@@ -1,7 +1,7 @@
 # Outdated node v12 has problems with newer base
-# FROM balenalib/%%BALENA_ARCH%%-ubuntu-python:3.10-kinetic-build
+# FROM balenalib/%%BALENA_ARCH%%-debian-python:3.8-buster-build
 
-FROM balenalib/%%BALENA_ARCH%%-debian-python:3.8-buster-build
+FROM python:3.10-slim-bullseye
 
 # TODO: switch to ttmetro/base-notebook
 #       requires downgrading npm and node

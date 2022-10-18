@@ -6,7 +6,7 @@ mkdir -p /mosquitto/log
 mkdir -p /mosquitto/certs
 
 # customize device environment (MOSQUITTO)
-env_file=/service-config/iot-home/.env
+env_file=/service-config/config/.env
 set -a; [[ -f ${env_file} ]] && source ${env_file}; set +a
 
 # install default configuration

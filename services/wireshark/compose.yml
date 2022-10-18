@@ -7,8 +7,7 @@ wireshark:
         - NET_ADMIN
     environment:
         - PUID=1000
-        - PGID=1000
-    expose:
-        - 3000
+        - PGID=100
+    http_port: 3000
     volumes:
         - wireshark:/config

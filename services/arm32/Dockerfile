@@ -1,4 +1,4 @@
-FROM ttmetro/%%BALENA_ARCH%%-base-notebook:ubuntu-22.04
+FROM ttmetro/base-notebook
 
 USER root
 
@@ -9,5 +9,3 @@ RUN apt-get update --yes \
     python3-usb \
     dfu-util \
  && apt-get clean && rm -rf /var/lib/apt/lists/*
-
-USER ${NB_UID}

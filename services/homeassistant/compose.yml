@@ -10,7 +10,7 @@ homeassistant:
         - TZ=!secret time_zone
         - USER=iot
         - PUID=1000
-        - PGID=1000
+        - PGID=100
         - UMASK=007
         - EXTRA_GID=dialout
         # for dbus-send

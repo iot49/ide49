@@ -1,8 +1,9 @@
-esphome:
-    # image: esphome/esphome
-    build: .
-    restart: unless-stopped
-    privileged: true
-    network_mode: host
-    volumes:
-        - esphome:/config
+image: ttmetro/esphome
+build: .
+restart: unless-stopped
+privileged: true
+environment:
+    - ESPHOME_DASHBOARD_USE_PING=true
+http_port: 6052
+volumes:
+    - esphome:/config

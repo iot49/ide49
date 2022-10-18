@@ -1,12 +1,12 @@
-plex:
-    image: linuxserver/plex:latest
-    restart: unless-stopped
-    privileged: true
-    network_mode: host
-    volumes:
-        - plex:/config
-        - media:/media
-    environment:
-      - PUID=1000
-      - PGID=1000
-      - VERSION=docker
+image: linuxserver/plex:latest
+restart: unless-stopped
+privileged: true
+network_mode: host
+volumes:
+    - plex:/config
+    - media:/media
+environment:
+    - PUID=1000
+    - PGID=100
+    - VERSION=docker
+http_port: 32400

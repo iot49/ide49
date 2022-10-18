@@ -1,5 +1,7 @@
 # https://github.com/balena-io-playground/balena-samba
-FROM balenalib/%%BALENA_ARCH%%-ubuntu:focal-run
+# FROM balenalib/%%BALENA_ARCH%%-ubuntu:focal-run
+
+FROM ubuntu:focal
 
 ENV UDEV=1
 EXPOSE 139 445

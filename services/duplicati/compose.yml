@@ -1,14 +1,13 @@
-duplicati:
-    build: .
-    restart: unless-stopped
-    privileged: true
-    environment:
-        - PUID=0
-        - PGID=0
-        - CLI_ARGS=--webservice-interface=any
-    volumes:
-        - duplicati:/config
-        - backup:/backup
-        - ALL:/service-config
-    expose:
-        - 8200
+image: ttmetro/duplicati
+build: .
+restart: unless-stopped
+privileged: true
+environment:
+    - PUID=1000
+    - PGID=100
+    - CLI_ARGS=--webservice-interface=any
+volumes:
+    - duplicati:/config
+    - backup:/backup
+    {{ all_volumes() }}
+http_port: 8200

@@ -1,13 +1,13 @@
-mosquitto:
-    build: .
-    restart: unless-stopped
-    labels:
-        io.balena.features.supervisor-api: 1
-    ports: 
-        - 1883:1883  # mqtt
-        - 9001:9001  # mqtt over websockets
-        - 8883:8883  # secure mqtt
-        - 9002:9002  # secure mqtt over websockets
-    volumes:
-        - mosquitto:/mosquitto
-        - iot-home:/service-config/iot-home
+image: ttmetro/mosquitto
+build: .
+restart: unless-stopped
+labels:
+    io.balena.features.supervisor-api: 1
+ports: 
+    - 1883:1883  # mqtt
+    - 9001:9001  # mqtt over websockets
+    - 8883:8883  # secure mqtt
+    - 9002:9002  # secure mqtt over websockets
+volumes:
+    - mosquitto:/mosquitto
+    - config:/service-config/config

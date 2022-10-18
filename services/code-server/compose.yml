@@ -1,13 +1,12 @@
-code-server:
-    build: .
-    restart: unless-stopped
-    privileged: true
-    environment:
-        - PUID=1000
-        - PGID=1000
-    volumes:
-        - code-server:/config
-        - iot-home:/config/workspace
-        - ALL:/service-config
-    expose:
-        - 8443
+image: ttmetro/code-server
+build: .
+restart: unless-stopped
+privileged: true
+environment:
+    - PUID=1000
+    - PGID=100
+volumes:
+    - code-server:/config
+    - iot-home:/config/workspace
+    {{ all_volumes() }}
+http_port: 8443

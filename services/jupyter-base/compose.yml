@@ -7,8 +7,8 @@ labels:
     io.balena.features.dbus: '1'
 environment:
     - DBUS_SYSTEM_BUS_ADDRESS=unix:path=/host/run/dbus/system_bus_socket
-    - JUPYTER_PORT=8889
-http_port: 8889
+    - JUPYTER_PORT=8890
+http_port: 8890
 volumes:
     - iot-home:/service-config/iot-home
     - config:/service-config/config
