@@ -4,7 +4,8 @@ services:
   - mdns-publisher
   - http-tester
   - jupyter-base
+  - jupyter
 
 fleets:
-  # - 192.168.1.90
+  # - 192.168.1.92
   - test-amd64
