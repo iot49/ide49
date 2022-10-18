@@ -16,7 +16,7 @@ fi
 rsync --ignore-existing -a --chown iot:users /usr/local/scripts/ ${iot_home}
 env_file=/service-config/config/.env
 if [[ -f ${env_file} ]]; then
-    set -a; source ${iot_home}/.env; set +a
+    set -a; source ${env_file}; set +a
 fi
 
 # Enable dynamically plugged devices (/dev). Requires privileged container.

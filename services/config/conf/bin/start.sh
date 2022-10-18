@@ -21,7 +21,7 @@ set -a; source .env; set +a
 source /usr/local/bin/configure-bluetooth.sh
 
 # set hostname = MDNS_NAME
-if [ -z $BALENA_SUPERVISOR_ADDRESS ]; then
+if [ -z ${BALENA_SUPERVISOR_ADDRESS} ]; then
   HOST_NAME=$(curl -s -X GET --header "Content-Type:application/json" \
             "$BALENA_SUPERVISOR_ADDRESS/v1/device/host-config?apikey=$BALENA_SUPERVISOR_API_KEY" | \
             jq ".network.hostname")

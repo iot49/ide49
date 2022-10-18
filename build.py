@@ -17,6 +17,12 @@ MACROS = '''
     - {{ v }}:/service-config/{{ v }}
     {% endfor -%}
 {% endmacro -%}
+
+{% macro all_servers() %}
+    {%- for v in http_ports -%}
+    - {{ v }}
+    {% endfor -%}
+{% endmacro -%}
 '''
 
 class Builder:
@@ -127,6 +133,7 @@ class Builder:
                 cmd = [ 'balena', self._conf.action, fleet ]
                 if conf.nocache: cmd.append('--nocache')
                 if conf.debug: cmd.append('--debug')
+                print(f"{' '.join(cmd)}")
                 subprocess.run(cmd, check=True)
             except subprocess.CalledProcessError:
                 print(f"***** {self._conf.action} to {fleet} failed")

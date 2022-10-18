@@ -7,8 +7,8 @@ RUN apt-get update --yes \
  && apt-get install --yes --no-install-recommends \
     apache2-utils \
     bluez \
+    jq \
  && apt-get clean && rm -rf /var/lib/apt/lists/*
-
 
 # gpio without root
 COPY udev-rules /etc/udev/rules.d/
@@ -18,19 +18,21 @@ RUN chmod a+x /usr/local/bin/*sh \
  && groupadd gpio \
  && usermod -a -G gpio,bluetooth iot
 
+RUN echo cache buster
+
 USER ${NB_UID}
 
 # Install Python 3 packages
-RUN mamba install --quiet --yes \
-    jupyter_bokeh \
-    jupyterlab-spellchecker \
- && mamba clean --quiet --all -f -y
+# RUN mamba install --quiet --yes \
+#     jupyter_bokeh \
+#     jupyterlab-spellchecker \
+#  && mamba clean --quiet --all -f -y
 
 # PyPi installs (not all are available on Conda)
-RUN pip install --default-timeout=1000 \
-    asyncio-mqtt \
-    bleak \
-    jupyter-book
+# RUN pip install --default-timeout=1000 \
+#     asyncio-mqtt \
+#     bleak \
+#     jupyter-book
 
 # start.sh runs as root!
 USER root 
