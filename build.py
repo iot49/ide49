@@ -75,18 +75,26 @@ class Builder:
                     ports[service] = (spec['http_port'], spec.get('network_mode') == 'host')
                     spec.pop('http_port', None)
         self._check_errors()
-        return (specs, { 'services': services, 'volumes': list(set(vols)), 'http_ports': ports })
- 
+        args['services'] = services
+        args['volumes'] = list(set(vols))
+        args['http_ports'] = ports
+        return (specs, args)
     def _build(self):
         errors = 0
 
         # secrets
-        try:
-            with open(os.path.expanduser('~/.secrets.yaml')) as file:
-                secrets = yaml.safe_load(file)
-        except FileNotFoundError:
-            secrets = {}
-      
+        for name in [ '/service-config/config/.secrets.yaml', 
+                      '~/Documents/service-config/config/.secrets.yaml' ]:
+            name = os.path.expanduser(name)
+            if os.path.exists(name):
+                with open(name) as file:
+                    secrets = yaml.safe_load(file)
+                    print(f"read secrets from {name}")
+                    break
+        else:
+            print("***** .secrets.yaml not found --- aborting")
+            sys.exit(1)
+
         # services used by app
         services = self._app.get('services')
         

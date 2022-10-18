@@ -2,6 +2,7 @@ image: linuxserver/syncthing
 environment:
     - PUID=1000
     - PGID=100
+    - TZ={{ secrets.time_zone }}
 ports:
     # - 8384:8384
     - 22000:22000/tcp
