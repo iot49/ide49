@@ -2,8 +2,7 @@
 
 # default configuration
 config=/service-config/config
-chown -R 0:100 ${config}
-chmod g+w ${config}
+chown -R 1000:100 ${config}
 cd ${config}
 rsync --ignore-existing -a --chown 0:100 /usr/local/config/ .
 

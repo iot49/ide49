@@ -11,5 +11,8 @@ http_port: 8384
 restart: unless-stopped
 volumes:
     - syncthing:/config
-    {{ all_volumes() }}
-
+    - config:/service-config/config
+    - iot-home:/service-config/iot-home
+    - www:/service-config/www
+    - homeassistant:/service-config/homeassistant
+    - esphome:/service-config/esphome
