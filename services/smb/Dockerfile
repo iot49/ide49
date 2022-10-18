@@ -3,14 +3,16 @@
 
 FROM ubuntu:focal
 
-ENV UDEV=1
+# ENV UDEV=1
 EXPOSE 139 445
 
-RUN install_packages \
+RUN apt-get update --yes \
+ && apt-get install --yes --no-install-recommends \
     grep \
     psmisc \
     samba \
-    util-linux
+    util-linux \
+ && apt-get clean && rm -rf /var/lib/apt/lists/*
 
 VOLUME ["/etc", \
     "/var/cache/samba", \

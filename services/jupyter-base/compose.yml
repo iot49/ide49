@@ -10,5 +10,6 @@ environment:
     - JUPYTER_PORT=8890
 http_port: 8890
 volumes:
-    - iot-home:/service-config/iot-home
-    - config:/service-config/config
+    - iot-home:/home/iot
+    {{ all_volumes() }}
+

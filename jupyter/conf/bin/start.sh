@@ -36,6 +36,14 @@ start_hook="/usr/local/bin/start-hook.sh"
 service_rc="${HOME}/.${BALENA_SERVICE_NAME}-rc.sh"
 [[ -f ${service_rc} ]] && setuidgid ${NB_USER} /bin/bash ${service_rc}
 
+echo JUPYTER_PORT ${JUPYTER_PORT}
+
+echo setuidgid ${NB_USER} \
+  jupyter lab --no-browser --allow-root \
+    --ServerApp.ip=${JUPYTER_IP:='*'} \
+    --ServerApp.port=${JUPYTER_PORT:=8888} \
+    --ServerApp.token="" --ServerApp.password=""
+
 # run jupyter as user 'iot'
 setuidgid ${NB_USER} \
   jupyter lab --no-browser --allow-root \
