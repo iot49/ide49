@@ -32,8 +32,8 @@ RUN mamba install --quiet --yes \
 # PyPi installs (not all are available on Conda)
 RUN pip install --default-timeout=1000 \
     asyncio-mqtt \
-    bleak \
-    jupyter-book
+    bleak
+    # jupyter-book
     
 
 # start.sh runs as root!
