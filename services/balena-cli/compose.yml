@@ -10,6 +10,6 @@ environment:
 volumes:
     - iot-home:/home/iot
     - iot-home:/service-config/iot-home
+    - config:/service-config/config
 expose:
     - 8891
-
