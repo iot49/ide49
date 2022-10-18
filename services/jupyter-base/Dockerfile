@@ -23,16 +23,16 @@ RUN echo cache buster
 USER ${NB_UID}
 
 # Install Python 3 packages
-# RUN mamba install --quiet --yes \
-#     jupyter_bokeh \
-#     jupyterlab-spellchecker \
-#  && mamba clean --quiet --all -f -y
+RUN mamba install --quiet --yes \
+    jupyterlab-spellchecker \
+ && mamba clean --quiet --all -f -y
 
 # PyPi installs (not all are available on Conda)
-# RUN pip install --default-timeout=1000 \
-#     asyncio-mqtt \
-#     bleak \
-#     jupyter-book
+RUN pip install --default-timeout=1000 \
+    asyncio-mqtt \
+    bleak \
+    jupyter-book \
+    jupyter-bokeh
 
 # start.sh runs as root!
 USER root 
