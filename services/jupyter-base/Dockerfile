@@ -36,4 +36,3 @@ USER ${NB_UID}
 
 # start.sh runs as root!
 USER root 
-
