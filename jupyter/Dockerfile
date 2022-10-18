@@ -37,6 +37,8 @@ ENV NB_USER="iot"
 ENV HOME="/home/${NB_USER}"
 
 RUN usermod --home "/home/${NB_USER}" --login "${NB_USER}" -a -G users,dialout jovyan \
+ && mkdir "/home//${NB_USER}" \
+ && chown ${NB_UID}:${NB_GID} "/home//${NB_USER}" \
  && echo "${NB_USER} ALL=(ALL) NOPASSWD:ALL" | EDITOR="tee -a" visudo \
  && echo 'iot ALL=(ALL) NOPASSWD:ALL' | EDITOR='tee -a' visudo
 
