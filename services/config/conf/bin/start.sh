@@ -1,10 +1,14 @@
 #!/bin/bash
 
+# syncthing needs /service-config writeable
+chown :100 /service-config
+chmod g+w /service-config
+
 # default configuration
 config=/service-config/config
-chown -R 1000:100 ${config}
-cd ${config}
-rsync --ignore-existing -a --chown 0:100 /usr/local/config/ .
+chown -R 1000:100 /service-config/config
+cd /service-config/config
+rsync --ignore-existing -a --chown 1000:100 /usr/local/config/ .
 
 # .env
 sed -i '/^HOST_IP=/d' .env
