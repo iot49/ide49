@@ -65,3 +65,4 @@ cat /etc/nginx/proxy.conf
 # start the server
 nginx -g "daemon off;"
 
+
