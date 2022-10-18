@@ -18,13 +18,11 @@ RUN chmod a+x /usr/local/bin/*sh \
  && groupadd gpio \
  && usermod -a -G gpio,bluetooth iot
 
-RUN echo cache buster
-
 USER ${NB_UID}
 
 # Install Python 3 packages
 RUN mamba install --quiet --yes \
-    # version incompatibility with jupyter-book
+    # ??? version incompatibility with jupyter-book
     # jupyter-bokeh
     jupyterlab-spellchecker \
  && mamba clean --quiet --all -f -y

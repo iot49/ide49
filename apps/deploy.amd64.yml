@@ -5,6 +5,7 @@ services:
   - http-tester
   - jupyter-base
   # - jupyter
+  - syncthing
 
 fleets:
   # - 192.168.1.92
