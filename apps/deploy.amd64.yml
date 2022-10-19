@@ -4,6 +4,7 @@ services:
   - mdns-publisher
   - http-tester
   - jupyter-base
+  # - balena-cli
   # - jupyter
   - syncthing
 

@@ -3,6 +3,14 @@
 
 FROM python:3.10-slim-bullseye
 
+ENV DEBIAN_FRONTEND=noninteractive
+RUN apt-get update --yes \
+ && apt-get install --yes --no-install-recommends \
+    curl \
+    cifs-utils \
+    fdisk \
+    rsync
+
 # TODO: switch to ttmetro/base-notebook
 #       requires downgrading npm and node
 #       node: '>=10.20.0 <13.0.0', npm: '<7.0.0'
@@ -12,16 +20,13 @@ FROM python:3.10-slim-bullseye
 
 # Install system packages
 # node: '>=10.20.0 <13.0.0', npm: '<7.0.0'
-RUN curl -sL https://deb.nodesource.com/setup_12.x | sudo bash - \
- && install_packages cifs-utils nodejs
+RUN curl -sL https://deb.nodesource.com/setup_12.x | /bin/bash - \
+ && apt-get install --yes --no-install-recommends nodejs \
+ && apt-get clean && rm -rf /var/lib/apt/lists/*
 
 # balena command line tools
 # RUN echo "bust cache to upgrade"
 RUN npm install balena-cli -g --production --unsafe-perm && npm cache verify && rm -rf /tmp/*
-
-RUN apt-get update --yes \
- && apt-get install --yes --no-install-recommends \
-    rsync
 
 COPY ./requirements.txt requirements.txt
 RUN pip install --upgrade pip \

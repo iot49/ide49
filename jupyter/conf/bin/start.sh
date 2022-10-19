@@ -12,6 +12,10 @@ if ! grep -q `hostname` /etc/hosts; then
     sudo bash -c 'echo "127.0.0.1" `hostname` >> /etc/hosts'
 fi
 
+# reboot & shutdown links missing on newer versions of Ubuntu
+ln -f -s -- ../bin/systemctl /sbin/reboot
+ln -f -s -- ../bin/systemctl /sbin/shutdown
+
 # device environment; applies to all services
 rsync --ignore-existing -a --chown iot:users /usr/local/scripts/ ${iot_home}
 env_file=/service-config/config/.env

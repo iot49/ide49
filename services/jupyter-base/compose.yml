@@ -1,5 +1,5 @@
 image: jupyter/base-notebook
-build: .
+# build: .
 restart: unless-stopped
 privileged: true
 labels:
