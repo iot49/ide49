@@ -137,9 +137,9 @@ class Builder:
         for fleet in self._app.get('fleets'):
             try:
                 print(f"{'-'*30} {self._conf.action} to fleet {fleet}")
-                nocache = '--nocache' if conf.nocache else ''
                 cmd = [ 'balena', self._conf.action, fleet ]
                 if conf.nocache: cmd.append('--nocache')
+                if conf.build: cmd.append('--build')
                 if conf.debug: cmd.append('--debug')
                 print(f"{' '.join(cmd)}")
                 subprocess.run(cmd, check=True)
@@ -164,6 +164,8 @@ def args(argv):
                         help='optional balena release tag')
     parser.add_argument('--nocache', action='store_true',
                         help="don't use previously built images when building the app")
+    parser.add_argument('--build', action='store_true',
+                        help="force build (deploy)")
     parser.add_argument('--debug', '-d', action='store_true',
                         help="print debugging output")
     return parser.parse_args()

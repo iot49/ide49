@@ -4,6 +4,7 @@ RUN apt-get update --yes \
  && apt-get install --yes --no-install-recommends \
     iputils-ping \
     iproute2 \
+    jq \
     rsync \
     ssh \
  && apt-get clean && rm -rf /var/lib/apt/lists/*
