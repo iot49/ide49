@@ -5,6 +5,7 @@ RUN apk update \
     bash \
     curl \
     jq \
+    netcat-openbsd \
     rsync \
     openssh
 
