@@ -1,5 +1,5 @@
 image: ttmetro/syncthing
-build: .
+# build: .
 environment:
     - PUID=1000
     - PGID=100
@@ -13,6 +13,8 @@ http_port: 8384
 restart: unless-stopped
 volumes:
     - syncthing:/config
+    # keep syncthing file list between container rebuilds
+    - syncthing-foldermarker:/service-config
     - config:/service-config/config
     - iot-home:/service-config/iot-home
     - www:/service-config/www

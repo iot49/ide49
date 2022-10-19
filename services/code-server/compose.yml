@@ -1,5 +1,5 @@
 image: ttmetro/code-server
-# build: .
+build: .
 restart: unless-stopped
 privileged: true
 environment:
