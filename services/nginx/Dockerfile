@@ -1,7 +1,7 @@
 FROM nginx:stable
 
-RUN apk update \
- && apk add --no-cache \
+RUN apt-get update --yes \
+ && apt-get install --yes --no-install-recommends \
     apache2-utils \
     bash \
     iproute2 \
@@ -9,9 +9,8 @@ RUN apk update \
     nano \
     openssl \
     python3 \
-    rsync
-
-COPY conf /usr/local/
+    rsync \
+ && apt-get clean && rm -rf /var/lib/apt/lists/*
 
 CMD [ "/bin/bash", "/usr/local/bin/start.sh" ]
 
