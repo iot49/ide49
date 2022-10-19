@@ -4,7 +4,6 @@ services:
   - mdns-publisher
   - http-tester
   - playground
-  # - jupyter-base
   - syncthing
   - code-server
 
