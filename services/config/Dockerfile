@@ -1,15 +1,14 @@
-FROM python:3.10-slim-bullseye
+FROM alpine:3.16
 
-RUN apt-get update --yes \
- && apt-get install --yes --no-install-recommends \
+RUN apk update \
+ && apk add --no-cache \
+    bash \
     curl \
-    iputils-ping \
-    iproute2 \
     jq \
     rsync \
-    ssh \
- && apt-get clean && rm -rf /var/lib/apt/lists/*
+    openssh
 
 COPY conf /usr/local
 
 CMD [ "/bin/bash", "/usr/local/bin/start.sh" ]
+

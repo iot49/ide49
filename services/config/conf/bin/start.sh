@@ -1,9 +1,5 @@
 #!/bin/bash
 
-# syncthing needs /service-config writeable
-chown :100 /service-config
-chmod g+w /service-config
-
 # default configuration
 config=/service-config/config
 chown -R 1000:100 /service-config/config
@@ -14,7 +10,7 @@ rsync --ignore-existing -a --chown 1000:100 /usr/local/config/ .
 sed -i '/^HOST_IP=/d' .env
 echo HOST_IP=`ip route | awk '{print $3}' | head -n 1` >> .env
 
-IP=$(curl -X GET --header "Content-Type:application/json" \
+IP=$(curl -s -X GET --header "Content-Type:application/json" \
     "$BALENA_SUPERVISOR_ADDRESS/v1/device?apikey=$BALENA_SUPERVISOR_API_KEY" \
   | jq -r ".ip_address" \
   | awk '{print $1;}')
@@ -30,7 +26,8 @@ set -a; source .env; set +a
 # enable bluetooth for uid 1000
 source /usr/local/bin/configure-bluetooth.sh
 
-# set hostname = MDNS_NAME
+# set HOST_NAME = MDNS_NAME
+# Note: `hostname` has a different value (?)
 HOST_NAME=$(curl -s -X GET --header "Content-Type:application/json" \
           "$BALENA_SUPERVISOR_ADDRESS/v1/device/host-config?apikey=$BALENA_SUPERVISOR_API_KEY" | \
           jq ".network.hostname")

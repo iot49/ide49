@@ -14,5 +14,5 @@ ports:
 volumes:
     - iot-home:/home/iot
     {{ all_volumes() }}
-
-    
+depends_on:
+    - config

@@ -11,3 +11,5 @@ ports:
 volumes:
     - mosquitto:/mosquitto
     - config:/service-config/config
+depends_on:
+    - config

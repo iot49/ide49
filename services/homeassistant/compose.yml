@@ -24,3 +24,5 @@ homeassistant:
         - homeassistant:/config
         # for link to /service-config/iot-home/.secrets.yaml
         - iot-home:/service-config/iot-home
+depends_on:
+    - config

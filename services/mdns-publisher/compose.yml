@@ -8,3 +8,5 @@ environment:
     - MDNS_SUBDOMAINS={{ http_ports.keys() | join(",") }}
 volumes:
     - config:/service-config/config
+depends_on:
+    - config

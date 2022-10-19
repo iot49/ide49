@@ -1,12 +1,10 @@
 services:
   - config
-  - nginx
-  - mdns-publisher
-  - http-tester
-  - jupyter-base
-  # - balena-cli
-  # - jupyter
-  - syncthing
+  # - nginx
+  # - mdns-publisher
+  # - http-tester
+  # - jupyter-base
+  # - syncthing
 
 fleets:
   # - 192.168.1.92

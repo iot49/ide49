@@ -12,4 +12,6 @@ http_port: 8890
 volumes:
     - iot-home:/home/iot
     {{ all_volumes() }}
+depends_on:
+    - config
 

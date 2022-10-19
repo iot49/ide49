@@ -10,3 +10,5 @@ volumes:
     - iot-home:/config/workspace
     {{ all_volumes() }}
 http_port: 8443
+depends_on:
+    - config

@@ -7,3 +7,5 @@ volumes:
 ports:
     - 139:139
     - 445:445
+depends_on:
+    - config
