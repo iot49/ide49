@@ -1,4 +1,5 @@
-image: linuxserver/syncthing
+image: ttmetro/syncthing
+build: .
 environment:
     - PUID=1000
     - PGID=100
