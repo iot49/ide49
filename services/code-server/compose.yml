@@ -1,7 +1,7 @@
 image: ttmetro/code-server
 build: .
 restart: unless-stopped
-privileged: true
+# privileged: true
 environment:
     - PUID=1000
     - PGID=100
@@ -12,3 +12,5 @@ volumes:
 http_port: 8443
 depends_on:
     - config
+ports:
+    - 8443:8443
