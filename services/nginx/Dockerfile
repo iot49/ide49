@@ -14,3 +14,4 @@ RUN apk update \
 COPY conf /usr/local/
 
 CMD [ "/bin/bash", "/usr/local/bin/start.sh" ]
+

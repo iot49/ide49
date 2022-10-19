@@ -55,8 +55,13 @@ fi
 # Note: does not overwrite existing files (delete file and restart service to update)
 if [[ ! -f /service-config/www/index.html ]]; then
     rsync --ignore-existing -a /usr/local/www/ /service-config/www
+    rsync -a /usr/local/www/ /service-config/www
     chown -R 1000:100 /service-config/www
 fi
+
+# DEVELOPING & DEBUGGING ...................
+rsync -a /usr/local/www/ /service-config/www
+chown -R 1000:100 /service-config/www
 
 # /etc/nginx/proxy.conf
 /usr/bin/python3 /usr/local/src/app.py
