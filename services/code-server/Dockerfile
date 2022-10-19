@@ -6,6 +6,7 @@ RUN apt-get update --yes \
     rsync \
  && echo 'abc ALL=(ALL) NOPASSWD:ALL' | EDITOR='tee -a' visudo
 
-COPY samba-mount.sh start.sh /usr/local/bin/
+COPY conf /usr/local
 
 CMD [ "/bin/bash", "/usr/local/bin/start.sh" ]
+
