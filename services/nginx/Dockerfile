@@ -12,5 +12,7 @@ RUN apt-get update --yes \
     rsync \
  && apt-get clean && rm -rf /var/lib/apt/lists/*
 
+COPY conf /usr/local
+
 CMD [ "/bin/bash", "/usr/local/bin/start.sh" ]
 
