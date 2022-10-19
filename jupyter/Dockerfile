@@ -17,18 +17,17 @@ RUN apt-get update --yes \
     # ssh into host
     openssh-client \
     git \
-    # used in start
-    rsync \
-    # copied from balena base dockerfile
+    # utility
     curl \
     dirmngr \
+    dnsutils \
     gnupg \
     inetutils-ping \
     iproute2 \
-    netbase \
-    udev \
-    # often useful
     nano \
+    netbase \
+    rsync \
+    udev \
  && apt-get clean && rm -rf /var/lib/apt/lists/*
 
 # rename user jovyan -> "${NB_USER}"
