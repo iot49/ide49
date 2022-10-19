@@ -13,8 +13,8 @@ if ! grep -q `hostname` /etc/hosts; then
 fi
 
 # reboot & shutdown links missing on newer versions of Ubuntu
-ln -f -s -- ../bin/systemctl /sbin/reboot
-ln -f -s -- ../bin/systemctl /sbin/shutdown
+# ln -f -s -- ../bin/systemctl /sbin/reboot
+# ln -f -s -- ../bin/systemctl /sbin/shutdown
 
 # device environment; applies to all services
 rsync --ignore-existing -a --chown iot:users /usr/local/scripts/ ${iot_home}
@@ -63,6 +63,8 @@ export JUPYTER_PATH=${jupyter_config}/.local
 
 # separate runtime directory for each service
 export JUPYTER_RUNTIME_DIR=${jupyter_config}
+
+printenv
 
 # sqlite database
 export IPYTHONDIR=${jupyter_config}/.ipython# run jupyter as user 'iot'
