@@ -2,6 +2,7 @@ FROM python:3.10-slim-bullseye
 
 RUN apt-get update --yes \
  && apt-get install --yes --no-install-recommends \
+    curl \
     iputils-ping \
     iproute2 \
     jq \
