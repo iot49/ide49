@@ -36,3 +36,4 @@ RUN useradd -m -s /bin/bash -g users -u 1000 iot \
 USER iot
 WORKDIR /home/iot
 CMD [ "/bin/bash", "/usr/local/bin/start.sh" ]
+

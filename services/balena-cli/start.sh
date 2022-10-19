@@ -7,9 +7,6 @@ if ! grep -q `hostname` /etc/hosts; then
     sudo bash -c 'echo "127.0.0.1" `hostname` >> /etc/hosts'
 fi
 
-# .bashrc (default is shadowed by mount)
-rsync --ignore-existing -a ${config_dir}/.bashrc ~
-
 # device environment (e.g. DNS_NAME)
 env_file=${config_dir}/.env
 set -a; [[ -f ${env_file} ]] && source ${env_file}; set +a
