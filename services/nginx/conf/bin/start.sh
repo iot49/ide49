@@ -66,7 +66,7 @@ chown -R 1000:100 /service-config/www
 # /etc/nginx/proxy.conf
 /usr/bin/python3 /usr/local/src/app.py
 
-cat /etc/nginx/proxy.conf
+# cat /etc/nginx/proxy.conf
 
 # start the server
 nginx -g "daemon off;"
