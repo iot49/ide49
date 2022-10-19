@@ -1,11 +1,8 @@
 #!/bin/bash
 
 # start.sh runs as root
-iot_home=/service-config/iot-home
 
-# set home folder ownership
-chown ${NB_UID}:${NB_GID} ${iot_home}
-chown ${NB_UID}:${NB_GID} /home/${NB_USER}
+iot_home=/service-config/iot-home
 
 # add hostname to /etc/hosts (makes sudo happy)
 if ! grep -q `hostname` /etc/hosts; then
@@ -17,7 +14,8 @@ ln -f -s -- ../bin/systemctl /sbin/reboot
 ln -f -s -- ../bin/systemctl /sbin/shutdown
 
 # device environment; applies to all services
-rsync --ignore-existing -a --chown iot:users /usr/local/scripts/ ${iot_home}
+# rsync --ignore-existing -a --chown iot:users /usr/local/scripts/ ${iot_home}
+rsync -avvv --chown iot:users /usr/local/scripts/ ${iot_home}
 env_file=/service-config/config/.env
 if [[ -f ${env_file} ]]; then
     set -a; source ${env_file}; set +a
@@ -31,7 +29,7 @@ sed -r "s#Defaults\s+secure_path\s*=\s*\"?([^\"]+)\"?#Defaults secure_path=\"\1:
 
 # per container startup (set in derived container if needed); runs as root
 start_hook="/usr/local/bin/start-hook.sh"
-[[ -f ${start_hook} ]] && source ${start_hook}
+[[ -f ${start_hook} ]] && setuidgid ${NB_USER} source ${start_hook}
 
 # (conditionally) mount $HOME
 /bin/bash -c "HOME=${HOME}; source /usr/local/bin/samba-mount.sh"
@@ -64,10 +62,10 @@ export JUPYTER_PATH=${jupyter_config}/.local
 # separate runtime directory for each service
 export JUPYTER_RUNTIME_DIR=${jupyter_config}
 
-printenv
-
 # sqlite database
-export IPYTHONDIR=${jupyter_config}/.ipython# run jupyter as user 'iot'
+export IPYTHONDIR=${jupyter_config}/.ipython
+
+# run jupyter as user 'iot'
 setuidgid ${NB_USER} \
   jupyter lab --no-browser --allow-root \
     --ServerApp.ip=${JUPYTER_IP:='*'} \

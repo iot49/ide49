@@ -36,9 +36,9 @@ RUN apt-get update --yes \
 ENV NB_USER="iot"
 ENV HOME="/home/${NB_USER}"
 
-RUN usermod --home "/home/${NB_USER}" --login "${NB_USER}" -a -G users,dialout jovyan \
- && mkdir "/home/${NB_USER}" \
- && chown ${NB_UID}:${NB_GID} "/home/${NB_USER}" \
+# HOME will be shadowed by mount, but a folder is required during the build (e.g. mamba cache)
+RUN usermod -l ${NB_USER} -G users,dialout jovyan \
+ && usermod -d ${HOME} -m ${NB_USER} \
  && echo "${NB_USER} ALL=(ALL) NOPASSWD:ALL" | EDITOR="tee -a" visudo \
  && echo 'iot ALL=(ALL) NOPASSWD:ALL' | EDITOR='tee -a' visudo
 

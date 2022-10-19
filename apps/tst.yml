@@ -1,8 +1,9 @@
 services:
   - config
-  # - nginx
-  # - mdns-publisher
-  # - http-tester
+  - nginx
+  - mdns-publisher
+  - http-tester
+  - playground
   # - jupyter-base
   # - syncthing
 
