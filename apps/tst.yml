@@ -5,7 +5,8 @@ services:
   - http-tester
   - playground
   # - jupyter-base
-  # - syncthing
+  - syncthing
+  - code-server
 
 fleets:
   # - 192.168.1.92

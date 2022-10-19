@@ -1,4 +1,4 @@
-image: jupyter/base-notebook
+image: ttmetro/playground
 build: .
 restart: unless-stopped
 privileged: true
@@ -7,8 +7,8 @@ labels:
     io.balena.features.dbus: '1'
 environment:
     - DBUS_SYSTEM_BUS_ADDRESS=unix:path=/host/run/dbus/system_bus_socket
-    - JUPYTER_PORT=8892
-http_port: 8892
+    - JUPYTER_PORT=8890
+http_port: 8890
 volumes:
     - iot-home:/home/iot
     {{ all_volumes() }}
