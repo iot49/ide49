@@ -6,6 +6,12 @@ services:
   - playground
   - syncthing
   - code-server
+  - postgres
+  - influxdb
+  - grafana
+  - homeassistant
+  - esphome
+  
 
 fleets:
   # - 192.168.1.92

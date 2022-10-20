@@ -1,12 +1,11 @@
 # https://grafana.com/docs/grafana/latest/setup-grafana/installation/docker/
 
-grafana:
-  image: grafana/grafana-oss
-  restart: unless-stopped
-  # ports:
-    # port 3000 in use by wireshark
-    # should work as long as wireshark is in different network (e.g. host)
-    # - "3001:3000"
-  http_port: 3000
-  volumes:
-    - grafana:/var/lib/grafana
+image: grafana/grafana-oss
+restart: unless-stopped
+# ports:
+  # port 3000 in use by wireshark
+  # should work as long as wireshark is in different network (e.g. host)
+  # - "3001:3000"
+http_port: 3000
+volumes:
+  - grafana:/var/lib/grafana

@@ -1,9 +1,10 @@
 image: "postgres:14-alpine"
 environment:
-  - POSTGRES_DB=!secret postgres_db
-  - POSTGRES_USER=!secret postgres_user
-  - POSTGRES_PASSWORD=!secret postgres_pwd
-http_port: 5432
+  - POSTGRES_DB={{ secrets.postgres_db }}
+  - POSTGRES_USER={{ secrets.postgres_user }}
+  - POSTGRES_PASSWORD={{ secrets.postgres_pwd }}
+expose: 
+  - 5432
 restart: unless-stopped
 volumes:
   - postgres:/var/lib/postgresql/data

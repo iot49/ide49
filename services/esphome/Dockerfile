@@ -10,3 +10,4 @@ RUN chmod a+x /usr/local/bin/custom-entrypoint.sh
 ENTRYPOINT ["/usr/local/bin/custom-entrypoint.sh"]
 
 CMD ["dashboard", "/config"]
+
