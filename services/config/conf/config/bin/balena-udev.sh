@@ -1,5 +1,7 @@
 #!/bin/bash
 
+# default balena entry.sh to dynamically mount usb devices
+
 # This command only works in privileged container
 tmp_mount='/tmp/_balena'
 mkdir -p "$tmp_mount"
