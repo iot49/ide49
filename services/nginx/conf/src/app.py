@@ -22,7 +22,8 @@ server {{
     location / {{
         proxy_pass              http://{url}:{port};
         proxy_set_header        Host $host;
-        proxy_set_header        X-Forwarded-For $proxy_add_x_forwarded_for;
+        # homeassistant barfs when it knows it's behind a proxy - so we just won't tell ...
+        # proxy_set_header        X-Forwarded-For $proxy_add_x_forwarded_for;
 
         # websocket support
         proxy_http_version      1.1;
