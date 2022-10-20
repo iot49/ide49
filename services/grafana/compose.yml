@@ -2,10 +2,8 @@
 
 image: grafana/grafana-oss
 restart: unless-stopped
-# ports:
-  # port 3000 in use by wireshark
-  # should work as long as wireshark is in different network (e.g. host)
-  # - "3001:3000"
+# CONFLICT port 3000: grafana, libreoffice, winshark
+# use only 1 in bridge mode at a time
 http_port: 3000
 volumes:
   - grafana:/var/lib/grafana

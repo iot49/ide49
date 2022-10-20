@@ -103,7 +103,7 @@ fi
 #
 # BEB Link secrets.yaml
 #
-secrets_src=/service-config/config/.secrets.yaml
+secrets_src=/service-config/config/.secrets.yml
 secrets_dst=/config/secrets.yaml
 if [ ! -L ${secrets_dst} ]; then
     rm -f ${secrets_dst}

@@ -1,0 +1,11 @@
+image: lscr.io/linuxserver/libreoffice:latest
+restart: unless-stopped
+environment:
+  - PUID=1000
+  - PGID=100
+  - TZ={{ secrets.time_zone }}
+volumes:
+  - libreoffice:/config
+# CONFLICT port 3000: grafana, libreoffice, winshark
+# use only 1 in bridge mode at a time
+http_port: 3000

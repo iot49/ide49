@@ -1,5 +1,5 @@
 image: ttmetro/homeassistant
-build: .
+# build: .
 restart: unless-stopped
 privileged: true
 network_mode: host

@@ -11,3 +11,4 @@ RUN chmod a+x /etc/services.d/home-assistant/run \
     gpsd \
     nano \
     rsync
+
