@@ -7,6 +7,8 @@ ports:
 environment:
     - HTTP_PORTS={{ http_ports | tojson() | replace('\n', '') | replace(' ', '')}}
 volumes:
+    # keep certificate around between container rebuilds
+    - nginx-ssl:/etc/nginx/ssl
     - www:/service-config/www
     - config:/service-config/config
 depends_on:

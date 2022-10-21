@@ -1,5 +1,4 @@
-image: ttmetro/jupyter
-build: .
+image: ttmetro/base-notebook
 restart: unless-stopped
 privileged: true
 labels:
@@ -8,10 +7,10 @@ labels:
 environment:
     - UDEV=on
     - DBUS_SYSTEM_BUS_ADDRESS=unix:path=/host/run/dbus/system_bus_socket
-    - JUPYTER_PORT=8888
-http_port: 8888
-ports:
-    - 7000-7999
+    - JUPYTER_PORT=8893
+http_port: 8893
+# ports:
+#     - 7000-7999
 volumes:
     - iot-home:/home/iot
     {{ all_volumes() }}

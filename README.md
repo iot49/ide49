@@ -26,7 +26,7 @@ optional arguments:
 
 ### Examples:
 
-Build File:
+Build File: (e.g. app/dev.yml)
 
 ```
 services:
@@ -46,17 +46,17 @@ fleets:
 1) Build app on machine where `balena` is running:
 
 ```bash
-./build.sh tst --nocache --build
+./build.sh dev --nocache --build
 ```
 
 or 
 
 ```bash
-./build.sh tst deploy --nocache --build
+./build.sh dev deploy --nocache --build
 ```
 
 2) Build remotely (on balena servers):
 
 ```bash
-./build.sh tst push 
+./build.sh dev push 
 ```

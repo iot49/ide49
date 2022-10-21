@@ -70,7 +70,7 @@ RUN pip install --default-timeout=1000 \
     hass_pyscript_kernel \
     iot-kernel \
     # requires outdated libraries
-    # jupyter-book \
+    # jupyter-book
     joulescope \
     nest_asyncio \
     RPi.Gpio \

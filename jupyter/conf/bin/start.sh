@@ -29,14 +29,14 @@ sed -r "s#Defaults\s+secure_path\s*=\s*\"?([^\"]+)\"?#Defaults secure_path=\"\1:
 
 # per container startup (set in derived container if needed); runs as root
 start_hook="/usr/local/bin/start-hook.sh"
-[[ -f ${start_hook} ]] && setuidgid ${NB_USER} source ${start_hook}
+[[ -f ${start_hook} ]] && setuidgid ${IOT_USER} source ${start_hook}
 
 # (conditionally) mount $HOME
 /bin/bash -c "HOME=${HOME}; source /usr/local/bin/samba-mount.sh"
 
 # user startup (don't run as root!)
 service_rc="${HOME}/.${BALENA_SERVICE_NAME}-rc.sh"
-[[ -f ${service_rc} ]] && setuidgid ${NB_USER} /bin/bash ${service_rc}
+[[ -f ${service_rc} ]] && setuidgid ${IOT_USER} /bin/bash ${service_rc}
 
 
 # Jupyter file location issues:
@@ -66,7 +66,7 @@ export JUPYTER_RUNTIME_DIR=${jupyter_config}
 export IPYTHONDIR=${jupyter_config}/.ipython
 
 # run jupyter as user 'iot'
-setuidgid ${NB_USER} \
+setuidgid ${IOT_USER} \
   jupyter lab --no-browser --allow-root \
     --ServerApp.ip=${JUPYTER_IP:='*'} \
     --ServerApp.port=${JUPYTER_PORT:=8888} \
