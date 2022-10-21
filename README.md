@@ -2,30 +2,61 @@
 
 ## BUILD
 
-Run 
+Run `./build.py` to create `docker-compose.yml` for <app>.
 
-```bash
-./build.py <app> [--tag <tag>]
+### Usage:
+
+```tex
+$ ./build.py -h
+usage: build.py [-h] [--tag TAG] [--nocache] [--build] [--debug] app [action]
+
+Assemble docker app from spec file and compose-template and push to balena fleet
+
+positional arguments:
+  app          app specification in app/ folder
+  action       deploy (default), build or none
+
+optional arguments:
+  -h, --help   show this help message and exit
+  --tag TAG    optional balena release tag
+  --nocache    do not use previously built images when building the app
+  --build      force build (deploy)
+  --debug, -d  print debugging output
 ```
 
-to create `docker-compose.yml` for <app>.
+### Examples:
 
-## ARCH
+Build File:
 
-* config: .env, .secrets
-* nginx: reverse proxy
-* mdns-publisher
+```
+services:
+  - config
+  - nginx
+  - mdns-publisher
+  - http-tester
+  - plex
 
-## BUGS
+fleets:
+  # specify ip address to build in "local mode" (enable in Balena Dashboard)
+  # local mode does not send the app to the balena server and is much faster
+  # - 192.168.1.92
+  - test-amd64
+```
 
-* hostname differs between network_mode host and bridge ???
-* causes issues with sudo
+1) Build app on machine where `balena` is running:
 
-## TODO
+```bash
+./build.sh tst --nocache --build
+```
 
-- balenaos on mac
-- service/jupyter
-    * compose: set JUPYTER_IP dynamically
-- index.html
-    * generate dynamically (addresses!)
-    * flask?
+or 
+
+```bash
+./build.sh tst deploy --nocache --build
+```
+
+2) Build remotely (on balena servers):
+
+```bash
+./build.sh tst push 
+```

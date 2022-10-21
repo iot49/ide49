@@ -5,6 +5,7 @@ ENV UDEV=on
 ENV DEBIAN_FRONTEND=noninteractive
 RUN apt-get update --yes \
  && apt-get install --yes --no-install-recommends \
+    bluez \
     unzip \
  && apt-get clean && rm -rf /var/lib/apt/lists/*
 

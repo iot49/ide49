@@ -83,8 +83,8 @@ class Builder:
         errors = 0
 
         # secrets
-        for name in [ '/service-config/config/.secrets.yaml', 
-                      '~/Documents/service-config/config/.secrets.yaml' ]:
+        for name in [ '/service-config/config/.secrets.yml', 
+                      '~/Documents/service-config/config/.secrets.yml' ]:
             name = os.path.expanduser(name)
             if os.path.exists(name):
                 with open(name) as file:
