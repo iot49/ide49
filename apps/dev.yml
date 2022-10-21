@@ -1,15 +1,15 @@
 services:
-  # web interface
+  # --- web interface
   - config
   - nginx
   - mdns-publisher
-  # apps
+  # --- apps
   # - jupyter
-  # debugging
-  - base-notebook
-  - playground
-  - http-tester
-  - ubuntu
+  # --- debugging
+  # - base-notebook
+  # - playground
+  # - http-tester
+  # - ubuntu
 
 
 fleets:

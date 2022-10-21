@@ -5,8 +5,6 @@ privileged: true
 labels:
     io.balena.features.dbus: 1
     io.balena.features.supervisor-api: 1
-cap_add:
-    - NET_ADMIN
 environment:
     - UDEV=on
     - DBUS_SYSTEM_BUS_ADDRESS=unix:path=/host/run/dbus/system_bus_socket
