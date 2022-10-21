@@ -9,8 +9,8 @@ then
     echo add uid 1000 to bluetooth.conf on host
     mount -o remount,rw /
     cd /etc/dbus-1/system.d
-    # cp /etc/passwd /etc/passwd.bak
-    # echo 'iot:x:1000:100::/home/iot:/bin/sh' >>/etc/passwd
+    cp /etc/passwd /etc/passwd.bak
+    echo 'iot:x:1000:100::/home/iot:/bin/sh' >>/etc/passwd
     sed -i.bak 's|</busconfig>|  <policy user="1000"> \
     <allow own="org.bluez"/> \
     <allow send_destination="org.bluez"/> \
@@ -24,5 +24,3 @@ then
 fi
 echo bluetooth enabled for uid 1000
 EOF
-
-

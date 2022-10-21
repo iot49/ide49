@@ -1,13 +1,17 @@
 FROM ttmetro/base-notebook
 
+# bluetooth: https://github.com/balenablocks/bluetooth
+# special entry.sh! resets interface?
+# but it's a pairing agent ... not all may be required
+
 ENV UDEV=on
 
 ENV DEBIAN_FRONTEND=noninteractive
 RUN apt-get update --yes \
  && apt-get install --yes --no-install-recommends \
-    bluez \
+    bluez \ 
     unzip \
-    dbus libdbus-glib-1-dev libdbus-1-dev \
  && apt-get clean && rm -rf /var/lib/apt/lists/*
 
 COPY start-hook.sh /usr/local/bin
+

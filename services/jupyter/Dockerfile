@@ -43,15 +43,28 @@ RUN chmod a+x /usr/local/bin/*sh \
  && groupadd gpio \
  && usermod -a -G gpio,bluetooth iot
 
+RUN echo "A ------------------------------------------"
+RUN echo /etc/passwd
+RUN ls /home
+RUN whoami
+
 USER ${NB_UID}
+
+RUN echo "B ------------------------------------------"
+RUN whoami
+RUN ls /home
 
 # Install Python 3 packages
 RUN mamba install --quiet --yes \
+    bleak \
     cmake \
+    dbus-python \
+    gpxpy \
     jupyter_bokeh \
     jupyterlab-spellchecker \
     paho-mqtt \
     pynacl \
+    pyserial-asyncio \
     pytest \
     pytest-ordering \
     pyusb \
@@ -62,11 +75,8 @@ RUN mamba install --quiet --yes \
 # PyPi installs (not all are available on Conda)
 RUN pip install --default-timeout=1000 \
     asyncio-mqtt \
-    bleak \
-    dbus-python \
     ghp-import \
     gpiozero \
-    gpxpy \
     hass_pyscript_kernel \
     iot-kernel \
     # requires outdated libraries
@@ -74,8 +84,7 @@ RUN pip install --default-timeout=1000 \
     joulescope \
     nest_asyncio \
     RPi.Gpio \
-    rshell \
-    pyserial-asyncio
+    rshell
     
 RUN python -m iot_kernel.install \
  && jupyter pyscript install \

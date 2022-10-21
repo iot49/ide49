@@ -1,20 +1,11 @@
-image: ttmetro/playground
-build: .
+image: ubuntu:22.04
 restart: unless-stopped
 privileged: true
 labels:
-    io.balena.features.supervisor-api: '1'
-    # required for bluetooth
     io.balena.features.dbus: '1'
-    # io.balena.features.balena-socket: '1'
 environment:
     # required for bluetooth
     - DBUS_SYSTEM_BUS_ADDRESS=unix:path=/host/run/dbus/system_bus_socket
-    - JUPYTER_PORT=8890
-http_port: 8890
 volumes:
     - iot-home:/home/iot
     {{ all_volumes() }}
-depends_on:
-    - config
-
