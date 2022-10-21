@@ -69,7 +69,8 @@ RUN pip install --default-timeout=1000 \
     gpxpy \
     hass_pyscript_kernel \
     iot-kernel \
-    jupyter-book \
+    # requires outdated libraries
+    # jupyter-book \
     joulescope \
     nest_asyncio \
     RPi.Gpio \
