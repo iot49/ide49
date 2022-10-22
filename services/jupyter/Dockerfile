@@ -47,18 +47,7 @@ USER ${NB_UID}
 
 # Install Python 3 packages
 RUN mamba install --quiet --yes \
-    bleak \
     cmake \
-    dbus-python \
-    gpxpy \
-    jupyter_bokeh \
-    jupyterlab-spellchecker \
-    paho-mqtt \
-    pynacl \
-    pyserial-asyncio \
-    pytest \
-    pytest-ordering \
-    pyusb \
  && mamba clean --quiet --all -f -y
 
 # PyPi installs (not all are available on Conda)
@@ -74,7 +63,19 @@ RUN pip install --default-timeout=1000 \
     nest_asyncio \
     RPi.Gpio \
     rshell \
-    twine
+    twine \
+    # mamba has problems with one or more of these ...
+    bleak \
+    dbus-python \
+    gpxpy \
+    jupyter_bokeh \
+    jupyterlab-spellchecker \
+    paho-mqtt \
+    pynacl \
+    pyserial-asyncio \
+    pytest \
+    pytest-ordering \
+    pyusb \
     
 RUN python -m iot_kernel.install \
  && jupyter pyscript install \
