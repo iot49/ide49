@@ -49,16 +49,16 @@ USER ${NB_UID}
 RUN mamba install --quiet --yes \
     bleak \
     cmake \
-    # dbus-python \
-    # gpxpy \
-    jupyter_bokeh \
-    jupyterlab-spellchecker \
+    # 1 dbus-python \
+    # 1 gpxpy \
+    # 2 jupyter_bokeh \
+    # 2 jupyterlab-spellchecker \
     paho-mqtt \
     pynacl \
     pyserial-asyncio \
     pytest \
     pytest-ordering \
-    # pyusb \
+    # 1 pyusb \
     rsync \
     twine \
  && mamba clean --quiet --all -f -y
