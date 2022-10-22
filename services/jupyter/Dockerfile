@@ -53,11 +53,11 @@ RUN mamba install --quiet --yes \
     # 1 gpxpy \
     # 2 jupyter_bokeh \
     # 2 jupyterlab-spellchecker \
-    3 paho-mqtt \
+    paho-mqtt \
     # 3 pynacl \
     # 3 pyserial-asyncio \
-    3 pytest \
-    3 pytest-ordering \
+    pytest \
+    pytest-ordering \
     # 1 pyusb \
     # 3 twine \
  && mamba clean --quiet --all -f -y
