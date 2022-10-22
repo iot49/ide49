@@ -59,7 +59,7 @@ RUN mamba install --quiet --yes \
     3 pytest \
     3 pytest-ordering \
     # 1 pyusb \
-    3 twine \
+    # 3 twine \
  && mamba clean --quiet --all -f -y
 
 # PyPi installs (not all are available on Conda)
