@@ -47,26 +47,16 @@ USER ${NB_UID}
 
 # Install Python 3 packages
 RUN mamba install --quiet --yes \
-    cmake 
-RUN mamba install --quiet --yes \
-    dbus-python 
-RUN mamba install --quiet --yes \
-    gpxpy 
-RUN mamba install --quiet --yes \
-    jupyter_bokeh 
-RUN mamba install --quiet --yes \
-    jupyterlab-spellchecker 
-RUN mamba install --quiet --yes \
-    paho-mqtt 
-RUN mamba install --quiet --yes \
-    pynacl 
-RUN mamba install --quiet --yes \
-    pyserial-asyncio 
-RUN mamba install --quiet --yes \
-    pytest 
-RUN mamba install --quiet --yes \
-    pytest-ordering 
-RUN mamba install --quiet --yes \
+    cmake \
+    dbus-python \
+    gpxpy \
+    jupyter_bokeh \
+    jupyterlab-spellchecker \
+    paho-mqtt \
+    pynacl \
+    pyserial-asyncio \
+    pytest \
+    pytest-ordering \
     pyusb \
  && mamba clean --quiet --all -f -y
 
