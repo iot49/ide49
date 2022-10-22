@@ -6,6 +6,7 @@ services:
   # --- apps
   - jupyter
   - code-server
+  - smb
   - syncthing
   - postgres
   - influxdb
