@@ -20,3 +20,4 @@ volumes:
     - www:/service-config/www
     - homeassistant:/service-config/homeassistant
     - esphome:/service-config/esphome
+    - media:/service-config/media

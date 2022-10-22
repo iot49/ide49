@@ -59,7 +59,7 @@ RUN mamba install --quiet --yes \
     pytest \
     pytest-ordering \
     # 1 pyusb \
-    rsync \
+    rsync \ 
     twine \
  && mamba clean --quiet --all -f -y
 
