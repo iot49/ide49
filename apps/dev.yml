@@ -7,7 +7,7 @@ services:
   - jupyter
   - code-server
   - smb
-  - mqtt
+  - mosquitto
   - syncthing
   - postgres
   - influxdb

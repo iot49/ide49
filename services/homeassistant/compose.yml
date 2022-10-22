@@ -1,5 +1,5 @@
 image: ttmetro/homeassistant
-build: .
+# build: .
 restart: unless-stopped
 privileged: true
 network_mode: host
@@ -21,6 +21,6 @@ http_port: 8123
 volumes:
     - homeassistant:/config
     # for link to /service-config/config/.secrets.yaml
-    - iot-home:/service-config/config
+    - config:/service-config/config
 depends_on:
     - config
