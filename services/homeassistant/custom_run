@@ -109,6 +109,9 @@ if [ ! -L ${secrets_dst} ]; then
     rm -f ${secrets_dst}
     ln -s ${secrets_src} ${secrets_dst}
 fi
+# Not working, try to just copy
+rm ${secrets_dst}
+cp -a ${secrets_src} ${secrets_dst}
 
 #
 # Run homeassistant

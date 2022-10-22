@@ -1,7 +1,6 @@
 image: ttmetro/smb
-build: .
+# build: .
 restart: unless-stopped
-# privileged: true
 volumes:
     {{ all_volumes() }}
 ports:

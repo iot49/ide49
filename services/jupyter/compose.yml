@@ -1,5 +1,5 @@
 image: ttmetro/jupyter
-build: .
+# build: .
 restart: unless-stopped
 privileged: true
 labels:

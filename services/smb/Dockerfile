@@ -3,7 +3,6 @@
 
 FROM ubuntu:focal
 
-# ENV UDEV=1
 EXPOSE 139 445
 
 RUN apt-get update --yes \
@@ -24,3 +23,4 @@ COPY ./smb.conf /etc/samba/smb.conf
 COPY ./start.sh /usr/local/bin/start.sh
 
 CMD ["bash", "/usr/local/bin/start.sh", "--foreground", "--log-stdout", "--no-process-group"]
+
