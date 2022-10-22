@@ -49,8 +49,8 @@ USER ${NB_UID}
 RUN mamba install --quiet --yes \
     bleak \
     cmake \
-    dbus-python \
-    gpxpy \
+    # dbus-python \
+    # gpxpy \
     jupyter_bokeh \
     jupyterlab-spellchecker \
     paho-mqtt \
@@ -58,7 +58,7 @@ RUN mamba install --quiet --yes \
     pyserial-asyncio \
     pytest \
     pytest-ordering \
-    pyusb \
+    # pyusb \
     rsync \
     twine \
  && mamba clean --quiet --all -f -y
