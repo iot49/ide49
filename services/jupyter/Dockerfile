@@ -47,8 +47,6 @@ USER ${NB_UID}
 
 # Install Python 3 packages
 RUN mamba install --quiet --yes \
-    bleak 
-RUN mamba install --quiet --yes \
     cmake 
 RUN mamba install --quiet --yes \
     dbus-python 
@@ -75,6 +73,7 @@ RUN mamba install --quiet --yes \
 # PyPi installs (not all are available on Conda)
 RUN pip install --default-timeout=1000 \
     asyncio-mqtt \
+    bleak \
     ghp-import \
     gpiozero \
     hass_pyscript_kernel \
