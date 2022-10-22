@@ -47,20 +47,20 @@ USER ${NB_UID}
 
 # Install Python 3 packages
 RUN mamba install --quiet --yes \
-    bleak \
+    # 3 bleak \
     cmake \
     # 1 dbus-python \
     # 1 gpxpy \
     # 2 jupyter_bokeh \
     # 2 jupyterlab-spellchecker \
-    paho-mqtt \
-    pynacl \
-    pyserial-asyncio \
-    pytest \
-    pytest-ordering \
+    # 3 paho-mqtt \
+    # 3 pynacl \
+    # 3 pyserial-asyncio \
+    # 3 pytest \
+    # 3 pytest-ordering \
     # 1 pyusb \
-    rsync \ 
-    twine \
+    # 3 rsync \ 
+    # 3 twine \
  && mamba clean --quiet --all -f -y
 
 # PyPi installs (not all are available on Conda)
