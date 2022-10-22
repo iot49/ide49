@@ -46,22 +46,22 @@ RUN chmod a+x /usr/local/bin/*sh \
 USER ${NB_UID}
 
 # Install Python 3 packages
-# RUN mamba install --quiet --yes \
-#     bleak \
-#     cmake \
-#     dbus-python \
-#     gpxpy \
-#     jupyter_bokeh \
-#     jupyterlab-spellchecker \
-#     paho-mqtt \
-#     pynacl \
-#     pyserial-asyncio \
-#     pytest \
-#     pytest-ordering \
-#     pyusb \
-#     rsync \
-#     twine \
-#  && mamba clean --quiet --all -f -y
+RUN mamba install --quiet --yes \
+    bleak \
+    cmake \
+    dbus-python \
+    gpxpy \
+    jupyter_bokeh \
+    jupyterlab-spellchecker \
+    paho-mqtt \
+    pynacl \
+    pyserial-asyncio \
+    pytest \
+    pytest-ordering \
+    pyusb \
+    rsync \
+    twine \
+ && mamba clean --quiet --all -f -y
 
 # PyPi installs (not all are available on Conda)
 RUN pip install --default-timeout=1000 \

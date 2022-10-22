@@ -4,12 +4,20 @@ services:
   - nginx
   - mdns-publisher
   # --- apps
-  # - jupyter
+  - jupyter
+  - code-server
+  - syncthing
+  - postgres
+  - influxdb
+  - grafana
+  - homeassistant
+  - esphome
+  - plex
   # --- debugging
-  # - base-notebook
-  # - playground
-  # - http-tester
-  # - ubuntu
+  - base-notebook
+  - playground
+  - http-tester
+  - ubuntu
 
 
 fleets:
