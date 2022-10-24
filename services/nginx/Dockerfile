@@ -6,7 +6,7 @@ RUN apt-get update --yes \
     bash \
     curl \
     iproute2 \
-    iputils \
+    iputils-ping \
     nano \
     openssl \
     python3 \
