@@ -10,6 +10,10 @@ env_file=/service-config/config/.env
 set -a; [[ -f ${env_file} ]] && source ${env_file}; set +a
 
 # install default configuration
+
+echo BUG: recreate certificate when IP changes!
+# also: isn't IP defined in .env?
+
 if [ ! -f /mosquitto/.config_v1 ]
 then
     # create certificates
@@ -18,6 +22,9 @@ then
            jq -r ".ip_address")
     CA_PWD="iot49"
     SUBJ="/C=US/ST=CA/L=San Francisco/CN=${IP}"
+    echo IP = ${IP}
+    echo SUBJ = ${SUBJ}
+
     cd /mosquitto/certs
     openssl genrsa -des3 -passout pass:${CA_PWD} -out ca.key 2048
     openssl req -new -x509 -days 3650 -key ca.key -out ca.crt -passin pass:${CA_PWD} -subj "${SUBJ}/O=IoT49-CA"
@@ -26,9 +33,6 @@ then
     openssl x509 -req -in broker.csr -passin pass:${CA_PWD} \
              -CA ca.crt -CAkey ca.key -CAcreateserial -out broker.crt -days 3650
     
-    echo IP = ${IP}
-    echo SUBJ = ${SUBJ}
-
     # create acl file
     echo "topic readwrite public/#" >/mosquitto/config/public.acl
 
@@ -46,5 +50,11 @@ fi
 
 # start the broker
 if [ ${MOSQUITTO:=on}  == on ]; then
+    echo STARTING mosquitto broker
     /usr/sbin/mosquitto -c /mosquitto/config/mosquitto.conf
+    echo BROKER QUIT!
 fi
+
+echo not starting broker - sleep infinity
+sleep infinity
+

@@ -8,6 +8,8 @@ environment:
   - DOCKER_INFLUXDB_INIT_ORG={{ secrets.influxdb_org }}
   - DOCKER_INFLUXDB_INIT_BUCKET={{ secrets.influxdb_bucket }}
   - DOCKER_INFLUXDB_INIT_ADMIN_TOKEN={{ secrets.influxdb_admin_token }}
+ports:
+  - 8086:8086
 http_port: 8086
 volumes:
   - influxdb2:/var/lib/influxdb2

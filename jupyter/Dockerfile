@@ -28,7 +28,14 @@ RUN apt-get update --yes \
     netbase \
     rsync \
     udev \
+    unzip \
  && apt-get clean && rm -rf /var/lib/apt/lists/*
+
+# install balena-cli
+WORKDIR /tmp
+RUN curl -L --output balena-cli.zip https://github.com/balena-io/balena-cli/releases/download/v14.5.0/balena-cli-v14.5.0-linux-x64-standalone.zip \
+ && unzip -d /usr/local/bin balena-cli.zip \
+ && rm balena-cli.zip
 
 # rename user ${NB_USER} -> "${IOT_USER}"
 # (Note: cannot change ARG NB_USER)
