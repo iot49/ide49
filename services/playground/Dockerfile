@@ -11,4 +11,3 @@ RUN apt-get update --yes \
     jupyter-book
 
 COPY start-hook.sh /usr/local/bin
-
