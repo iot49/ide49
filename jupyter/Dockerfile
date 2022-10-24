@@ -33,14 +33,14 @@ RUN apt-get update --yes \
 
 # install balena-cli
 WORKDIR /tmp
-RUN if [[ true || `uname -m` = "x86_64" ]]; then \
-   echo uname `uname -m`; \
-   curl -L --output balena-cli.zip https://github.com/balena-io/balena-cli/releases/download/v14.5.0/balena-cli-v14.5.0-linux-x64-standalone.zip; \
-   unzip -d /usr/local/bin balena-cli.zip; \
-   rm balena-cli.zip; \
-   ln -s /usr/local/bin/balena-cli/balena /usr/local/bin; \
-   echo "Installed balena-cli"; \
-   fi
+RUN echo uname `uname -m` \
+ && if [ `uname -m` = "x86_64" ]; then \
+      curl -L --output balena-cli.zip https://github.com/balena-io/balena-cli/releases/download/v14.5.0/balena-cli-v14.5.0-linux-x64-standalone.zip; \
+      unzip -d /usr/local/bin balena-cli.zip; \
+      rm balena-cli.zip; \
+      ln -s /usr/local/bin/balena-cli/balena /usr/local/bin; \
+      echo "Installed balena-cli"; \
+    fi
 
 # rename user ${NB_USER} -> "${IOT_USER}"
 # (Note: cannot change ARG NB_USER)
