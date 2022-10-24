@@ -14,4 +14,3 @@ RUN apt-get update --yes \
  && apt-get clean && rm -rf /var/lib/apt/lists/*
 
 COPY start-hook.sh /usr/local/bin
-
