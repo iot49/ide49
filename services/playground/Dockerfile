@@ -1,9 +1,5 @@
 FROM ttmetro/base-notebook
 
-# bluetooth: https://github.com/balenablocks/bluetooth
-# special entry.sh! resets interface?
-# but it's a pairing agent ... not all may be required
-
 ENV UDEV=on
 
 ENV DEBIAN_FRONTEND=noninteractive
@@ -15,3 +11,4 @@ RUN apt-get update --yes \
     jupyter-book
 
 COPY start-hook.sh /usr/local/bin
+

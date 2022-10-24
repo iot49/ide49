@@ -38,6 +38,7 @@ RUN if [ `uname -m` = "x86_64" ]; then \
    unzip -d /usr/local/bin balena-cli.zip; \
    rm balena-cli.zip; \
    ln -s /usr/local/bin/balena-cli/balena /usr/local/bin; \
+   echo "Installed balena-cli"; \
    fi
 
 # rename user ${NB_USER} -> "${IOT_USER}"
