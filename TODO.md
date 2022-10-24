@@ -24,3 +24,8 @@ https://github.com/balena-io/balena-cli/blob/master/INSTALL-LINUX.md
 ```bash
 curl -L --output x.zip https://github.com/balena-io/balena-cli/releases/download/v14.5.0/balena-cli-v14.5.0-linux-x64-standalone.zip
 ```
+
+# mosquitto
+
+* update cert if MDNS_DOMAIN changed
+* get rid of .config_v1 (just do not overwrite conf)

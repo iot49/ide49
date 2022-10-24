@@ -1,8 +1,6 @@
 image: ttmetro/mosquitto
 build: .
 restart: unless-stopped
-labels:
-    io.balena.features.supervisor-api: 1
 ports: 
     - 1883:1883  # mqtt
     - 9001:9001  # mqtt over websockets

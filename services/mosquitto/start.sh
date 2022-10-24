@@ -11,15 +11,10 @@ set -a; [[ -f ${env_file} ]] && source ${env_file}; set +a
 
 # install default configuration
 
-echo BUG: recreate certificate when IP changes!
-# also: isn't IP defined in .env?
-
 if [ ! -f /mosquitto/.config_v1 ]
 then
     # create certificates
-    IP=$(curl -s -X GET --header "Content-Type:application/json" \
-           "$BALENA_SUPERVISOR_ADDRESS/v1/device?apikey=$BALENA_SUPERVISOR_API_KEY" | \
-           jq -r ".ip_address")
+    IP=${MDNS_DOMAIN}.local
     CA_PWD="iot49"
     SUBJ="/C=US/ST=CA/L=San Francisco/CN=${IP}"
     echo IP = ${IP}
@@ -53,6 +48,7 @@ if [ ${MOSQUITTO:=on}  == on ]; then
     echo STARTING mosquitto broker
     /usr/sbin/mosquitto -c /mosquitto/config/mosquitto.conf
     echo BROKER QUIT!
+    cat 
 fi
 
 echo not starting broker - sleep infinity

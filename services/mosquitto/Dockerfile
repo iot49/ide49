@@ -4,11 +4,10 @@ FROM eclipse-mosquitto:2.0.11
 
 RUN apk --no-cache add \
     bash \
-    curl \
-    jq \
     openssl
 
 COPY ./mosquitto.conf /usr/local/src/
 COPY ./start.sh /usr/local/bin/
 
 CMD [ "/bin/ash", "/usr/local/bin/start.sh" ]
+
