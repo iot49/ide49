@@ -7,8 +7,8 @@
 
 ## balena-cli
 
-* jupter, in Dockerfile put into /usr/local/bin
 * balena-engine via ssh script
+* ONLY for x86!
 
 https://github.com/balena-io/balena-cli/blob/master/INSTALL-LINUX.md
 
