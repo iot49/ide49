@@ -1,13 +1,12 @@
-wireshark:
-    image: linuxserver/wireshark:3.6.5
-    # required to monitor docker network traffic
-    network_mode: host
-    restart: unless-stopped
-    cap_add:
-        - NET_ADMIN
-    environment:
-        - PUID=1000
-        - PGID=100
-    http_port: 3000
-    volumes:
-        - wireshark:/config
+image: linuxserver/wireshark:3.6.5
+# required to monitor docker network traffic
+network_mode: host
+restart: unless-stopped
+cap_add:
+    - NET_ADMIN
+environment:
+    - PUID=1000
+    - PGID=100
+http_port: 3000
+volumes:
+    - wireshark:/config

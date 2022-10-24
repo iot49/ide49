@@ -33,7 +33,7 @@ RUN apt-get update --yes \
 
 # install balena-cli
 WORKDIR /tmp
-RUN if [ `uname -m` = "X86_64" ]; then \
+RUN if [ `uname -m` = "x86_64" ]; then \
    curl -L --output balena-cli.zip https://github.com/balena-io/balena-cli/releases/download/v14.5.0/balena-cli-v14.5.0-linux-x64-standalone.zip; \
    unzip -d /usr/local/bin balena-cli.zip; \
    rm balena-cli.zip; \

@@ -1,5 +1,5 @@
 image: ttmetro/mosquitto
-build: .
+# build: .
 restart: unless-stopped
 ports: 
     - 1883:1883  # mqtt
