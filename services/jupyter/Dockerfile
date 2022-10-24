@@ -82,3 +82,4 @@ RUN python -m iot_kernel.install \
 
 # start.sh runs as root!
 USER root 
+

@@ -1,13 +1,11 @@
 image: ttmetro/config
 # build: .
 restart: unless-stopped
-labels:
-    io.balena.features.supervisor-api: 1
+# labels:
+#     io.balena.features.supervisor-api: 1
 volumes:
     - config:/service-config/config
 environment:
     - VOLUMES={{ volumes }}
     - SERVICES={{ services | join(",") }}
     - HTTP_PORTS={{ http_ports | tojson() | replace('\n', '') | replace(' ', '')}}
-# sets hostname correctly, but then the container keeps restarting
-# hostname: config-host
