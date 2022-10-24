@@ -1,8 +1,0 @@
-# https://hub.docker.com/_/docker
-image: docker:dind
-# build: .
-restart: unless-stopped
-privileged: true
-volumes:
-    - docker:/var/lib/docker
-    - iot-home:/service-config/iot-home

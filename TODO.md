@@ -1,5 +1,14 @@
 # TODO
 
+## segment bridge network
+
+* e.g. LibreOffice, Grafana, Wireshark all on port 3000!
+
+## fix syncthing conflicts
+
+* whenever file is added on linux
+* no problem when file is added on mac
+
 ## drop Internet from start.sh (config)
 
 * no api connection

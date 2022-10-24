@@ -1,5 +1,5 @@
 wireshark:
-    image: linuxserver/wireshark:2.4.5
+    image: linuxserver/wireshark:3.6.5
     # required to monitor docker network traffic
     network_mode: host
     restart: unless-stopped

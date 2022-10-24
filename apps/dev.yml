@@ -7,8 +7,10 @@ services:
   - jupyter
   - code-server
   - smb
-  - mosquitto
   - syncthing
+  - duplicati
+  - mosquitto
+  - wireshark
   - postgres
   - influxdb
   - grafana
