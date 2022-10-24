@@ -8,7 +8,7 @@
 ## balena-cli
 
 * balena-engine via ssh script
-* ONLY for x86!
+* ssh -p 22222 root@$HOST_IP -- balena-engine
 
 https://github.com/balena-io/balena-cli/blob/master/INSTALL-LINUX.md
 
