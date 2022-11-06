@@ -8,5 +8,6 @@ volumes:
 environment:
     - PUID=1000
     - PGID=100
+    - PLEX_CLAIM=claim-jifZ9RJFtLREjLDufCLn
     - VERSION=docker
 http_port: 32400

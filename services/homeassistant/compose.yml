@@ -24,3 +24,5 @@ volumes:
     - config:/service-config/config
 depends_on:
     - config
+    - postgres
+    - influxdb
