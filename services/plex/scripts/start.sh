@@ -1,6 +1,6 @@
 #!/bin/bash
 
-# duplicati container does not have the balena ENTRYPOINT entry.sh
+# container does not have the balena ENTRYPOINT entry.sh
 /bin/bash -c "UDEV=ON; source /usr/src/scripts/balena-entry.sh"
 
 # mount usb devices that are already connected

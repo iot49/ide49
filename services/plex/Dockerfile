@@ -1,4 +1,4 @@
-FROM linuxserver/duplicati
+FROM linuxserver/plex
 
 # Enable udev for detection of dynamically plugged devices
 ENV UDEV=on
@@ -10,7 +10,7 @@ ENV DEBIAN_FRONTEND noninteractive
 RUN apt-get update && apt-get install -y \
   udev \
   exfat-fuse \
-  exfat-utils \
+  exfatprogs \
   && rm -rf /var/lib/apt/lists/*
 
 WORKDIR /usr/src
@@ -18,3 +18,4 @@ COPY scripts scripts
 RUN chmod +x scripts/*
 
 CMD [ "/bin/bash", "/usr/src/scripts/start.sh" ]
+

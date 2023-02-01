@@ -1,13 +1,14 @@
-image: linuxserver/plex:latest
+# image: linuxserver/plex:latest
+build: .
 restart: unless-stopped
 privileged: true
 network_mode: host
 volumes:
     - plex:/config
-    - media:/media
+    # - media:/media
 environment:
     - PUID=1000
     - PGID=100
-    - PLEX_CLAIM=claim-jifZ9RJFtLREjLDufCLn
     - VERSION=docker
+    # - PLEX_CLAIM=claim-jifZ9RJFtLREjLDufCLn
 http_port: 32400

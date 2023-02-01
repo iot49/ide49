@@ -1,0 +1,1 @@
+Mount external drives READ-ONLY (see scripts/mount.sh).

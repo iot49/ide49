@@ -1,0 +1,13 @@
+services:
+  # --- web interface
+  - config
+  - nginx
+  - mdns-publisher
+  # --- apps
+  - jupyter
+  - code-server
+  - plex
+  - mosquitto
+
+fleets:
+  - piplex

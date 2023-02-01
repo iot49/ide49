@@ -1,5 +1,21 @@
 # TODO
 
+## BUG
+
+Rebuild dockers when any file in tree changed (not just `Dockerfile`). See `.github/workflows/docker-builds.yml`.
+
+## Automount
+
+* Duplicati
+* Smb
+* Plex
+* Jupyter
+* Codeserver
+
+## nginx no https
+
+* option: don't enforce https
+
 ## segment bridge network
 
 * e.g. LibreOffice, Grafana, Wireshark all on port 3000!

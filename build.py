@@ -79,6 +79,8 @@ class Builder:
         args['volumes'] = list(set(vols))
         args['http_ports'] = ports
         return (specs, args)
+
+
     def _build(self):
         errors = 0
 
@@ -92,8 +94,11 @@ class Builder:
                     print(f"read secrets from {name}")
                     break
         else:
-            print("***** .secrets.yaml not found --- aborting")
-            sys.exit(1)
+            print("***** WARNING: .secrets.yaml not found")
+            secrets = {
+                'TZ': 'America/Los_Angeles'
+            }
+            # sys.exit(1)
 
         # services used by app
         services = self._app.get('services')
@@ -159,7 +164,7 @@ def args(argv):
     parser.add_argument('app',
                         help='app specification in app/ folder')
     parser.add_argument('action', default='deploy', nargs='?',
-                        help='deploy (default), build or none')
+                        help='deploy (default, build locally), push (build on Balena server), build (build locally but do not deploy) or none (only create docker-compose.yml)')
     parser.add_argument('--tag', default=None,
                         help='optional balena release tag')
     parser.add_argument('--nocache', action='store_true',
